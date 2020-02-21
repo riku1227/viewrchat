@@ -1,0 +1,24 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="backgroundColor">#121212</item>
+
+        <item name="toolbarElevation">4dp</item>
+        <item name="toolbarIconTint">#FFFFFF</item>
+    </style>
+
+    <style name="AppTheme.Black" parent="AppTheme">
+        <item name="colorSurface">#000000</item>
+
+        <item name="backgroundColor">#000000</item>
+
+        <item name="toolbarElevation">0dp</item>
+    </style>
+
+    <style name="ToolBar" parent="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="titleTextColor">@color/textColor</item>
+        <item name="subtitleTextColor">@color/textColorHigh</item>
+        <item name="android:elevation">?attr/toolbarElevation</item>
+    </style>
+
+</resources>
