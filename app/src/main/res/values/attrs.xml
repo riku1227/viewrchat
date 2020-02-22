@@ -5,5 +5,9 @@
 
         <attr name="toolbarIconTint" format="color"/>
         <attr name="toolbarElevation" format="dimension"/>
+
+        <attr name="cardBackGroundColor" format="color"/>
+        <attr name="cardStrokeWidth" format="dimension"/>
+        <attr name="cardElevation" format="dimension"/>
     </declare-styleable>
 </resources>

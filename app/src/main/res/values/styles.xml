@@ -9,6 +9,10 @@
 
         <item name="toolbarElevation">4dp</item>
         <item name="toolbarIconTint">#FFFFFF</item>
+
+        <item name="cardBackGroundColor">?attr/colorSurface</item>
+        <item name="cardStrokeWidth">0dp</item>
+        <item name="cardElevation">1dp</item>
     </style>
 
     <style name="AppTheme.Black" parent="AppTheme">
@@ -19,6 +23,13 @@
 
     <style name="RootLayout">
         <item name="android:background">?attr/backgroundColor</item>
+    </style>
+
+    <style name="Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">?attr/cardBackGroundColor</item>
+        <item name="strokeColor">@color/textColorDisabled</item>
+        <item name="strokeWidth">?attr/cardStrokeWidth</item>
+        <item name="cardElevation">?cardElevation</item>
     </style>
 
 </resources>
