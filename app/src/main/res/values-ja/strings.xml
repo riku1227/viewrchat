@@ -1,3 +1,23 @@
 <resources>
     <string name="hello_world">こんにちは世界！</string>
+
+    <!-- Tutorial Activity -->
+    <string name="title_activity_tutorial">チュートリアル</string>
+
+    <string name="pager_tutorial_generic_next">次へ</string>
+
+    <string name="pager_tutorial_01_description_01">・いつでもどこでもオンライのフレンドを確認</string>
+    <string name="pager_tutorial_01_description_02">・TODO</string>
+    <string name="pager_tutorial_01_description_03">・ダークテーマ / ブラックテーマのサポート</string>
+
+    <string name="pager_tutorial_02_title">利用規約 / 注意事項</string>
+    <string name="pager_tutorial_02_please_read">必ずお読みください</string>
+    <string name="pager_tutorial_02_scroll_down">下へスクロールしてください</string>
+    <string name="pager_tutorial_02_agree">利用規約に同意します</string>
+
+    <string name="pager_tutorial_03_how_to_login">ログイン方法</string>
+    <string name="pager_tutorial_03_how_to_01">下のログインボタンを押したらVRChatのログインページにアクセスします</string>
+    <string name="pager_tutorial_03_how_to_02">ログインしたら 右下に表示されるチェックボタンを押してください</string>
+    <string name="pager_tutorial_03_how_to_03">ログイン完了！</string>
+    <string name="pager_tutorial_03_login">ログイン</string>
 </resources>

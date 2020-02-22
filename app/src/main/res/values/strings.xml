@@ -1,5 +1,55 @@
 <resources>
     <string name="app_name" translatable="false">ViewRChat</string>
+    <string name="app_name_split_01" translatable="false">ViewR</string>
+    <string name="app_name_split_02" translatable="false">Chat</string>
 
     <string name="hello_world">Hello World!</string>
+    
+    <!-- Tutorial Activity -->
+    <string name="title_activity_tutorial">Tutorial</string>
+
+    <string name="pager_tutorial_generic_next">Next</string>
+
+    <string name="pager_tutorial_01_description_01">・Anytime, anywhere check online friends</string>
+    <string name="pager_tutorial_01_description_02">・TODO</string>
+    <string name="pager_tutorial_01_description_03">・Support Dark theme / Black theme</string>
+
+    <string name="pager_tutorial_02_title">Terms of service / Notes</string>
+    <string name="pager_tutorial_02_please_read">Please be sure to read it</string>
+    <string name="pager_tutorial_02_scroll_down">Please scroll down</string>
+    <string name="pager_tutorial_02_agree">Agree terms of service</string>
+    <string name="pager_tutorial_02_terms_of_service" translatable="false">
+        当アプリまた当アプリの開発者は VRChat Inc. とは提携しておらず、一切の関係もございません。\n
+        \n
+        当アプリを使用して発生したことに関して一切の責任を負いません\n
+        \n
+        当アプリ自体は情報収集などは一切行っていませんが、VRChat APIにアクセスしているため VRChatには情報を収集される可能性があります。\n
+        https://www.vrchat.com/privacy/\n
+        \n
+        当アプリが使用しているVRChat APIは VRChat公式からサポートされいません。\n
+        そのためアプリが使用できなくなったり、予想外の動作をしたり、ログインしたアカウントがBANされるなどの可能性が存在します。\n
+        \n
+        当アプリは趣味で開発しているため、サポートの保証期間などは存在しません。\n
+        そのためいつサポート終了するかどうかはわかりません。\n
+        できる限り機能追加や、バグ修正などのサポートをしていきたいとは思っています。\n
+        \n
+        当アプリは Apache License 2.0 で配布されています。\n
+        https://github.com/riku1227/viewrchat
+        \n
+        \n
+        ログインについて\n
+        VRChat APIを使用したアプリでユーザーのIDやパスワードを要求してはいけないことになっています。\n
+        そのため当アプリではアプリ内ブラウザー(WebView)で VRChat公式サイト(https://www.vrchat.com/home/login) にアクセスしログインしてもらい、\n
+        ログイン情報(cookie)をアプリが取り出し使用するという構造になっています。\n
+        \n
+        Other languages user?\n
+        Please use translate tools (Google Translate etc&#8230;)\n
+        Sorry
+    </string>
+
+    <string name="pager_tutorial_03_how_to_login">How to login</string>
+    <string name="pager_tutorial_03_how_to_01">Press bottom login button to access VRChat login page</string>
+    <string name="pager_tutorial_03_how_to_02">After logging in, press the check button at the bottom right</string>
+    <string name="pager_tutorial_03_how_to_03">Login complete</string>
+    <string name="pager_tutorial_03_login">Login</string>
 </resources>
