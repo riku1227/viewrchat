@@ -10,7 +10,8 @@ import kotlinx.android.synthetic.main.activity_tutorial.*
 class TutorialActivity : AppCompatActivity() {
 
     companion object {
-        const val TUTORIAL_ACTIVITY_RESULT = 5839
+        const val REQUEST_CODE = 5839
+        const val RESULT_CODE = 3458
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         if(!AppLaunchChecker.hasStartedFromLauncher(applicationContext)) {
             val intent = Intent(this, TutorialActivity::class.java)
-            startActivityForResult(intent, TutorialActivity.TUTORIAL_ACTIVITY_RESULT)
+            startActivityForResult(intent, TutorialActivity.REQUEST_CODE)
         } else {
             if(ViewRChat.getGeneralPreferences(baseContext).getBoolean("is_login", false)) {
                 setup()
@@ -39,10 +39,14 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode) {
-            TutorialActivity.TUTORIAL_ACTIVITY_RESULT -> {
-                AppLaunchChecker.onActivityCreate(this)
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivityForResult(intent, LoginActivity.REQUEST_CODE)
+            TutorialActivity.REQUEST_CODE -> {
+                if(resultCode == TutorialActivity.RESULT_CODE) {
+                    AppLaunchChecker.onActivityCreate(this)
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivityForResult(intent, LoginActivity.REQUEST_CODE)
+                } else {
+                    finish()
+                }
             }
 
             LoginActivity.REQUEST_CODE -> {
