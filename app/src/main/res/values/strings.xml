@@ -56,4 +56,9 @@
     <!-- Login Activity -->
     <string name="title_activity_login">Login</string>
     <string name="activity_login_please_login">Please login to VRChat</string>
+
+    <!-- Crash Report Dialog -->
+    <string name="dialog_crash_report_title">アプリがクラッシュしました</string>
+    <string name="dialog_crash_report_positive">ログをコピーする</string>
+    <string name="dialog_crash_report_negative">閉じる</string>
 </resources>

@@ -8,6 +8,8 @@ import android.util.Log
 import androidx.core.app.AppLaunchChecker
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
+import com.riku1227.viewrchat.dialog.CrashReportDialog
+import com.riku1227.viewrchat.system.CrashDetection
 import com.riku1227.vrchatlin.VRChatlin
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -22,6 +24,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(mainActivityToolbar)
+
+        if(savedInstanceState == null) {
+            val crashDetection = CrashDetection(baseContext)
+            Thread.setDefaultUncaughtExceptionHandler(crashDetection)
+
+
+            val generalPreference = ViewRChat.getGeneralPreferences(baseContext)
+            val crashLog = generalPreference.getString("crash_log", "")!!
+
+            if(crashLog != "") {
+                val reportDialog = CrashReportDialog(crashLog)
+                reportDialog.show(supportFragmentManager, "CrashReportDialog")
+                generalPreference.edit().putString("crash_log", "").apply()
+            }
+        }
 
         if(!AppLaunchChecker.hasStartedFromLauncher(applicationContext)) {
             val intent = Intent(this, TutorialActivity::class.java)
