@@ -4,7 +4,7 @@
     <string name="app_name_split_02" translatable="false">Chat</string>
 
     <string name="hello_world">Hello World!</string>
-    
+
     <!-- Tutorial Activity -->
     <string name="title_activity_tutorial">Tutorial</string>
 
@@ -52,4 +52,8 @@
     <string name="pager_tutorial_03_how_to_02">After logging in, press the check button at the bottom right</string>
     <string name="pager_tutorial_03_how_to_03">Login complete</string>
     <string name="pager_tutorial_03_login">Login</string>
+
+    <!-- Login Activity -->
+    <string name="title_activity_login">Login</string>
+    <string name="activity_login_please_login">Please login to VRChat</string>
 </resources>

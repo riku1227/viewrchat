@@ -1,6 +1,8 @@
 package com.riku1227.viewrchat.adapter
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +11,9 @@ import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.riku1227.viewrchat.R
+import com.riku1227.viewrchat.activity.LoginActivity
 
-class TutorialRecyclerAdapter(private val context: Context, private val viewPager2: ViewPager2) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TutorialRecyclerAdapter(private val context: Context, private val viewPager2: ViewPager2, private val activity: Activity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var itemCount = 2
 
@@ -86,7 +89,7 @@ class TutorialRecyclerAdapter(private val context: Context, private val viewPage
 
             is Page03ViewHolder -> {
                 holder.pagerTutorial03LoginButton.setOnClickListener {
-                    //TODO
+                    activity.finish()
                 }
             }
         }

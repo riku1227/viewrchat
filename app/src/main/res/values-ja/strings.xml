@@ -20,4 +20,8 @@
     <string name="pager_tutorial_03_how_to_02">ログインしたら 右下に表示されるチェックボタンを押してください</string>
     <string name="pager_tutorial_03_how_to_03">ログイン完了！</string>
     <string name="pager_tutorial_03_login">ログイン</string>
+
+    <!-- Login Activity -->
+    <string name="title_activity_login">ログイン</string>
+    <string name="activity_login_please_login">VRChatにログインしてください</string>
 </resources>

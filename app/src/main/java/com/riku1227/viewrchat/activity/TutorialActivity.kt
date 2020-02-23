@@ -17,7 +17,7 @@ class TutorialActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tutorial)
 
-        tutorialActivityViewPager2.adapter = TutorialRecyclerAdapter(baseContext, tutorialActivityViewPager2)
+        tutorialActivityViewPager2.adapter = TutorialRecyclerAdapter(baseContext, tutorialActivityViewPager2, this)
     }
 
 }
