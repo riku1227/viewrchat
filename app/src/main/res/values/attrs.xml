@@ -9,5 +9,10 @@
         <attr name="cardBackGroundColor" format="color"/>
         <attr name="cardStrokeWidth" format="dimension"/>
         <attr name="cardElevation" format="dimension"/>
+
+        <attr name="floatingActionButtonBackgroundColor" format="color"/>
+        <attr name="floatingActionButtonBorderColor" format="color"/>
+        <attr name="floatingActionButtonBorderWidth" format="dimension"/>
+        <attr name="floatingActionButtonElevation" format="dimension"/>
     </declare-styleable>
 </resources>

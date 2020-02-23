@@ -13,6 +13,11 @@
         <item name="cardBackGroundColor">?attr/colorSurface</item>
         <item name="cardStrokeWidth">0dp</item>
         <item name="cardElevation">1dp</item>
+
+        <item name="floatingActionButtonBackgroundColor">?attr/colorPrimary</item>
+        <item name="floatingActionButtonBorderColor">@color/textColor</item>
+        <item name="floatingActionButtonBorderWidth">0dp</item>
+        <item name="floatingActionButtonElevation">8dp</item>
     </style>
 
     <style name="AppTheme.Black" parent="AppTheme">
@@ -25,6 +30,11 @@
         <item name="cardBackGroundColor">#000000</item>
         <item name="cardStrokeWidth">1dp</item>
         <item name="cardElevation">0dp</item>
+
+        <item name="floatingActionButtonBackgroundColor">?attr/colorSurface</item>
+        <item name="floatingActionButtonBorderColor">@color/textColor</item>
+        <item name="floatingActionButtonBorderWidth">1dp</item>
+        <item name="floatingActionButtonElevation">0dp</item>
     </style>
 
     <style name="ToolBar" parent="Widget.MaterialComponents.Toolbar.Surface">

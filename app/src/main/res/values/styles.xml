@@ -13,13 +13,16 @@
         <item name="cardBackGroundColor">?attr/colorSurface</item>
         <item name="cardStrokeWidth">0dp</item>
         <item name="cardElevation">1dp</item>
+
+        <item name="floatingActionButtonBackgroundColor">?attr/colorPrimary</item>
+        <item name="floatingActionButtonBorderColor">@color/textColor</item>
+        <item name="floatingActionButtonBorderWidth">0dp</item>
+        <item name="floatingActionButtonElevation">8dp</item>
     </style>
 
-    <style name="AppTheme.Black" parent="AppTheme">
-    </style>
+    <style name="AppTheme.Black" parent="AppTheme"></style>
 
-    <style name="ToolBar" parent="Widget.MaterialComponents.Toolbar.Primary">
-    </style>
+    <style name="ToolBar" parent="Widget.MaterialComponents.Toolbar.Primary"></style>
 
     <style name="RootLayout">
         <item name="android:background">?attr/backgroundColor</item>
