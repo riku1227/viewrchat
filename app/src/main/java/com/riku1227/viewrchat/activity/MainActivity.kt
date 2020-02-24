@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.core.app.AppLaunchChecker
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.dialog.CrashReportDialog
 import com.riku1227.viewrchat.system.CrashDetection
+import com.riku1227.viewrchat.system.ErrorHandling
 import com.riku1227.vrchatlin.VRChatlin
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -95,7 +95,7 @@ last_platform: ${it.last_platform}
 """.trimIndent()
                 },
                 {
-                    Log.d("ViewRChat", "$it")
+                    ErrorHandling.onNetworkError(it, baseContext, this)
                 }
             )
         compositeDisposable!!.add(disposable)

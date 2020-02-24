@@ -5,6 +5,8 @@
 
     <string name="hello_world">Hello World!</string>
 
+    <string name="general_please_re_login">Please re-login to VRChat</string>
+
     <!-- Tutorial Activity -->
     <string name="title_activity_tutorial">Tutorial</string>
 

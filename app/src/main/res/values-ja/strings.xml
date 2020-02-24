@@ -1,6 +1,8 @@
 <resources>
     <string name="hello_world">こんにちは世界！</string>
 
+    <string name="general_please_re_login">VRChatに再ログインしてください</string>
+
     <!-- Tutorial Activity -->
     <string name="title_activity_tutorial">チュートリアル</string>
 
