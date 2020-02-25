@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity() {
                 if(ViewRChat.getGeneralPreferences(baseContext).getBoolean("is_login", false)) {
                     setup()
                 } else {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivityForResult(intent, LoginActivity.REQUEST_CODE)
+                    val intent = Intent(this, WebViewLoginActivity::class.java)
+                    startActivityForResult(intent, WebViewLoginActivity.REQUEST_CODE)
                 }
             }
         }
@@ -53,15 +53,15 @@ class MainActivity : AppCompatActivity() {
             TutorialActivity.REQUEST_CODE -> {
                 if(resultCode == TutorialActivity.RESULT_CODE) {
                     AppLaunchChecker.onActivityCreate(this)
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivityForResult(intent, LoginActivity.REQUEST_CODE)
+                    val intent = Intent(this, WebViewLoginActivity::class.java)
+                    startActivityForResult(intent, WebViewLoginActivity.REQUEST_CODE)
                 } else {
                     finish()
                 }
             }
 
-            LoginActivity.REQUEST_CODE -> {
-                if(resultCode == LoginActivity.RESULT_CODE) {
+            WebViewLoginActivity.REQUEST_CODE -> {
+                if(resultCode == WebViewLoginActivity.RESULT_CODE) {
                     setup()
                 } else {
                     finish()

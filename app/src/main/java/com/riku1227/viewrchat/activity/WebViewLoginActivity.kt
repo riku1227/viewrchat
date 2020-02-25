@@ -11,9 +11,9 @@ import com.riku1227.viewrchat.system.ErrorHandling
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.VRChatlinCookieJar
 
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_web_view_login.*
 
-class LoginActivity : AppCompatActivity() {
+class WebViewLoginActivity : AppCompatActivity() {
 
     companion object {
         const val REQUEST_CODE = 1546
@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_web_view_login)
 
         val cookieManager = CookieManager.getInstance()
         cookieManager.setAcceptCookie(true)
