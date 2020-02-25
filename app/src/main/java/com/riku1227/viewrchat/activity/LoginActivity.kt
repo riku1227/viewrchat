@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
+import com.riku1227.viewrchat.system.ErrorHandling
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.VRChatlinCookieJar
 
@@ -52,6 +53,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
                 ViewRChat.getGeneralPreferences(baseContext).edit().putBoolean("is_login", true).apply()
+                ErrorHandling.isAuthErrorHandlingNow = false
                 setResult(RESULT_CODE)
                 finish()
             } else {

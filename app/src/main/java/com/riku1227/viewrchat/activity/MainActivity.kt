@@ -8,17 +8,11 @@ import androidx.core.app.AppLaunchChecker
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.dialog.CrashReportDialog
+import com.riku1227.viewrchat.fragment.FriendsLocationFragment
 import com.riku1227.viewrchat.system.CrashDetection
-import com.riku1227.viewrchat.system.ErrorHandling
-import com.riku1227.vrchatlin.VRChatlin
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
-    private var compositeDisposable: CompositeDisposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,17 +32,17 @@ class MainActivity : AppCompatActivity() {
                 reportDialog.show(supportFragmentManager, "CrashReportDialog")
                 generalPreference.edit().putString("crash_log", "").apply()
             }
-        }
 
-        if(!AppLaunchChecker.hasStartedFromLauncher(applicationContext)) {
-            val intent = Intent(this, TutorialActivity::class.java)
-            startActivityForResult(intent, TutorialActivity.REQUEST_CODE)
-        } else {
-            if(ViewRChat.getGeneralPreferences(baseContext).getBoolean("is_login", false)) {
-                setup()
+            if(!AppLaunchChecker.hasStartedFromLauncher(applicationContext)) {
+                val intent = Intent(this, TutorialActivity::class.java)
+                startActivityForResult(intent, TutorialActivity.REQUEST_CODE)
             } else {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivityForResult(intent, LoginActivity.REQUEST_CODE)
+                if(ViewRChat.getGeneralPreferences(baseContext).getBoolean("is_login", false)) {
+                    setup()
+                } else {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivityForResult(intent, LoginActivity.REQUEST_CODE)
+                }
             }
         }
     }
@@ -78,31 +72,6 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun setup() {
-        compositeDisposable = CompositeDisposable()
-        val disposable = VRChatlin.get(applicationContext).APIService(ViewRChat.getVRChatCookiePreferences(baseContext))
-            .getCurrentUserInfo()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    textView.text =
-"""ユーザー名: ${it.username}
-bio: ${it.bio}
-bioLinks: ${it.bioLinks}
-homeLocation: ${it.homeLocation}
-last_login: ${it.last_login}
-last_platform: ${it.last_platform}
-""".trimIndent()
-                },
-                {
-                    ErrorHandling.onNetworkError(it, baseContext, this)
-                }
-            )
-        compositeDisposable!!.add(disposable)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable?.dispose()
+        supportFragmentManager.beginTransaction().add(R.id.mainActivityFrameLayout, FriendsLocationFragment()).commit()
     }
 }

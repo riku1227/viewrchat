@@ -1,0 +1,113 @@
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/materialCardView2"
+    style="@style/Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="8dp"
+    app:layout_goneMarginEnd="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/recyclerFriendsLocationWorldImage"
+                android:layout_width="150dp"
+                android:layout_height="112dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/recyclerFriendsLocationWorldName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:maxLines="2"
+                android:textColor="@color/textColor"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/recyclerFriendsLocationWorldImage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/recyclerFriendsLocationInstanceType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/textColorHigh"
+                app:layout_constraintStart_toEndOf="@+id/recyclerFriendsLocationWorldImage"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsLocationWorldName" />
+
+            <TextView
+                android:id="@+id/recyclerFriendsLocationInstanceNUsers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerFriendsLocationInstanceNFriends"
+                app:layout_constraintStart_toEndOf="@+id/recyclerFriendsLocationWorldImage"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsLocationInstanceType" />
+
+            <TextView
+                android:id="@+id/recyclerFriendsLocationInstanceNFriends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
+                android:drawableStart="@drawable/ic_group_24px"
+                android:drawablePadding="4dp"
+                android:drawableTint="@color/textColorMedium"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/recyclerFriendsLocationInstanceNUsers"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsLocationInstanceType" />
+
+            <TextView
+                android:id="@+id/recyclerFriendsLocationWorldDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:maxLines="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsLocationWorldImage" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsLocationWorldDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerFriendsLocationFriendsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
