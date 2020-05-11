@@ -7,8 +7,10 @@ import android.os.Bundle
 import androidx.core.app.AppLaunchChecker
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
+import com.riku1227.viewrchat.db.CacheTimeDataDB
 import com.riku1227.viewrchat.dialog.CrashReportDialog
 import com.riku1227.viewrchat.fragment.FriendsLocationFragment
+import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.system.CrashDetection
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,9 +25,21 @@ class MainActivity : AppCompatActivity() {
             val crashDetection = CrashDetection(baseContext)
             Thread.setDefaultUncaughtExceptionHandler(crashDetection)
 
-
             val generalPreference = ViewRChat.getGeneralPreferences(baseContext)
             val crashLog = generalPreference.getString("crash_log", "")!!
+
+            val db = CacheTimeDataDB.getInstance(applicationContext)
+            val cacheMap = db.readAllData()
+            val nowTime = System.currentTimeMillis() / 1000
+
+            for(item in cacheMap) {
+                val diffTime = nowTime - item.cacheTime
+                if(diffTime >= CacheSystem.DB_CLEAR_TIME) {
+                    db.deleteData(item.id)
+                    CacheSystem.deleteCacheFile(applicationContext, item.id, item.cacheType)
+                }
+            }
+
 
             if(crashLog != "") {
                 val reportDialog = CrashReportDialog(crashLog)
