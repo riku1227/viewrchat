@@ -100,11 +100,21 @@ class FriendsLocationRecyclerAdapter(private val context: Context, private val f
             val worldData = locationWorldDataMap[worldId]!!
             holder.recyclerFriendsLocationWorldName.text = worldData.name
             holder.recyclerFriendsLocationWorldDescription.text = worldData.description
-            Picasso.get()
-                .load(worldData.imageUrl)
-                .centerCrop()
-                .fit()
-                .into(holder.recyclerFriendsLocationWorldImage)
+            val disposable3 = CacheSystem.loadImage(context, CacheSystem.CacheType.WORLD_IMAGE, worldData.id, worldData.thumbnailImageUrl)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { imgFile ->
+                        Picasso.get()
+                            .load(imgFile)
+                            .centerCrop()
+                            .fit()
+                            .into(holder.recyclerFriendsLocationWorldImage)
+                    },
+                    { error ->
+                        Log.d("ViewRChat", error.toString())
+                    }
+                )
         }
 
         if(locationInstanceDataMap[locationList[position]] == null) {
