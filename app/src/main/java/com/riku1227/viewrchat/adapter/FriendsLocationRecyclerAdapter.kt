@@ -3,6 +3,7 @@ package com.riku1227.viewrchat.adapter
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.riku1227.viewrchat.R
+import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.system.ErrorHandling
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
@@ -74,11 +76,21 @@ class FriendsLocationRecyclerAdapter(private val context: Context, private val f
                         locationWorldDataMap[worldId] = it
                         holder.recyclerFriendsLocationWorldName.text = it.name
                         holder.recyclerFriendsLocationWorldDescription.text = it.description
-                        Picasso.get()
-                            .load(it.imageUrl)
-                            .centerCrop()
-                            .fit()
-                            .into(holder.recyclerFriendsLocationWorldImage)
+                        CacheSystem.loadImage(context, CacheSystem.CacheType.WORLD_IMAGE, it.id, it.thumbnailImageUrl)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                { imgFile ->
+                                    Picasso.get()
+                                        .load(imgFile)
+                                        .centerCrop()
+                                        .fit()
+                                        .into(holder.recyclerFriendsLocationWorldImage)
+                                },
+                                { error ->
+                                    Log.d("ViewRChat", error.toString())
+                                }
+                            )
                     },
                     {
                         ErrorHandling.onNetworkError(it, context, fragment = fragment)
