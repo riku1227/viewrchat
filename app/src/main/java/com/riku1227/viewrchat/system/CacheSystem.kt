@@ -19,6 +19,7 @@ class CacheSystem {
         companion object {
             const val WORLD_IMAGE = "world_image"
             const val WORLD_JSON = "world_json"
+            const val USER_AVATAR_IMAGE = "user_avatar_image"
         }
     }
     companion object {
@@ -32,10 +33,14 @@ class CacheSystem {
         private const val WORLD_JSON_CACHE = "world_json/"
         private const val WORLD_JSON_CACHE_TIME = 604800 //one week
 
+        private const val USER_AVATAR_IMAGE = "user_avatar_image/"
+        private const val USER_AVATAR_IMAGE_TIME = 300 //5 minute
+
         private fun getCacheDir(context: Context, cacheType: String): File {
             val dirName = when(cacheType) {
                 CacheType.WORLD_IMAGE -> WORLD_IMAGE_CACHE
                 CacheType.WORLD_JSON -> WORLD_JSON_CACHE
+                CacheType.USER_AVATAR_IMAGE -> USER_AVATAR_IMAGE
 
                 else -> WORLD_IMAGE_CACHE
             }
@@ -53,6 +58,7 @@ class CacheSystem {
             val expiredTime = when (cacheType) {
                 CacheType.WORLD_IMAGE -> WORLD_IMAGE_CACHE_TIME
                 CacheType.WORLD_JSON -> WORLD_JSON_CACHE_TIME
+                CacheType.USER_AVATAR_IMAGE -> USER_AVATAR_IMAGE_TIME
                 else -> WORLD_IMAGE_CACHE_TIME
             }
             CacheTimeDataDB.getInstance(context).readData("${cacheType}_$removeTypeID")?.let {

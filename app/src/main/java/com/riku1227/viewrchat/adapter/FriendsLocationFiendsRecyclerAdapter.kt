@@ -8,8 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.riku1227.viewrchat.R
+import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.squareup.picasso.Picasso
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 class FriendsLocationFiendsRecyclerAdapter(private val context: Context, private val userList: List<VRChatUser>) : RecyclerView.Adapter<FriendsLocationFiendsRecyclerAdapter.FriendsLocationFiendsViewHolder>() {
@@ -34,10 +37,18 @@ class FriendsLocationFiendsRecyclerAdapter(private val context: Context, private
 
     override fun onBindViewHolder(holder: FriendsLocationFiendsViewHolder, position: Int) {
         userList[position].let {
-            Picasso.get().load(it.currentAvatarThumbnailImageUrl)
-                .centerCrop()
-                .fit()
-                .into(holder.recyclerFriendsLocationFriendsImage)
+            CacheSystem.loadImage(context, CacheSystem.CacheType.USER_AVATAR_IMAGE, it.id, it.currentAvatarThumbnailImageUrl)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { imageFile ->
+                        Picasso.get().load(imageFile)
+                            .centerCrop()
+                            .fit()
+                            .into(holder.recyclerFriendsLocationFriendsImage)
+                    },
+                    {}
+                )
 
             holder.recyclerFriendsLocationFriendsUserName.text = it.displayName
             holder.recyclerFriendsLocationFriendsLastPlatform.text = it.last_platform
