@@ -12,6 +12,7 @@ import com.riku1227.viewrchat.dialog.CrashReportDialog
 import com.riku1227.viewrchat.fragment.FriendsLocationFragment
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.system.CrashDetection
+import com.riku1227.vrchatlin.VRChatlin
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +28,8 @@ class MainActivity : AppCompatActivity() {
 
             val generalPreference = ViewRChat.getGeneralPreferences(baseContext)
             val crashLog = generalPreference.getString("crash_log", "")!!
+
+            VRChatlin.get(applicationContext).APIService(ViewRChat.getVRChatCookiePreferences(applicationContext))
 
             val db = CacheTimeDataDB.getInstance(applicationContext)
             val cacheMap = db.readAllData()
