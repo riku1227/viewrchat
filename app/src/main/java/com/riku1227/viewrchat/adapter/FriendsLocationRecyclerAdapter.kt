@@ -68,7 +68,7 @@ class FriendsLocationRecyclerAdapter(private val context: Context, private val f
         holder.recyclerFriendsLocationInstanceNFriends.text = ""
 
         if(locationWorldDataMap[worldId] == null) {
-            val dispo01 = apiService.getWorldByID(worldId)
+            val dispo01 = CacheSystem.loadVRChatWorld(context, worldId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
