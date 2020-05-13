@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainActivityNavigation"
+    app:startDestination="@id/mainActivityBottomFriendsLocation"
+    tools:ignore="UnusedNavigation">
+
+    <bottom_navigation_view_navigator
+        android:id="@+id/mainActivityBottomFriendsLocation"
+        android:name="com.riku1227.viewrchat.fragment.FriendsLocationFragment"
+        android:label="@string/activity_main_bottom_friends_location"
+        android:tag="friends_location" />
+
+    <bottom_navigation_view_navigator
+        android:id="@+id/mainActivityBottomFriends"
+        android:name="com.riku1227.viewrchat.fragment.FriendsListFragment"
+        android:label="@string/activity_main_bottom_friends_location"
+        android:tag="friends_location" />
+
+</navigation>

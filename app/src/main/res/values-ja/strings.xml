@@ -27,6 +27,10 @@
     <string name="title_activity_login">ログイン</string>
     <string name="activity_login_please_login">VRChatにログインしてください</string>
 
+    <!-- Main Activity -->
+    <string name="activity_main_bottom_friends_location">フレンドが居る場所</string>
+    <string name="activity_main_bottom_friends">フレンド</string>
+
     <!-- Crash Report Dialog -->
     <string name="dialog_crash_report_title">App Crashed</string>
     <string name="dialog_crash_report_positive">Copy log</string>

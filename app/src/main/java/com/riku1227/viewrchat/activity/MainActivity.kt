@@ -1,15 +1,15 @@
 package com.riku1227.viewrchat.activity
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.AppLaunchChecker
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.db.CacheTimeDataDB
 import com.riku1227.viewrchat.dialog.CrashReportDialog
-import com.riku1227.viewrchat.fragment.FriendsLocationFragment
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.system.CrashDetection
 import com.riku1227.vrchatlin.VRChatlin
@@ -55,12 +55,16 @@ class MainActivity : AppCompatActivity() {
                 startActivityForResult(intent, TutorialActivity.REQUEST_CODE)
             } else {
                 if(ViewRChat.getGeneralPreferences(baseContext).getBoolean("is_login", false)) {
-                    setup()
+                    setupNavigation()
                 } else {
                     val intent = Intent(this, WebViewLoginActivity::class.java)
                     startActivityForResult(intent, WebViewLoginActivity.REQUEST_CODE)
                 }
             }
+        }
+
+        if(ViewRChat.getGeneralPreferences(baseContext).getBoolean("is_login", false)) {
+            setupNavigation()
         }
     }
 
@@ -79,7 +83,7 @@ class MainActivity : AppCompatActivity() {
 
             WebViewLoginActivity.REQUEST_CODE -> {
                 if(resultCode == WebViewLoginActivity.RESULT_CODE) {
-                    setup()
+                    setupNavigation()
                 } else {
                     finish()
                 }
@@ -87,8 +91,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun setup() {
-        supportFragmentManager.beginTransaction().add(R.id.mainActivityFrameLayout, FriendsLocationFragment()).commit()
+    private fun setupNavigation() {
+        val navHost = mainActivityFragment as NavHostFragment
+        val navController = navHost.navController
+        val graph = navController.navInflater.inflate(R.navigation.activity_main_navigation)
+        navController.graph = graph
+        NavigationUI.setupWithNavController(mainActivityBottomNavigation, navController)
     }
 }

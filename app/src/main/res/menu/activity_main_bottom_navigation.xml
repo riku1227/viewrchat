@@ -6,12 +6,12 @@
         android:id="@+id/mainActivityBottomFriendsLocation"
         android:icon="@drawable/ic_group_24px"
         app:showAsAction="ifRoom"
-        android:title="00" />
+        android:title="@string/activity_main_bottom_friends_location" />
 
     <item
         android:id="@+id/mainActivityBottomFriends"
         android:icon="@drawable/ic_group_24px"
         app:showAsAction="ifRoom"
-        android:title="01" />
+        android:title="@string/activity_main_bottom_friends" />
 
 </menu>

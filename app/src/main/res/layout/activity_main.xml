@@ -16,8 +16,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/mainActivityFrameLayout"
+    <fragment
+        android:id="@+id/mainActivityFragment"
+        android:name="com.riku1227.viewrchat.navigator.nav_host.BottomNavigationViewNavHost"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
