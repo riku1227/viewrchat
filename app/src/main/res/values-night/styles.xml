@@ -11,7 +11,7 @@
         <item name="toolbarIconTint">#FFFFFF</item>
 
         <item name="cardBackGroundColor">?attr/colorSurface</item>
-        <item name="cardStrokeWidth">0dp</item>
+        <item name="cardStrokeColor">@color/stroke_color_16</item>
         <item name="cardElevation">1dp</item>
 
         <item name="floatingActionButtonBackgroundColor">?attr/colorPrimary</item>
@@ -28,7 +28,7 @@
         <item name="toolbarElevation">0dp</item>
 
         <item name="cardBackGroundColor">#000000</item>
-        <item name="cardStrokeWidth">1dp</item>
+        <item name="cardStrokeColor">@color/stroke_color_18</item>
         <item name="cardElevation">0dp</item>
 
         <item name="floatingActionButtonBackgroundColor">?attr/colorSurface</item>

@@ -7,8 +7,7 @@
         <attr name="toolbarElevation" format="dimension"/>
 
         <attr name="cardBackGroundColor" format="color"/>
-        <attr name="cardStrokeWidth" format="dimension"/>
-        <attr name="cardElevation" format="dimension"/>
+        <attr name="cardStrokeColor" format="color"/>
 
         <attr name="floatingActionButtonBackgroundColor" format="color"/>
         <attr name="floatingActionButtonBorderColor" format="color"/>
