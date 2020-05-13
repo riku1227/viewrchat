@@ -32,7 +32,7 @@
     <string name="activity_main_bottom_friends">フレンド</string>
 
     <!-- Crash Report Dialog -->
-    <string name="dialog_crash_report_title">App Crashed</string>
-    <string name="dialog_crash_report_positive">Copy log</string>
-    <string name="dialog_crash_report_negative">Close</string>
+    <string name="dialog_crash_report_title">アプリがクラッシュしました</string>
+    <string name="dialog_crash_report_positive">ログをコピーする</string>
+    <string name="dialog_crash_report_negative">閉じる</string>
 </resources>
