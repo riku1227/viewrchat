@@ -14,6 +14,9 @@
         <item name="cardStrokeColor">@color/stroke_color_16</item>
         <item name="cardElevation">1dp</item>
 
+        <item name="bottomNavigationBackColor">#161616</item>
+        <item name="bottomNavigationStrokeColor">@color/stroke_color_08</item>
+
         <item name="floatingActionButtonBackgroundColor">?attr/colorPrimary</item>
         <item name="floatingActionButtonBorderColor">@color/textColor</item>
         <item name="floatingActionButtonBorderWidth">0dp</item>
@@ -30,6 +33,9 @@
         <item name="cardBackGroundColor">#000000</item>
         <item name="cardStrokeColor">@color/stroke_color_18</item>
         <item name="cardElevation">0dp</item>
+
+        <item name="bottomNavigationBackColor">?attr/colorOnPrimary</item>
+        <item name="bottomNavigationStrokeColor">@color/stroke_color_14</item>
 
         <item name="floatingActionButtonBackgroundColor">?attr/colorSurface</item>
         <item name="floatingActionButtonBorderColor">@color/textColor</item>

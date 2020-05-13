@@ -23,6 +23,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivityToolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/mainActivityToolbar"
+        app:layout_constraintBottom_toTopOf="@id/mainActivityBottomNavigation"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/mainActivityBottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/activity_main_bottom_navigation"
+        android:background="@drawable/widget_bottom_navigation"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

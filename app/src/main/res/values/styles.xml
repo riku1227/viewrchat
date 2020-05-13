@@ -14,6 +14,9 @@
         <item name="cardStrokeColor">@color/stroke_color_14</item>
         <item name="cardElevation">2dp</item>
 
+        <item name="bottomNavigationBackColor">?attr/colorOnPrimary</item>
+        <item name="bottomNavigationStrokeColor">@color/stroke_color_08</item>
+
         <item name="floatingActionButtonBackgroundColor">?attr/colorPrimary</item>
         <item name="floatingActionButtonBorderColor">@color/textColor</item>
         <item name="floatingActionButtonBorderWidth">0dp</item>

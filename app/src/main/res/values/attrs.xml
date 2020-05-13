@@ -9,6 +9,9 @@
         <attr name="cardBackGroundColor" format="color"/>
         <attr name="cardStrokeColor" format="color"/>
 
+        <attr name="bottomNavigationBackColor" format="color" />
+        <attr name="bottomNavigationStrokeColor" format="color" />
+
         <attr name="floatingActionButtonBackgroundColor" format="color"/>
         <attr name="floatingActionButtonBorderColor" format="color"/>
         <attr name="floatingActionButtonBorderWidth" format="dimension"/>
