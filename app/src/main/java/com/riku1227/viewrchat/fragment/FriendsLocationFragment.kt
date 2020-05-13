@@ -40,11 +40,11 @@ class FriendsLocationFragment : Fragment() {
 
         if(viewmodel.friendsLocationRecyclerAdapter != null) {
             fragmentFriendsLocationRecycler.adapter = viewmodel.friendsLocationRecyclerAdapter
-            val layoutManager = LinearLayoutManager(context!!)
+            val layoutManager = LinearLayoutManager(requireContext())
             layoutManager.orientation = LinearLayoutManager.VERTICAL
             fragmentFriendsLocationRecycler.layoutManager = layoutManager
         } else {
-            val dispo = VRChatlin.get(context!!).APIService().getFriends()
+            val dispo = VRChatlin.get(requireContext()).APIService().getFriends()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -64,14 +64,14 @@ class FriendsLocationFragment : Fragment() {
                             }
                         }
 
-                        viewmodel.friendsLocationRecyclerAdapter = FriendsLocationRecyclerAdapter(context!!, this, locationMap, locationList)
+                        viewmodel.friendsLocationRecyclerAdapter = FriendsLocationRecyclerAdapter(requireContext(), this, locationMap, locationList)
                         fragmentFriendsLocationRecycler.adapter = viewmodel.friendsLocationRecyclerAdapter
-                        val layoutManager = LinearLayoutManager(context!!)
+                        val layoutManager = LinearLayoutManager(requireContext())
                         layoutManager.orientation = LinearLayoutManager.VERTICAL
                         fragmentFriendsLocationRecycler.layoutManager = layoutManager
                     },
                     {
-                        ErrorHandling.onNetworkError(it, context!!, fragment = this)
+                        ErrorHandling.onNetworkError(it, requireContext(), fragment = this)
                     }
                 )
 
