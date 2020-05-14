@@ -39,10 +39,17 @@ class FriendsLocationFragment : Fragment() {
         viewmodel = ViewModelProvider(this).get(FriendsLocationFragmentViewModel::class.java)
 
         if(viewmodel.friendsLocationRecyclerAdapter != null) {
-            fragmentFriendsLocationRecycler.adapter = viewmodel.friendsLocationRecyclerAdapter
-            val layoutManager = LinearLayoutManager(requireContext())
-            layoutManager.orientation = LinearLayoutManager.VERTICAL
-            fragmentFriendsLocationRecycler.layoutManager = layoutManager
+            if(viewmodel.friendsLocationRecyclerAdapter!!.itemCount > 0) {
+                fragmentFriendsLocationRecycler.visibility = View.VISIBLE
+                fragmentFriendsLocationNoneUserRoot.visibility = View.GONE
+                fragmentFriendsLocationRecycler.adapter = viewmodel.friendsLocationRecyclerAdapter
+                val layoutManager = LinearLayoutManager(requireContext())
+                layoutManager.orientation = LinearLayoutManager.VERTICAL
+                fragmentFriendsLocationRecycler.layoutManager = layoutManager
+            } else {
+                fragmentFriendsLocationRecycler.visibility = View.GONE
+                fragmentFriendsLocationNoneUserRoot.visibility = View.VISIBLE
+            }
         } else {
             val dispo = VRChatlin.get(requireContext()).APIService().getFriends(offline = false, n = 50)
                 .subscribeOn(Schedulers.io())
@@ -64,10 +71,11 @@ class FriendsLocationFragment : Fragment() {
                             }
                         }
 
+                        viewmodel.friendsLocationRecyclerAdapter = FriendsLocationRecyclerAdapter(requireContext(), this, locationMap, locationList, it.size)
+
                         if(locationList.size > 0) {
                             fragmentFriendsLocationRecycler.visibility = View.VISIBLE
                             fragmentFriendsLocationNoneUserRoot.visibility = View.GONE
-                            viewmodel.friendsLocationRecyclerAdapter = FriendsLocationRecyclerAdapter(requireContext(), this, locationMap, locationList, it.size)
                             fragmentFriendsLocationRecycler.adapter = viewmodel.friendsLocationRecyclerAdapter
                             val layoutManager = LinearLayoutManager(requireContext())
                             layoutManager.orientation = LinearLayoutManager.VERTICAL
