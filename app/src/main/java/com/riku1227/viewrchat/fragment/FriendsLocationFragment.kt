@@ -64,11 +64,18 @@ class FriendsLocationFragment : Fragment() {
                             }
                         }
 
-                        viewmodel.friendsLocationRecyclerAdapter = FriendsLocationRecyclerAdapter(requireContext(), this, locationMap, locationList, it.size)
-                        fragmentFriendsLocationRecycler.adapter = viewmodel.friendsLocationRecyclerAdapter
-                        val layoutManager = LinearLayoutManager(requireContext())
-                        layoutManager.orientation = LinearLayoutManager.VERTICAL
-                        fragmentFriendsLocationRecycler.layoutManager = layoutManager
+                        if(locationList.size > 0) {
+                            fragmentFriendsLocationRecycler.visibility = View.VISIBLE
+                            fragmentFriendsLocationNoneUserRoot.visibility = View.GONE
+                            viewmodel.friendsLocationRecyclerAdapter = FriendsLocationRecyclerAdapter(requireContext(), this, locationMap, locationList, it.size)
+                            fragmentFriendsLocationRecycler.adapter = viewmodel.friendsLocationRecyclerAdapter
+                            val layoutManager = LinearLayoutManager(requireContext())
+                            layoutManager.orientation = LinearLayoutManager.VERTICAL
+                            fragmentFriendsLocationRecycler.layoutManager = layoutManager
+                        } else {
+                            fragmentFriendsLocationRecycler.visibility = View.GONE
+                            fragmentFriendsLocationNoneUserRoot.visibility = View.VISIBLE
+                        }
                     },
                     {
                         ErrorHandling.onNetworkError(it, requireContext(), fragment = this)

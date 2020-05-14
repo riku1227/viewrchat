@@ -63,6 +63,9 @@
     <string name="activity_main_bottom_friends_location">Friends location</string>
     <string name="activity_main_bottom_friends">Friends</string>
 
+    <!-- Friends Location Fragment -->
+    <string name="fragment_friends_location_none_user_text">I don\'t have friends who in more than a friend-plus instance.</string>
+
     <!-- Crash Report Dialog -->
     <string name="dialog_crash_report_title">App Crashed</string>
     <string name="dialog_crash_report_positive">Copy log</string>
