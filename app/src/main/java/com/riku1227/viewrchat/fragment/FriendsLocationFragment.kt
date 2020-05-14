@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.adapter.FriendsLocationRecyclerAdapter
 import com.riku1227.viewrchat.system.ErrorHandling
@@ -25,6 +26,8 @@ class FriendsLocationFragment : Fragment() {
 
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
+    private var currentRefreshTime = 0L
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,41 +43,65 @@ class FriendsLocationFragment : Fragment() {
 
         if(viewmodel.friendsLocationRecyclerAdapter != null) {
             if(viewmodel.friendsLocationRecyclerAdapter!!.itemCount > 0) {
-                fragmentFriendsLocationRecycler.visibility = View.VISIBLE
+                fragmentFriendsLocationSwipeRefreshLayout.visibility = View.VISIBLE
                 fragmentFriendsLocationNoneUserRoot.visibility = View.GONE
                 fragmentFriendsLocationRecycler.adapter = viewmodel.friendsLocationRecyclerAdapter
                 val layoutManager = LinearLayoutManager(requireContext())
                 layoutManager.orientation = LinearLayoutManager.VERTICAL
                 fragmentFriendsLocationRecycler.layoutManager = layoutManager
             } else {
-                fragmentFriendsLocationRecycler.visibility = View.GONE
+                fragmentFriendsLocationSwipeRefreshLayout.visibility = View.GONE
                 fragmentFriendsLocationNoneUserRoot.visibility = View.VISIBLE
             }
         } else {
-            val dispo = VRChatlin.get(requireContext()).APIService().getFriends(offline = false, n = 50)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                        val locationMap = mutableMapOf<String, ArrayList<VRChatUser>>()
-                        val locationList = arrayListOf<String>()
-                        for (user in it) {
-                            user.location?.let {  userLocation ->
-                                if(userLocation != "private" && userLocation != "offline") {
-                                    if(locationMap[userLocation] == null) {
-                                        locationMap[userLocation] = arrayListOf(user)
-                                        locationList.add(userLocation)
-                                    } else {
-                                        locationMap[userLocation]!!.add(user)
-                                    }
+            createFriendsLocationList()
+        }
+
+        fragmentFriendsLocationSwipeRefreshLayout.setOnRefreshListener {
+            val nowTime = System.currentTimeMillis() / 1000
+            val diffTime = nowTime - currentRefreshTime
+            if(diffTime >= 30) {
+                createFriendsLocationList()
+            } else {
+                Snackbar.make(fragmentFriendsLocationSwipeRefreshLayout, R.string.general_cooltime_now, Snackbar.LENGTH_SHORT).show()
+                fragmentFriendsLocationSwipeRefreshLayout.isRefreshing = false
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.dispose()
+        super.onDestroy()
+    }
+
+    private fun createFriendsLocationList() {
+        val dispo = VRChatlin.get(requireContext()).APIService().getFriends(offline = false, n = 50)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    val locationMap = mutableMapOf<String, ArrayList<VRChatUser>>()
+                    val locationList = arrayListOf<String>()
+                    for (user in it) {
+                        user.location?.let {  userLocation ->
+                            if(userLocation != "private" && userLocation != "offline") {
+                                if(locationMap[userLocation] == null) {
+                                    locationMap[userLocation] = arrayListOf(user)
+                                    locationList.add(userLocation)
+                                } else {
+                                    locationMap[userLocation]!!.add(user)
                                 }
                             }
                         }
+                    }
 
+                    currentRefreshTime = System.currentTimeMillis() / 1000
+
+                    if (viewmodel.friendsLocationRecyclerAdapter == null) {
                         viewmodel.friendsLocationRecyclerAdapter = FriendsLocationRecyclerAdapter(requireContext(), this, locationMap, locationList, it.size)
 
                         if(locationList.size > 0) {
-                            fragmentFriendsLocationRecycler.visibility = View.VISIBLE
+                            fragmentFriendsLocationSwipeRefreshLayout.visibility = View.VISIBLE
                             fragmentFriendsLocationNoneUserRoot.visibility = View.GONE
                             fragmentFriendsLocationRecycler.adapter = viewmodel.friendsLocationRecyclerAdapter
                             val layoutManager = LinearLayoutManager(requireContext())
@@ -84,18 +111,29 @@ class FriendsLocationFragment : Fragment() {
                             fragmentFriendsLocationRecycler.visibility = View.GONE
                             fragmentFriendsLocationNoneUserRoot.visibility = View.VISIBLE
                         }
-                    },
-                    {
-                        ErrorHandling.onNetworkError(it, requireContext(), fragment = this)
+                    } else {
+                        viewmodel.friendsLocationRecyclerAdapter?.let { friendsLocationAdapter  ->
+                            friendsLocationAdapter.locationMap = locationMap
+                            friendsLocationAdapter.locationList = locationList
+                            friendsLocationAdapter.currentCount = it.size
+
+                            friendsLocationAdapter.notifyDataSetChanged()
+                            fragmentFriendsLocationSwipeRefreshLayout.isRefreshing = false
+                        }
+
+                        if(locationList.size > 0) {
+                            fragmentFriendsLocationSwipeRefreshLayout.visibility = View.VISIBLE
+                            fragmentFriendsLocationNoneUserRoot.visibility = View.GONE
+                        } else {
+                            fragmentFriendsLocationSwipeRefreshLayout.visibility = View.GONE
+                            fragmentFriendsLocationNoneUserRoot.visibility = View.VISIBLE
+                        }
                     }
-                )
-
-            compositeDisposable.add(dispo)
-        }
-    }
-
-    override fun onDestroy() {
-        compositeDisposable.dispose()
-        super.onDestroy()
+                },
+                {
+                    ErrorHandling.onNetworkError(it, requireContext(), fragment = this)
+                }
+            )
+        compositeDisposable.add(dispo)
     }
 }

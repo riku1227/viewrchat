@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class FriendsListRecyclerAdapter(private val context: Context, private var friendsList: List<VRChatUser>) : RecyclerView.Adapter<FriendsListRecyclerAdapter.FriendsListRecyclerViewHolder>() {
+class FriendsListRecyclerAdapter(private val context: Context, var friendsList: List<VRChatUser>) : RecyclerView.Adapter<FriendsListRecyclerAdapter.FriendsListRecyclerViewHolder>() {
     private var isNowLoad = false
     private var isOffline = false
     private var currentCount = 0
@@ -128,5 +128,13 @@ class FriendsListRecyclerAdapter(private val context: Context, private var frien
             holder.recyclerFriendsListBio.visibility = View.VISIBLE
             holder.recyclerFriendsListBio.text = friend.bio
         }
+    }
+
+    fun resetCount() {
+        currentCount = itemCount
+        onlineCount = 0
+        offlineCount = 0
+        isOffline = false
+        isNowLoad = false
     }
 }

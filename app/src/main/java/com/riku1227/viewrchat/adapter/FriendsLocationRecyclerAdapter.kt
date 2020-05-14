@@ -25,8 +25,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class FriendsLocationRecyclerAdapter(
-    private val context: Context, private val fragment: Fragment, private val locationMap: MutableMap<String, ArrayList<VRChatUser>>,
-    private val locationList: ArrayList<String>, private var currentCount: Int
+    private val context: Context, private val fragment: Fragment, var locationMap: MutableMap<String, ArrayList<VRChatUser>>,
+    var locationList: ArrayList<String>, var currentCount: Int
 ) : RecyclerView.Adapter<FriendsLocationRecyclerAdapter.FriendsLocationRecyclerViewHolder>() {
 
     class FriendsLocationRecyclerViewHolder(view: View): RecyclerView.ViewHolder(view) {
