@@ -17,7 +17,6 @@ import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.system.ErrorHandling
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
-import com.riku1227.vrchatlin.model.VRChatWorld
 import com.riku1227.vrchatlin.model.VRChatWorldInstance
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,7 +24,10 @@ import io.reactivex.schedulers.Schedulers
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FriendsLocationRecyclerAdapter(private val context: Context, private val fragment: Fragment, private val locationMap: MutableMap<String, ArrayList<VRChatUser>>, private val locationList: ArrayList<String>) : RecyclerView.Adapter<FriendsLocationRecyclerAdapter.FriendsLocationRecyclerViewHolder>() {
+class FriendsLocationRecyclerAdapter(
+    private val context: Context, private val fragment: Fragment, private val locationMap: MutableMap<String, ArrayList<VRChatUser>>,
+    private val locationList: ArrayList<String>, private var currentCount: Int
+) : RecyclerView.Adapter<FriendsLocationRecyclerAdapter.FriendsLocationRecyclerViewHolder>() {
 
     class FriendsLocationRecyclerViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val recyclerFriendsLocationWorldImage: ImageView = view.findViewById(R.id.recyclerFriendsLocationWorldImage)
@@ -37,8 +39,10 @@ class FriendsLocationRecyclerAdapter(private val context: Context, private val f
         val recyclerFriendsLocationFriendsList: RecyclerView = view.findViewById(R.id.recyclerFriendsLocationFriendsList)
     }
 
-    private val locationWorldDataMap = mutableMapOf<String, VRChatWorld>()
     private val locationInstanceDataMap = mutableMapOf<String, VRChatWorldInstance>()
+
+    private var isNowLoad = false
+    private var totalCount = currentCount
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendsLocationRecyclerViewHolder {
@@ -51,6 +55,38 @@ class FriendsLocationRecyclerAdapter(private val context: Context, private val f
     }
 
     override fun onBindViewHolder(holder: FriendsLocationRecyclerViewHolder, position: Int) {
+
+        if(position > itemCount - 3 && !isNowLoad) {
+            if(currentCount >= 50) {
+                isNowLoad = true
+                val disposable2 = VRChatlin.get(context).APIService().getFriends(offline = false, n = 50, offset = totalCount)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        {
+                            currentCount = it.size
+                            totalCount += it.size
+
+                            for (user in it) {
+                                user.location?.let {  userLocation ->
+                                    if(userLocation != "private" && userLocation != "offline") {
+                                        if(locationMap[userLocation] == null) {
+                                            locationMap[userLocation] = arrayListOf(user)
+                                            locationList.add(userLocation)
+                                        } else {
+                                            locationMap[userLocation]!!.add(user)
+                                        }
+                                    }
+                                }
+                            }
+
+                            this.notifyDataSetChanged()
+                        },
+                        {}
+                    )
+            }
+        }
+
         val splitLocation = locationList[position].split(":")
         val worldId = splitLocation[0]
         val instanceId = splitLocation[1]
@@ -67,55 +103,33 @@ class FriendsLocationRecyclerAdapter(private val context: Context, private val f
         holder.recyclerFriendsLocationInstanceNUsers.text = ""
         holder.recyclerFriendsLocationInstanceNFriends.text = ""
 
-        if(locationWorldDataMap[worldId] == null) {
-            val dispo01 = CacheSystem.loadVRChatWorld(context, worldId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                        locationWorldDataMap[worldId] = it
-                        holder.recyclerFriendsLocationWorldName.text = it.name
-                        holder.recyclerFriendsLocationWorldDescription.text = it.description
-                        CacheSystem.loadImage(context, CacheSystem.CacheType.WORLD_IMAGE, it.id, it.thumbnailImageUrl)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                { imgFile ->
-                                    Picasso.get()
-                                        .load(imgFile)
-                                        .centerCrop()
-                                        .fit()
-                                        .into(holder.recyclerFriendsLocationWorldImage)
-                                },
-                                { error ->
-                                    Log.d("ViewRChat", error.toString())
-                                }
-                            )
-                    },
-                    {
-                        ErrorHandling.onNetworkError(it, context, fragment = fragment)
-                    }
-                )
-        } else {
-            val worldData = locationWorldDataMap[worldId]!!
-            holder.recyclerFriendsLocationWorldName.text = worldData.name
-            holder.recyclerFriendsLocationWorldDescription.text = worldData.description
-            val disposable3 = CacheSystem.loadImage(context, CacheSystem.CacheType.WORLD_IMAGE, worldData.id, worldData.thumbnailImageUrl)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { imgFile ->
-                        Picasso.get()
-                            .load(imgFile)
-                            .centerCrop()
-                            .fit()
-                            .into(holder.recyclerFriendsLocationWorldImage)
-                    },
-                    { error ->
-                        Log.d("ViewRChat", error.toString())
-                    }
-                )
-        }
+        val dispo01 = CacheSystem.loadVRChatWorld(context, worldId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    holder.recyclerFriendsLocationWorldName.text = it.name
+                    holder.recyclerFriendsLocationWorldDescription.text = it.description
+                    CacheSystem.loadImage(context, CacheSystem.CacheType.WORLD_IMAGE, it.id, it.thumbnailImageUrl)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            { imgFile ->
+                                Picasso.get()
+                                    .load(imgFile)
+                                    .centerCrop()
+                                    .fit()
+                                    .into(holder.recyclerFriendsLocationWorldImage)
+                            },
+                            { error ->
+                                Log.d("ViewRChat", error.toString())
+                            }
+                        )
+                },
+                {
+                    ErrorHandling.onNetworkError(it, context, fragment = fragment)
+                }
+            )
 
         if(locationInstanceDataMap[locationList[position]] == null) {
             val dispo02 = apiService.getWorldInstanceByID(worldId, instanceId)

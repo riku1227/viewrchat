@@ -44,7 +44,7 @@ class FriendsLocationFragment : Fragment() {
             layoutManager.orientation = LinearLayoutManager.VERTICAL
             fragmentFriendsLocationRecycler.layoutManager = layoutManager
         } else {
-            val dispo = VRChatlin.get(requireContext()).APIService().getFriends()
+            val dispo = VRChatlin.get(requireContext()).APIService().getFriends(offline = false, n = 50)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -64,7 +64,7 @@ class FriendsLocationFragment : Fragment() {
                             }
                         }
 
-                        viewmodel.friendsLocationRecyclerAdapter = FriendsLocationRecyclerAdapter(requireContext(), this, locationMap, locationList)
+                        viewmodel.friendsLocationRecyclerAdapter = FriendsLocationRecyclerAdapter(requireContext(), this, locationMap, locationList, it.size)
                         fragmentFriendsLocationRecycler.adapter = viewmodel.friendsLocationRecyclerAdapter
                         val layoutManager = LinearLayoutManager(requireContext())
                         layoutManager.orientation = LinearLayoutManager.VERTICAL
