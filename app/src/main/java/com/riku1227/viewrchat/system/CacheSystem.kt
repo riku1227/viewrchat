@@ -69,11 +69,14 @@ class CacheSystem {
             return true
         }
 
-        fun loadImage(context: Context, cacheType: String, id: String, url: String): Single<File> {
+        fun loadImage(context: Context, cacheType: String, id: String, url: String, notUpdate: Boolean = false): Single<File> {
             return Single.create {
                 val removeTypeID = id.replace("${cacheType}_", "")
                 val cacheFile = File(getCacheDir(context, cacheType), removeTypeID)
-                if(!cacheFile.exists() || isExpiredCache(context, removeTypeID, cacheType)) {
+                val isUpdate: Boolean = if(notUpdate) {
+                    false
+                } else isExpiredCache(context, removeTypeID, cacheType)
+                if(!cacheFile.exists() || isUpdate) {
                     val request = Request.Builder().url(url).build()
                     try {
                         val response = httpClient.newCall(request).execute()

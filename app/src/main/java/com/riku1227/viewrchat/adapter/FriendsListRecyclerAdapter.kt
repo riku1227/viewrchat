@@ -96,7 +96,7 @@ class FriendsListRecyclerAdapter(private val context: Context, private var frien
 
         holder.recyclerFriendsListUserAvatarImage.setImageDrawable(drawable)
 
-        val disposable = CacheSystem.loadImage(context, CacheSystem.CacheType.USER_AVATAR_IMAGE, friend.id, friend.currentAvatarThumbnailImageUrl)
+        val disposable = CacheSystem.loadImage(context, CacheSystem.CacheType.USER_AVATAR_IMAGE, friend.id, friend.currentAvatarThumbnailImageUrl, friend.status == "offline")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
