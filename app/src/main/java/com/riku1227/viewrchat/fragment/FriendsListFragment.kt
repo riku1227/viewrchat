@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_friends_list.*
 
 class FriendsListFragment : Fragment() {
 
-    private lateinit var viewmodel: FriendsListFragmentViewModel
+    private lateinit var viewModel: FriendsListFragmentViewModel
 
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
     private var currentRefreshTime = 0L
@@ -36,10 +36,10 @@ class FriendsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewmodel = ViewModelProvider(this).get(FriendsListFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(FriendsListFragmentViewModel::class.java)
 
-        if(viewmodel.friendsListRecyclerAdapter != null) {
-            fragmentFriendsListRecycler.adapter = viewmodel.friendsListRecyclerAdapter
+        if(viewModel.friendsListRecyclerAdapter != null) {
+            fragmentFriendsListRecycler.adapter = viewModel.friendsListRecyclerAdapter
             val layoutManager = LinearLayoutManager(requireContext())
             layoutManager.orientation = LinearLayoutManager.VERTICAL
             fragmentFriendsListRecycler.layoutManager = layoutManager
@@ -60,7 +60,7 @@ class FriendsListFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        compositeDisposable.dispose()
+        compositeDisposable.clear()
         super.onDestroy()
     }
 
@@ -72,14 +72,14 @@ class FriendsListFragment : Fragment() {
                 {
                     currentRefreshTime = System.currentTimeMillis() / 1000
 
-                    if(viewmodel.friendsListRecyclerAdapter == null) {
-                        viewmodel.friendsListRecyclerAdapter = FriendsListRecyclerAdapter(requireContext(), it)
-                        fragmentFriendsListRecycler.adapter = viewmodel.friendsListRecyclerAdapter
+                    if(viewModel.friendsListRecyclerAdapter == null) {
+                        viewModel.friendsListRecyclerAdapter = FriendsListRecyclerAdapter(requireContext(), compositeDisposable,  it)
+                        fragmentFriendsListRecycler.adapter = viewModel.friendsListRecyclerAdapter
                         val layoutManager = LinearLayoutManager(requireContext())
                         layoutManager.orientation = LinearLayoutManager.VERTICAL
                         fragmentFriendsListRecycler.layoutManager = layoutManager
                     } else {
-                        viewmodel.friendsListRecyclerAdapter?.let { adapter ->
+                        viewModel.friendsListRecyclerAdapter?.let { adapter ->
                             adapter.friendsList = it
                             adapter.notifyDataSetChanged()
                             adapter.resetCount()

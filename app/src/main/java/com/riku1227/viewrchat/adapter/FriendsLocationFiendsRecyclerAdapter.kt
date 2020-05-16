@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.system.CacheSystem
-import com.riku1227.viewrchat.util.RadiusOutlineProvider
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers

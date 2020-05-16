@@ -21,12 +21,14 @@ import com.riku1227.vrchatlin.model.VRChatUser
 import com.riku1227.vrchatlin.model.VRChatWorldInstance
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 import kotlin.collections.ArrayList
 
 class FriendsLocationRecyclerAdapter(
-    private val context: Context, private val fragment: Fragment, var locationMap: MutableMap<String, ArrayList<VRChatUser>>,
+    private val context: Context, private val fragment: Fragment, private val compositeDisposable: CompositeDisposable,
+    var locationMap: MutableMap<String, ArrayList<VRChatUser>>,
     var locationList: ArrayList<String>, var currentCount: Int
 ) : RecyclerView.Adapter<FriendsLocationRecyclerAdapter.FriendsLocationRecyclerViewHolder>() {
 
@@ -58,34 +60,7 @@ class FriendsLocationRecyclerAdapter(
     override fun onBindViewHolder(holder: FriendsLocationRecyclerViewHolder, position: Int) {
 
         if(position > itemCount - 3 && !isNowLoad) {
-            if(currentCount >= 50) {
-                isNowLoad = true
-                val disposable2 = VRChatlin.get(context).APIService().getFriends(offline = false, n = 50, offset = totalCount)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        {
-                            currentCount = it.size
-                            totalCount += it.size
-
-                            for (user in it) {
-                                user.location?.let {  userLocation ->
-                                    if(userLocation != "private" && userLocation != "offline") {
-                                        if(locationMap[userLocation] == null) {
-                                            locationMap[userLocation] = arrayListOf(user)
-                                            locationList.add(userLocation)
-                                        } else {
-                                            locationMap[userLocation]!!.add(user)
-                                        }
-                                    }
-                                }
-                            }
-
-                            this.notifyDataSetChanged()
-                        },
-                        {}
-                    )
-            }
+            nextLoadList()
         }
 
         val splitLocation = locationList[position].split(":")
@@ -106,7 +81,7 @@ class FriendsLocationRecyclerAdapter(
 
         holder.recyclerFriendsLocationWorldImage.outlineProvider = ViewRChat.imageRadiusOutlineProvider
 
-        val dispo01 = CacheSystem.loadVRChatWorld(context, worldId)
+        val loadVRChatDisposable = CacheSystem.loadVRChatWorld(context, worldId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -134,15 +109,17 @@ class FriendsLocationRecyclerAdapter(
                 }
             )
 
+        compositeDisposable.add(loadVRChatDisposable)
+
         if(locationInstanceDataMap[locationList[position]] == null) {
-            val dispo02 = apiService.getWorldInstanceByID(worldId, instanceId)
+            val worldInstanceDisposable = apiService.getWorldInstanceByID(worldId, instanceId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
                         locationInstanceDataMap[locationList[position]] = it
                         holder.recyclerFriendsLocationInstanceType.text = it.type.toUpperCase(Locale.getDefault())
-                        holder.recyclerFriendsLocationInstanceNUsers.text = "${it.n_users} / ${it.capacity}"
+                        holder.recyclerFriendsLocationInstanceNUsers.text = context.resources.getString(R.string.fragment_friends_location_instance_user_count_text, it.n_users, it.capacity)
                         locationMap[locationList[position]]?.let { arrayUser ->
                             holder.recyclerFriendsLocationInstanceNFriends.text = arrayUser.size.toString()
                         }
@@ -151,10 +128,12 @@ class FriendsLocationRecyclerAdapter(
                         ErrorHandling.onNetworkError(it, context, fragment = fragment)
                     }
                 )
+            compositeDisposable.add(worldInstanceDisposable)
         } else {
             val locationInstanceData = locationInstanceDataMap[locationList[position]]!!
             holder.recyclerFriendsLocationInstanceType.text = locationInstanceData.type.toUpperCase(Locale.getDefault())
-            holder.recyclerFriendsLocationInstanceNUsers.text = "${locationInstanceData.n_users} / ${locationInstanceData.capacity}"
+            holder.recyclerFriendsLocationInstanceNUsers.text = context.resources.getString(R.string.fragment_friends_location_instance_user_count_text,
+                locationInstanceData.n_users, locationInstanceData.capacity)
             locationMap[locationList[position]]?.let { arrayUser ->
                 holder.recyclerFriendsLocationInstanceNFriends.text = arrayUser.size.toString()
             }
@@ -167,6 +146,38 @@ class FriendsLocationRecyclerAdapter(
 
             holder.recyclerFriendsLocationFriendsList.adapter = adapter
             holder.recyclerFriendsLocationFriendsList.layoutManager = layoutManager
+        }
+    }
+
+    private fun nextLoadList() {
+        if(currentCount >= 50) {
+            isNowLoad = true
+            val getFriendsDisposable = VRChatlin.get(context).APIService().getFriends(offline = false, n = 50, offset = totalCount)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        currentCount = it.size
+                        totalCount += it.size
+
+                        for (user in it) {
+                            user.location?.let {  userLocation ->
+                                if(userLocation != "private" && userLocation != "offline") {
+                                    if(locationMap[userLocation] == null) {
+                                        locationMap[userLocation] = arrayListOf(user)
+                                        locationList.add(userLocation)
+                                    } else {
+                                        locationMap[userLocation]!!.add(user)
+                                    }
+                                }
+                            }
+                        }
+
+                        this.notifyDataSetChanged()
+                    },
+                    {}
+                )
+            compositeDisposable.add(getFriendsDisposable)
         }
     }
 

@@ -65,6 +65,7 @@
 
     <!-- Friends Location Fragment -->
     <string name="fragment_friends_location_none_user_text">I don\'t have friends who in more than a friend-plus instance.</string>
+    <string name="fragment_friends_location_instance_user_count_text" translatable="false">%1$d / %2$d</string>
 
     <!-- Crash Report Dialog -->
     <string name="dialog_crash_report_title">App Crashed</string>

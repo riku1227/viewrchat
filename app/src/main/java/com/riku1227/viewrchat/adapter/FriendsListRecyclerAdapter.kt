@@ -16,9 +16,10 @@ import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class FriendsListRecyclerAdapter(private val context: Context, var friendsList: List<VRChatUser>) : RecyclerView.Adapter<FriendsListRecyclerAdapter.FriendsListRecyclerViewHolder>() {
+class FriendsListRecyclerAdapter(private val context: Context, private val compositeDisposable: CompositeDisposable , var friendsList: List<VRChatUser>) : RecyclerView.Adapter<FriendsListRecyclerAdapter.FriendsListRecyclerViewHolder>() {
     private var isNowLoad = false
     private var isOffline = false
     private var currentCount = 0
@@ -52,42 +53,7 @@ class FriendsListRecyclerAdapter(private val context: Context, var friendsList: 
 
     override fun onBindViewHolder(holder: FriendsListRecyclerViewHolder, position: Int) {
         if(position > itemCount - 3 && !isNowLoad) {
-            var isExecute = false
-            if(currentCount >= 50) {
-                isExecute = true
-            } else if (!isOffline) {
-                isExecute = true
-                isOffline = true
-            }
-
-            if(isExecute) {
-                isNowLoad = true
-                val offset = if(isOffline) {
-                    offlineCount
-                } else {
-                    onlineCount
-                }
-
-                val disposable2 = VRChatlin.get(context).APIService().getFriends(offline = isOffline, n = 50, offset = offset)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        {
-                            currentCount = it.size
-                            if(isOffline) {
-                                offlineCount += it.size
-                            } else {
-                                onlineCount += it.size
-                            }
-
-                            val currentCount = friendsList.size
-                            friendsList = friendsList.plus(it)
-                            this.notifyItemRangeChanged(currentCount, friendsList.size)
-                            isNowLoad = false
-                        },
-                        {}
-                    )
-            }
+            nextLoadList()
         }
 
         val friend = friendsList[position]
@@ -113,6 +79,7 @@ class FriendsListRecyclerAdapter(private val context: Context, var friendsList: 
                 },
                 {}
             )
+        compositeDisposable.add(disposable)
 
         holder.recyclerFriendsListUserName.text = friend.displayName
         holder.recyclerFriendsListLastPlatform.text = friend.last_platform
@@ -130,6 +97,46 @@ class FriendsListRecyclerAdapter(private val context: Context, var friendsList: 
         } else {
             holder.recyclerFriendsListBio.visibility = View.VISIBLE
             holder.recyclerFriendsListBio.text = friend.bio
+        }
+    }
+
+    private fun nextLoadList() {
+        var isExecute = false
+        if(currentCount >= 50) {
+            isExecute = true
+        } else if (!isOffline) {
+            isExecute = true
+            isOffline = true
+        }
+
+        if(isExecute) {
+            isNowLoad = true
+            val offset = if(isOffline) {
+                offlineCount
+            } else {
+                onlineCount
+            }
+
+            val disposable = VRChatlin.get(context).APIService().getFriends(offline = isOffline, n = 50, offset = offset)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        currentCount = it.size
+                        if(isOffline) {
+                            offlineCount += it.size
+                        } else {
+                            onlineCount += it.size
+                        }
+
+                        val currentCount = friendsList.size
+                        friendsList = friendsList.plus(it)
+                        this.notifyItemRangeChanged(currentCount, friendsList.size)
+                        isNowLoad = false
+                    },
+                    {}
+                )
+            compositeDisposable.add(disposable)
         }
     }
 

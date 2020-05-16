@@ -11,11 +11,11 @@ import com.riku1227.viewrchat.R
 
 class CrashReportDialog(private val stackTrace: String) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialogBuilder = AlertDialog.Builder(context!!)
+        val dialogBuilder = AlertDialog.Builder(requireContext())
         dialogBuilder.setTitle(R.string.dialog_crash_report_title)
             .setPositiveButton(R.string.dialog_crash_report_positive) {
                     _, _ ->
-                val clipboardManager = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipboardManager = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 clipboardManager.setPrimaryClip(ClipData.newPlainText("crash_log", stackTrace))
             }
             .setNegativeButton(R.string.dialog_crash_report_negative) {

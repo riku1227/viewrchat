@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_friends_location.*
 
 class FriendsLocationFragment : Fragment() {
 
-    private lateinit var viewmodel: FriendsLocationFragmentViewModel
+    private lateinit var viewModel: FriendsLocationFragmentViewModel
 
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -39,13 +39,13 @@ class FriendsLocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewmodel = ViewModelProvider(this).get(FriendsLocationFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(FriendsLocationFragmentViewModel::class.java)
 
-        if(viewmodel.friendsLocationRecyclerAdapter != null) {
-            if(viewmodel.friendsLocationRecyclerAdapter!!.itemCount > 0) {
+        if(viewModel.friendsLocationRecyclerAdapter != null) {
+            if(viewModel.friendsLocationRecyclerAdapter!!.itemCount > 0) {
                 fragmentFriendsLocationSwipeRefreshLayout.visibility = View.VISIBLE
                 fragmentFriendsLocationNoneUserRoot.visibility = View.GONE
-                fragmentFriendsLocationRecycler.adapter = viewmodel.friendsLocationRecyclerAdapter
+                fragmentFriendsLocationRecycler.adapter = viewModel.friendsLocationRecyclerAdapter
                 val layoutManager = LinearLayoutManager(requireContext())
                 layoutManager.orientation = LinearLayoutManager.VERTICAL
                 fragmentFriendsLocationRecycler.layoutManager = layoutManager
@@ -70,12 +70,12 @@ class FriendsLocationFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        compositeDisposable.dispose()
+        compositeDisposable.clear()
         super.onDestroy()
     }
 
     private fun createFriendsLocationList() {
-        val dispo = VRChatlin.get(requireContext()).APIService().getFriends(offline = false, n = 50)
+        val getFriendsDisposable = VRChatlin.get(requireContext()).APIService().getFriends(offline = false, n = 50)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -97,13 +97,13 @@ class FriendsLocationFragment : Fragment() {
 
                     currentRefreshTime = System.currentTimeMillis() / 1000
 
-                    if (viewmodel.friendsLocationRecyclerAdapter == null) {
-                        viewmodel.friendsLocationRecyclerAdapter = FriendsLocationRecyclerAdapter(requireContext(), this, locationMap, locationList, it.size)
+                    if (viewModel.friendsLocationRecyclerAdapter == null) {
+                        viewModel.friendsLocationRecyclerAdapter = FriendsLocationRecyclerAdapter(requireContext(), this, compositeDisposable, locationMap, locationList, it.size)
 
                         if(locationList.size > 0) {
                             fragmentFriendsLocationSwipeRefreshLayout.visibility = View.VISIBLE
                             fragmentFriendsLocationNoneUserRoot.visibility = View.GONE
-                            fragmentFriendsLocationRecycler.adapter = viewmodel.friendsLocationRecyclerAdapter
+                            fragmentFriendsLocationRecycler.adapter = viewModel.friendsLocationRecyclerAdapter
                             val layoutManager = LinearLayoutManager(requireContext())
                             layoutManager.orientation = LinearLayoutManager.VERTICAL
                             fragmentFriendsLocationRecycler.layoutManager = layoutManager
@@ -112,7 +112,7 @@ class FriendsLocationFragment : Fragment() {
                             fragmentFriendsLocationNoneUserRoot.visibility = View.VISIBLE
                         }
                     } else {
-                        viewmodel.friendsLocationRecyclerAdapter?.let { friendsLocationAdapter  ->
+                        viewModel.friendsLocationRecyclerAdapter?.let { friendsLocationAdapter  ->
                             friendsLocationAdapter.locationMap = locationMap
                             friendsLocationAdapter.locationList = locationList
                             friendsLocationAdapter.currentCount = it.size
@@ -134,6 +134,6 @@ class FriendsLocationFragment : Fragment() {
                     ErrorHandling.onNetworkError(it, requireContext(), fragment = this)
                 }
             )
-        compositeDisposable.add(dispo)
+        compositeDisposable.add(getFriendsDisposable)
     }
 }
