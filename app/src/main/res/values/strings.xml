@@ -74,4 +74,5 @@
 
     <!-- General -->
     <string name="general_cooltime_now">Cooltime…</string>
+    <string name="general_private_instance" translatable="false">PRIVATE</string>
 </resources>

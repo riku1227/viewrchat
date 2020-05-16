@@ -23,6 +23,8 @@ class CacheSystem {
         }
     }
     companion object {
+        const val VRC_ASSETS_PRIVATE_WORLD_IMAGE_URL = "https://assets.vrchat.com/www/images/default_private_image.png"
+
         private val httpClient = OkHttpClient.Builder().build()
 
         const val DB_CLEAR_TIME = 604800 //one weak

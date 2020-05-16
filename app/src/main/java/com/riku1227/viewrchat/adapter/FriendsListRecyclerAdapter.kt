@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.system.CacheSystem
+import com.riku1227.viewrchat.util.VRCUtil
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.squareup.picasso.Picasso
@@ -37,6 +39,10 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         val recyclerFriendsListFriendsStatus: TextView = view.findViewById(R.id.recyclerFriendsListFriendsStatus)
         val recyclerFriendsListStatusDescription: TextView = view.findViewById(R.id.recyclerFriendsListStatusDescription)
         val recyclerFriendsListBio: TextView = view.findViewById(R.id.recyclerFriendsListBio)
+        val recyclerFriendsListLocationImage: ImageView = view.findViewById(R.id.recyclerFriendsListLocationImage)
+        val recyclerFriendsListLocationTextRoot: LinearLayout = view.findViewById(R.id.recyclerFriendsListLocationTextRoot)
+        val recyclerFriendsListLocationName: TextView = view.findViewById(R.id.recyclerFriendsListLocationName)
+        val recyclerFriendsListLocationInstanceType: TextView = view.findViewById(R.id.recyclerFriendsListLocationInstanceType)
     }
 
     override fun onCreateViewHolder(
@@ -97,6 +103,80 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         } else {
             holder.recyclerFriendsListBio.visibility = View.VISIBLE
             holder.recyclerFriendsListBio.text = friend.bio
+        }
+
+        holder.recyclerFriendsListLocationImage.outlineProvider = ViewRChat.imageRadiusOutlineProvider
+        holder.recyclerFriendsListLocationImage.setImageDrawable(drawable)
+
+        friend.location?.let { friendLocation ->
+            when (friendLocation) {
+                "offline" -> {
+                    holder.recyclerFriendsListLocationImage.visibility = View.GONE
+                    holder.recyclerFriendsListLocationTextRoot.visibility = View.GONE
+                }
+
+                "private" -> {
+                    holder.recyclerFriendsListLocationImage.visibility = View.VISIBLE
+                    holder.recyclerFriendsListLocationTextRoot.visibility = View.VISIBLE
+                    holder.recyclerFriendsListLocationInstanceType.visibility = View.GONE
+
+                    holder.recyclerFriendsListLocationName.text = context.resources.getString(R.string.general_private_instance)
+
+                    val loadVRChatDisposable = CacheSystem.loadImage(context, CacheSystem.CacheType.WORLD_IMAGE, "private_image", CacheSystem.VRC_ASSETS_PRIVATE_WORLD_IMAGE_URL)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            { imgFile ->
+                                Picasso.get()
+                                    .load(imgFile)
+                                    .placeholder(drawable)
+                                    .centerCrop()
+                                    .fit()
+                                    .into(holder.recyclerFriendsListLocationImage)
+                            },
+                            {}
+                        )
+                    compositeDisposable.add(loadVRChatDisposable)
+                }
+
+                else -> {
+                    holder.recyclerFriendsListLocationImage.visibility = View.VISIBLE
+                    holder.recyclerFriendsListLocationTextRoot.visibility = View.VISIBLE
+                    holder.recyclerFriendsListLocationInstanceType.visibility = View.VISIBLE
+
+                    val splitLocation = friendLocation.split(":")
+                    val worldId = splitLocation[0]
+                    val instanceId = splitLocation[1]
+                    val loadVRChatDisposable = CacheSystem.loadVRChatWorld(context, worldId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            {
+                                holder.recyclerFriendsListLocationName.text = it.name
+                                holder.recyclerFriendsListLocationInstanceType.text = VRCUtil.getInstanceTypeFromInstanceID(instanceId)
+
+                                CacheSystem.loadImage(context, CacheSystem.CacheType.WORLD_IMAGE, it.id, it.thumbnailImageUrl)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(
+                                        { imgFile ->
+                                            Picasso.get()
+                                                .load(imgFile)
+                                                .placeholder(drawable)
+                                                .centerCrop()
+                                                .fit()
+                                                .into(holder.recyclerFriendsListLocationImage)
+                                        },
+                                        {
+                                        }
+                                    )
+                            },
+                            {
+                            }
+                        )
+                    compositeDisposable.add(loadVRChatDisposable)
+                }
+            }
         }
     }
 
