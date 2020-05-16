@@ -4,9 +4,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.riku1227.viewrchat.util.RadiusOutlineProvider
 
 class ViewRChat {
     companion object {
+        val imageRadiusOutlineProvider = RadiusOutlineProvider(8F)
+
         fun getVRChatCookiePreferences(context: Context): SharedPreferences {
             val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
             return EncryptedSharedPreferences.create(

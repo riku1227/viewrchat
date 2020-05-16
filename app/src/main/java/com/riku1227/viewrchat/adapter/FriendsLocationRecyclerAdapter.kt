@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.riku1227.viewrchat.R
+import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.system.ErrorHandling
 import com.riku1227.vrchatlin.VRChatlin
@@ -102,6 +103,8 @@ class FriendsLocationRecyclerAdapter(
         holder.recyclerFriendsLocationInstanceType.text = ""
         holder.recyclerFriendsLocationInstanceNUsers.text = ""
         holder.recyclerFriendsLocationInstanceNFriends.text = ""
+
+        holder.recyclerFriendsLocationWorldImage.outlineProvider = ViewRChat.imageRadiusOutlineProvider
 
         val dispo01 = CacheSystem.loadVRChatWorld(context, worldId)
             .subscribeOn(Schedulers.io())

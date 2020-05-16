@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.riku1227.viewrchat.R
+import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
@@ -95,6 +96,8 @@ class FriendsListRecyclerAdapter(private val context: Context, var friendsList: 
         val drawable = BitmapDrawable(context.resources, bitmap)
 
         holder.recyclerFriendsListUserAvatarImage.setImageDrawable(drawable)
+        holder.recyclerFriendsListUserAvatarImage.outlineProvider = ViewRChat.imageRadiusOutlineProvider
+
 
         val disposable = CacheSystem.loadImage(context, CacheSystem.CacheType.USER_AVATAR_IMAGE, friend.id, friend.currentAvatarThumbnailImageUrl, friend.status == "offline")
             .subscribeOn(Schedulers.io())
