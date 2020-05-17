@@ -16,6 +16,7 @@ import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.system.ErrorHandling
+import com.riku1227.viewrchat.util.VRCUtil
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.riku1227.vrchatlin.model.VRChatWorldInstance
@@ -118,7 +119,7 @@ class FriendsLocationRecyclerAdapter(
                 .subscribe(
                     {
                         locationInstanceDataMap[locationList[position]] = it
-                        holder.recyclerFriendsLocationInstanceType.text = it.type.toUpperCase(Locale.getDefault())
+                        holder.recyclerFriendsLocationInstanceType.text = VRCUtil.getInstanceTypeFromInstanceID(it.id)
                         holder.recyclerFriendsLocationInstanceNUsers.text = context.resources.getString(R.string.fragment_friends_location_instance_user_count_text, it.n_users, it.capacity)
                         locationMap[locationList[position]]?.let { arrayUser ->
                             holder.recyclerFriendsLocationInstanceNFriends.text = arrayUser.size.toString()
@@ -131,7 +132,7 @@ class FriendsLocationRecyclerAdapter(
             compositeDisposable.add(worldInstanceDisposable)
         } else {
             val locationInstanceData = locationInstanceDataMap[locationList[position]]!!
-            holder.recyclerFriendsLocationInstanceType.text = locationInstanceData.type.toUpperCase(Locale.getDefault())
+            holder.recyclerFriendsLocationInstanceType.text = VRCUtil.getInstanceTypeFromInstanceID(locationInstanceData.id)
             holder.recyclerFriendsLocationInstanceNUsers.text = context.resources.getString(R.string.fragment_friends_location_instance_user_count_text,
                 locationInstanceData.n_users, locationInstanceData.capacity)
             locationMap[locationList[position]]?.let { arrayUser ->
