@@ -9,4 +9,10 @@
     <color name="textColorMedium">#a0a0a0</color>
     <color name="textColorDisabled">#6c6c6c</color>
     <color name="textErrorColor">#ef9a9a</color>
+    
+    <color name="statusIconColorOnline">#aed581</color>
+    <color name="statusIconColorJoinMe">#81d4fa</color>
+    <color name="statusIconColorAskMe">#ffb74d</color>
+    <color name="statusIconColorDND">#ef5350</color>
+    <color name="statusIconColorOffline">#6c6c6c</color>
 </resources>

@@ -39,12 +39,27 @@
             android:layout_marginTop="4dp"
             android:text="" />
 
-        <TextView
-            android:id="@+id/recyclerFriendsLocationFriendsStatus"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="" />
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+
+            <ImageView
+                android:id="@+id/recyclerFriendsLocationFriendsStatusIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_lens_24px" />
+
+            <TextView
+                android:id="@+id/recyclerFriendsLocationFriendsStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2sp"
+                android:text="" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

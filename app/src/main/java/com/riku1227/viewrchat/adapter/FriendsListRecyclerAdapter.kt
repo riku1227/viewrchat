@@ -3,17 +3,20 @@ package com.riku1227.viewrchat.adapter
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.util.VRCUtil
+import com.riku1227.viewrchat.util.setTextViewDrawableColor
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.squareup.picasso.Picasso
@@ -36,6 +39,7 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         val recyclerFriendsListUserAvatarImage: ImageView = view.findViewById(R.id.recyclerFriendsListUserAvatarImage)
         val recyclerFriendsListUserName: TextView = view.findViewById(R.id.recyclerFriendsListUserName)
         val recyclerFriendsListLastPlatform: TextView = view.findViewById(R.id.recyclerFriendsListLastPlatform)
+        val recyclerFriendsListFriendsStatusIcon: ImageView = view.findViewById(R.id.recyclerFriendsListFriendsStatusIcon)
         val recyclerFriendsListFriendsStatus: TextView = view.findViewById(R.id.recyclerFriendsListFriendsStatus)
         val recyclerFriendsListStatusDescription: TextView = view.findViewById(R.id.recyclerFriendsListStatusDescription)
         val recyclerFriendsListBio: TextView = view.findViewById(R.id.recyclerFriendsListBio)
@@ -88,8 +92,9 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         compositeDisposable.add(disposable)
 
         holder.recyclerFriendsListUserName.text = friend.displayName
-        holder.recyclerFriendsListLastPlatform.text = friend.last_platform
-        holder.recyclerFriendsListFriendsStatus.text = friend.status
+        holder.recyclerFriendsListLastPlatform.text = context.resources.getString(R.string.general_last_login_platform, VRCUtil.getLastLoginPlatform(friend.last_platform))
+        holder.recyclerFriendsListFriendsStatus.text = friend.status?.toUpperCase()
+        holder.recyclerFriendsListFriendsStatusIcon.setColorFilter(VRCUtil.getStatusIconColor(context, friend.status))
 
         if(friend.statusDescription.isNullOrEmpty()) {
             holder.recyclerFriendsListStatusDescription.visibility = View.GONE

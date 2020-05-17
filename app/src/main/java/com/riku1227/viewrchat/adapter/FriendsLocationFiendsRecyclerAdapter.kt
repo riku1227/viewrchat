@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.system.CacheSystem
+import com.riku1227.viewrchat.util.VRCUtil
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,6 +23,7 @@ class FriendsLocationFiendsRecyclerAdapter(private val context: Context, private
         val recyclerFriendsLocationFriendsImage: ImageView = view.findViewById(R.id.recyclerFriendsLocationFriendsImage)
         val recyclerFriendsLocationFriendsUserName: TextView = view.findViewById(R.id.recyclerFriendsLocationFriendsUserName)
         val recyclerFriendsLocationFriendsLastPlatform: TextView = view.findViewById(R.id.recyclerFriendsLocationFriendsLastPlatform)
+        val recyclerFriendsLocationFriendsStatusIcon: ImageView = view.findViewById(R.id.recyclerFriendsLocationFriendsStatusIcon)
         val recyclerFriendsLocationFriendsStatus: TextView = view.findViewById(R.id.recyclerFriendsLocationFriendsStatus)
     }
 
@@ -54,8 +56,9 @@ class FriendsLocationFiendsRecyclerAdapter(private val context: Context, private
                 )
 
             holder.recyclerFriendsLocationFriendsUserName.text = it.displayName
-            holder.recyclerFriendsLocationFriendsLastPlatform.text = it.last_platform
+            holder.recyclerFriendsLocationFriendsLastPlatform.text = context.resources.getString(R.string.general_last_login_platform, VRCUtil.getLastLoginPlatform(it.last_platform))
             holder.recyclerFriendsLocationFriendsStatus.text = it.status!!.toUpperCase(Locale.getDefault())
+            holder.recyclerFriendsLocationFriendsStatusIcon.setColorFilter(VRCUtil.getStatusIconColor(context, it.status))
         }
     }
 
