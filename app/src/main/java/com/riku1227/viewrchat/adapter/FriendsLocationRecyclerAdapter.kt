@@ -7,11 +7,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.system.CacheSystem
@@ -39,6 +42,7 @@ class FriendsLocationRecyclerAdapter(
         val recyclerFriendsLocationInstanceType: TextView = view.findViewById(R.id.recyclerFriendsLocationInstanceType)
         val recyclerFriendsLocationInstanceNUsers: TextView = view.findViewById(R.id.recyclerFriendsLocationInstanceNUsers)
         val recyclerFriendsLocationInstanceNFriends: TextView = view.findViewById(R.id.recyclerFriendsLocationInstanceNFriends)
+        val recyclerFriendsLocationInviteMeButton: Button = view.findViewById(R.id.recyclerFriendsLocationInviteMeButton)
         val recyclerFriendsLocationWorldDescription: TextView = view.findViewById(R.id.recyclerFriendsLocationWorldDescription)
         val recyclerFriendsLocationFriendsList: RecyclerView = view.findViewById(R.id.recyclerFriendsLocationFriendsList)
     }
@@ -138,6 +142,21 @@ class FriendsLocationRecyclerAdapter(
             locationMap[locationList[position]]?.let { arrayUser ->
                 holder.recyclerFriendsLocationInstanceNFriends.text = arrayUser.size.toString()
             }
+        }
+
+        holder.recyclerFriendsLocationInviteMeButton.setOnClickListener {
+            VRChatlin.get(context).APIService().postInviteMe(worldId, instanceId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        val bar = Snackbar.make(it, context.resources.getString(R.string.fragment_friends_location_sent_invite), Snackbar.LENGTH_SHORT)
+                        val anchorView:BottomNavigationView = fragment.requireActivity().findViewById(R.id.mainActivityBottomNavigation)
+                        bar.anchorView = anchorView
+                        bar.show()
+                    },
+                    {}
+                )
         }
 
         locationMap[locationList[position]]?.let { arrayUser ->

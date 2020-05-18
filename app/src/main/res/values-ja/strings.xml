@@ -32,6 +32,8 @@
     <string name="activity_main_bottom_friends">フレンド</string>
 
     <!-- Friends Location Fragment -->
+    <string name="fragment_friends_location_invite_me_button">INVITE ME</string>
+    <string name="fragment_friends_location_sent_invite">自分に招待を送信しました</string>
     <string name="fragment_friends_location_none_user_text">フレンド+以上のインスタンスに居るフレンドがいません</string>
 
     <!-- Crash Report Dialog -->
