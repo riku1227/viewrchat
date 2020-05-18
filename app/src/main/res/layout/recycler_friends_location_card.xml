@@ -90,16 +90,27 @@
                 android:text=""
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsLocationInviteMeButton" />
+                app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsLocationUpdateInstance" />
+
+            <Button
+                android:id="@+id/recyclerFriendsLocationUpdateInstance"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_sync_24px"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="4dp"
+                android:text="@string/fragment_friends_location_update_button"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsLocationWorldImage" />
 
             <Button
                 android:id="@+id/recyclerFriendsLocationInviteMeButton"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_height="48dp"
                 android:text="@string/fragment_friends_location_invite_me_button"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/recyclerFriendsLocationUpdateInstance"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsLocationWorldImage" />
 
             <View

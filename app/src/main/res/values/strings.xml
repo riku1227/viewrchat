@@ -66,6 +66,8 @@
     <!-- Friends Location Fragment -->
     <string name="fragment_friends_location_invite_me_button">INVITE ME</string>
     <string name="fragment_friends_location_sent_invite">Sent invite to Me</string>
+    <string name="fragment_friends_location_update_button">Update</string>
+    <string name="fragment_friends_location_updated_instance_info">Updated instance information</string>
     <string name="fragment_friends_location_none_user_text">I don\'t have friends who in more than a friend-plus instance.</string>
     <string name="fragment_friends_location_instance_user_count_text" translatable="false">%1$d / %2$d</string>
 

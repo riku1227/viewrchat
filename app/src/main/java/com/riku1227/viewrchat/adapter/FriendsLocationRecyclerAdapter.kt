@@ -42,6 +42,7 @@ class FriendsLocationRecyclerAdapter(
         val recyclerFriendsLocationInstanceNUsers: TextView = view.findViewById(R.id.recyclerFriendsLocationInstanceNUsers)
         val recyclerFriendsLocationInstanceNFriends: TextView = view.findViewById(R.id.recyclerFriendsLocationInstanceNFriends)
         val recyclerFriendsLocationInviteMeButton: Button = view.findViewById(R.id.recyclerFriendsLocationInviteMeButton)
+        val recyclerFriendsLocationUpdateInstance: Button = view.findViewById(R.id.recyclerFriendsLocationUpdateInstance)
         val recyclerFriendsLocationWorldDescription: TextView = view.findViewById(R.id.recyclerFriendsLocationWorldDescription)
         val recyclerFriendsLocationFriendsList: RecyclerView = view.findViewById(R.id.recyclerFriendsLocationFriendsList)
     }
@@ -153,6 +154,27 @@ class FriendsLocationRecyclerAdapter(
                     },
                     {}
                 )
+        }
+
+        holder.recyclerFriendsLocationUpdateInstance.setOnClickListener {
+            val worldInstanceDisposable = apiService.getWorldInstanceByID(worldId, instanceId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        locationInstanceDataMap[locationList[position]] = it
+                        holder.recyclerFriendsLocationInstanceType.text = VRCUtil.getInstanceTypeFromInstanceID(it.id)
+                        holder.recyclerFriendsLocationInstanceNUsers.text = context.resources.getString(R.string.fragment_friends_location_instance_user_count_text, it.n_users, it.capacity)
+                        locationMap[locationList[position]]?.let { arrayUser ->
+                            holder.recyclerFriendsLocationInstanceNFriends.text = arrayUser.size.toString()
+                        }
+                        Toast.makeText(context, context.resources.getString(R.string.fragment_friends_location_updated_instance_info), Toast.LENGTH_SHORT).show()
+                    },
+                    {
+                        ErrorHandling.onNetworkError(it, context, fragment = fragment)
+                    }
+                )
+            compositeDisposable.add(worldInstanceDisposable)
         }
 
         locationMap[locationList[position]]?.let { arrayUser ->
