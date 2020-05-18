@@ -10,11 +10,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.system.CacheSystem
@@ -150,10 +149,7 @@ class FriendsLocationRecyclerAdapter(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        val bar = Snackbar.make(it, context.resources.getString(R.string.fragment_friends_location_sent_invite), Snackbar.LENGTH_SHORT)
-                        val anchorView:BottomNavigationView = fragment.requireActivity().findViewById(R.id.mainActivityBottomNavigation)
-                        bar.anchorView = anchorView
-                        bar.show()
+                        Toast.makeText(context, context.resources.getString(R.string.fragment_friends_location_sent_invite), Toast.LENGTH_SHORT).show()
                     },
                     {}
                 )
