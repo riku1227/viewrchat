@@ -16,5 +16,9 @@
         <attr name="floatingActionButtonBorderColor" format="color"/>
         <attr name="floatingActionButtonBorderWidth" format="dimension"/>
         <attr name="floatingActionButtonElevation" format="dimension"/>
+
+        <attr name="snackBarBackground" format="reference"/>
+        <attr name="snackBarOverlayColorAlpha" format="float"/>
+        <attr name="snackBarTextColor" format="color"/>
     </declare-styleable>
 </resources>

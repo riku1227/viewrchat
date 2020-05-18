@@ -21,6 +21,10 @@
         <item name="floatingActionButtonBorderColor">@color/textColor</item>
         <item name="floatingActionButtonBorderWidth">0dp</item>
         <item name="floatingActionButtonElevation">8dp</item>
+
+        <item name="snackBarBackground">@null</item>
+        <item name="snackBarOverlayColorAlpha">0.11</item>
+        <item name="snackBarTextColor">@color/textColorHigh</item>
     </style>
 
     <style name="AppTheme.Black" parent="AppTheme">
@@ -41,6 +45,10 @@
         <item name="floatingActionButtonBorderColor">@color/textColor</item>
         <item name="floatingActionButtonBorderWidth">1dp</item>
         <item name="floatingActionButtonElevation">0dp</item>
+
+        <item name="snackBarBackground">@drawable/snackbar_black_blackground</item>
+        <item name="snackBarOverlayColorAlpha">0.0</item>
+        <item name="snackBarTextColor">@color/textColor</item>
     </style>
 
     <style name="ToolBar" parent="Widget.MaterialComponents.Toolbar.Surface">
