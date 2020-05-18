@@ -53,7 +53,9 @@ class FriendsListFragment : Fragment() {
             if(diffTime >= 30) {
                 createFriendsList()
             } else {
-                Snackbar.make(fragmentFriendsListSwipeRefreshLayout, R.string.general_cooltime_now, Snackbar.LENGTH_SHORT).show()
+                val bar = Snackbar.make(fragmentFriendsListSwipeRefreshLayout, R.string.general_cooltime_now, Snackbar.LENGTH_SHORT)
+                bar.anchorView = requireActivity().findViewById(R.id.mainActivityBottomNavigation)
+                bar.show()
                 fragmentFriendsListSwipeRefreshLayout.isRefreshing = false
             }
         }

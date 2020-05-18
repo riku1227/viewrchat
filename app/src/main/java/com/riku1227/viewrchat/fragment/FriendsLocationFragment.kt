@@ -63,7 +63,9 @@ class FriendsLocationFragment : Fragment() {
             if(diffTime >= 30) {
                 createFriendsLocationList()
             } else {
-                Snackbar.make(fragmentFriendsLocationSwipeRefreshLayout, R.string.general_cooltime_now, Snackbar.LENGTH_SHORT).show()
+                val bar = Snackbar.make(fragmentFriendsLocationSwipeRefreshLayout, R.string.general_cooltime_now, Snackbar.LENGTH_SHORT)
+                bar.anchorView = requireActivity().findViewById(R.id.mainActivityBottomNavigation)
+                bar.show()
                 fragmentFriendsLocationSwipeRefreshLayout.isRefreshing = false
             }
         }
