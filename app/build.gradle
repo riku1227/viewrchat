@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.riku1227.viewrchat"
         minSdkVersion 23
@@ -55,7 +55,7 @@ dependencies {
     implementation "com.squareup.moshi:moshi:1.9.2"
     implementation "com.squareup.moshi:moshi-kotlin:1.9.2"
 
-    implementation 'com.riku1227:vrchatlin:1.0.1'
+    implementation 'com.riku1227:vrchatlin:1.0.2'
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
