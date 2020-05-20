@@ -56,7 +56,7 @@ class FriendsLocationFiendsRecyclerAdapter(private val context: Context, private
                 )
 
             holder.recyclerFriendsLocationFriendsUserName.text = it.displayName
-            holder.recyclerFriendsLocationFriendsLastPlatform.text = context.resources.getString(R.string.general_last_login_platform, VRCUtil.getLastLoginPlatform(it.last_platform))
+            holder.recyclerFriendsLocationFriendsLastPlatform.text = VRCUtil.getLastLoginPlatform(it.last_platform)
             holder.recyclerFriendsLocationFriendsStatus.text = it.status!!.toUpperCase(Locale.getDefault())
             holder.recyclerFriendsLocationFriendsStatusIcon.setColorFilter(VRCUtil.getStatusIconColor(context, it.status))
         }
