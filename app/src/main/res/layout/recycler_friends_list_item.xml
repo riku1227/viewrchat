@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recyclerFriendsListCard"
     style="@style/Card"
     android:layout_width="match_parent"
@@ -35,22 +36,27 @@
             app:layout_constraintStart_toEndOf="@+id/recyclerFriendsListUserAvatarImage"
             app:layout_constraintTop_toTopOf="@+id/recyclerFriendsListUserAvatarImage">
 
-            <TextView
-                android:id="@+id/recyclerFriendsListUserName"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/textColorHigh" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/recyclerFriendsListLastPlatform"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text=""
-                android:textSize="16sp"/>
+                <ImageView
+                    android:id="@+id/recyclerFriendsListFriendsStatusIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_lens_24px"/>
+
+                <TextView
+                    android:id="@+id/recyclerFriendsListUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textSize="18sp"
+                    android:textColor="@color/textColorHigh"
+                    android:layout_marginStart="8dp"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -59,18 +65,40 @@
                 android:layout_marginTop="4dp">
 
                 <ImageView
-                    android:id="@+id/recyclerFriendsListFriendsStatusIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_lens_24px"/>
+                    android:layout_width="20dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_devices_24px"
+                    android:tint="@color/textColorMedium"/>
 
                 <TextView
-                    android:id="@+id/recyclerFriendsListFriendsStatus"
+                    android:id="@+id/recyclerFriendsListLastPlatform"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textSize="16sp"
                     android:layout_marginStart="8dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_verified_user_24px"
+                    android:tint="@color/textColorMedium" />
+
+                <TextView
+                    android:id="@+id/recyclerFriendsListFriendTrustRank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:layout_marginStart="8dp" />
 
             </LinearLayout>
 

@@ -34,5 +34,16 @@ class VRCUtil {
                 else -> ContextCompat.getColor(context, R.color.statusIconColorOffline)
             }
         }
+
+        fun getTrustRank(tags: List<String>): String {
+            return when {
+                tags.contains("system_trust_legend") -> "Trusted User (Veteran)"
+                tags.contains("system_trust_veteran") -> "Trusted User"
+                tags.contains("system_trust_trusted") -> "Known User"
+                tags.contains("system_trust_known") -> "User"
+                tags.contains("system_trust_basic") -> "New User"
+                else -> "Visitor"
+            }
+        }
     }
 }

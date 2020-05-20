@@ -39,8 +39,8 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         val recyclerFriendsListUserAvatarImage: ImageView = view.findViewById(R.id.recyclerFriendsListUserAvatarImage)
         val recyclerFriendsListUserName: TextView = view.findViewById(R.id.recyclerFriendsListUserName)
         val recyclerFriendsListLastPlatform: TextView = view.findViewById(R.id.recyclerFriendsListLastPlatform)
+        val recyclerFriendsListFriendTrustRank: TextView = view.findViewById(R.id.recyclerFriendsListFriendTrustRank)
         val recyclerFriendsListFriendsStatusIcon: ImageView = view.findViewById(R.id.recyclerFriendsListFriendsStatusIcon)
-        val recyclerFriendsListFriendsStatus: TextView = view.findViewById(R.id.recyclerFriendsListFriendsStatus)
         val recyclerFriendsListStatusDescription: TextView = view.findViewById(R.id.recyclerFriendsListStatusDescription)
         val recyclerFriendsListBio: TextView = view.findViewById(R.id.recyclerFriendsListBio)
         val recyclerFriendsListLocationImage: ImageView = view.findViewById(R.id.recyclerFriendsListLocationImage)
@@ -92,9 +92,9 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         compositeDisposable.add(disposable)
 
         holder.recyclerFriendsListUserName.text = friend.displayName
-        holder.recyclerFriendsListLastPlatform.text = context.resources.getString(R.string.general_last_login_platform, VRCUtil.getLastLoginPlatform(friend.last_platform))
-        holder.recyclerFriendsListFriendsStatus.text = friend.status?.toUpperCase()
+        holder.recyclerFriendsListLastPlatform.text = VRCUtil.getLastLoginPlatform(friend.last_platform)
         holder.recyclerFriendsListFriendsStatusIcon.setColorFilter(VRCUtil.getStatusIconColor(context, friend.status))
+        holder.recyclerFriendsListFriendTrustRank.text = VRCUtil.getTrustRank(friend.tags)
 
         if(friend.statusDescription.isNullOrEmpty()) {
             holder.recyclerFriendsListStatusDescription.visibility = View.GONE
