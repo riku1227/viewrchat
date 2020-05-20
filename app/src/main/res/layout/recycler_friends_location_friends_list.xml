@@ -15,54 +15,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/recyclerFriendsLocationFriendsUserName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:maxLines="1"
+        android:text=""
+        android:textColor="@color/textColorHigh"
         app:layout_constraintStart_toEndOf="@+id/recyclerFriendsLocationFriendsImage"
-        app:layout_constraintTop_toTopOf="@+id/recyclerFriendsLocationFriendsImage">
+        app:layout_constraintTop_toTopOf="@+id/recyclerFriendsLocationFriendsImage" />
 
-        <TextView
-            android:id="@+id/recyclerFriendsLocationFriendsUserName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text=""
-            android:textColor="@color/textColorHigh" />
+    <ImageView
+        android:id="@+id/recyclerFriendsLocationPlatform"
+        android:layout_width="20dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/ic_devices_24px"
+        android:tint="@color/textColorMedium"
+        app:layout_constraintStart_toStartOf="@+id/recyclerFriendsLocationFriendsUserName"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsLocationFriendsUserName" />
 
-        <TextView
-            android:id="@+id/recyclerFriendsLocationFriendsLastPlatform"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="" />
+    <TextView
+        android:id="@+id/recyclerFriendsLocationFriendsLastPlatform"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/recyclerFriendsLocationPlatform"
+        app:layout_constraintTop_toTopOf="@+id/recyclerFriendsLocationPlatform" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="4dp">
+    <ImageView
+        android:id="@+id/recyclerFriendsLocationFriendsStatusIcon"
+        android:layout_width="20dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/ic_lens_24px"
+        app:layout_constraintStart_toStartOf="@+id/recyclerFriendsLocationPlatform"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsLocationPlatform" />
 
-            <ImageView
-                android:id="@+id/recyclerFriendsLocationFriendsStatusIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_lens_24px" />
-
-            <TextView
-                android:id="@+id/recyclerFriendsLocationFriendsStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="2sp"
-                android:text="" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/recyclerFriendsLocationFriendsStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/recyclerFriendsLocationFriendsStatusIcon"
+        app:layout_constraintTop_toTopOf="@+id/recyclerFriendsLocationFriendsStatusIcon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
