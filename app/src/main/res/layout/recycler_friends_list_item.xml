@@ -25,84 +25,79 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@+id/recyclerFriendsListUserAvatarImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/recyclerFriendsListUserAvatarImage"
             app:layout_constraintTop_toTopOf="@+id/recyclerFriendsListUserAvatarImage">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/recyclerFriendsListFriendsStatusIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_lens_24px"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/recyclerFriendsListUserName"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginStart="8dp"
+                android:maxLines="1"
+                android:textColor="@color/textColorHigh"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerFriendsListFriendsStatusIcon"
+                app:layout_constraintStart_toEndOf="@+id/recyclerFriendsListFriendsStatusIcon"
+                app:layout_constraintTop_toTopOf="@+id/recyclerFriendsListFriendsStatusIcon" />
 
-                <ImageView
-                    android:id="@+id/recyclerFriendsListFriendsStatusIcon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_lens_24px"/>
+            <ImageView
+                android:id="@+id/recyclerFriendsListPlatformIcon"
+                android:layout_width="20dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_devices_24px"
+                android:tint="@color/textColorMedium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsListFriendsStatusIcon" />
 
-                <TextView
-                    android:id="@+id/recyclerFriendsListUserName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textSize="18sp"
-                    android:textColor="@color/textColorHigh"
-                    android:layout_marginStart="8dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/recyclerFriendsListLastPlatform"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="4dp">
+                android:text=""
+                android:textSize="16sp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerFriendsListPlatformIcon"
+                app:layout_constraintStart_toEndOf="@+id/recyclerFriendsListPlatformIcon"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsListFriendsStatusIcon" />
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_devices_24px"
-                    android:tint="@color/textColorMedium"/>
+            <ImageView
+                android:id="@+id/recyclerFriendsListFriendTrustRankIcon"
+                android:layout_width="20dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_verified_user_24px"
+                android:tint="@color/textColorMedium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerFriendsListPlatformIcon" />
 
-                <TextView
-                    android:id="@+id/recyclerFriendsListLastPlatform"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="16sp"
-                    android:layout_marginStart="8dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/recyclerFriendsListFriendTrustRank"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="4dp">
+                android:text=""
+                android:textSize="16sp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerFriendsListFriendTrustRankIcon"
+                app:layout_constraintStart_toEndOf="@+id/recyclerFriendsListFriendTrustRankIcon"
+                app:layout_constraintTop_toTopOf="@+id/recyclerFriendsListFriendTrustRankIcon" />
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_verified_user_24px"
-                    android:tint="@color/textColorMedium" />
-
-                <TextView
-                    android:id="@+id/recyclerFriendsListFriendTrustRank"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="16sp"
-                    android:layout_marginStart="8dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
