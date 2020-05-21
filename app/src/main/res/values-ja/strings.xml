@@ -46,4 +46,6 @@
     <!-- General -->
     <string name="general_cooltime_now">クールタイム中…</string>
     <string name="general_last_login_platform">プラットフォーム: %1$s</string>
+    <string name="general_drawer_open">ドロワーを開く</string>
+    <string name="general_drawer_close">ドロワーを閉じる</string>
 </resources>

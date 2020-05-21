@@ -80,4 +80,6 @@
     <string name="general_cooltime_now">Cooltime…</string>
     <string name="general_private_instance" translatable="false">PRIVATE</string>
     <string name="general_last_login_platform">Platform: %1$s</string>
+    <string name="general_drawer_open">Open drawer</string>
+    <string name="general_drawer_close">Close drawer</string>
 </resources>

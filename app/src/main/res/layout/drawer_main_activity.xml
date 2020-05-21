@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/drawerMainActivityUserThumbnail"
+        android:layout_width="100dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/drawerMainActivityUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="AAAAAAAAAA"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/drawerMainActivityUserThumbnail"
+        app:layout_constraintTop_toTopOf="@+id/drawerMainActivityUserThumbnail" />
+
+    <TextView
+        android:id="@+id/drawerMainActivityUserRank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawableStart="@drawable/ic_verified_user_24px"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/textColorMedium"
+        android:text=""
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/drawerMainActivityUserName"
+        app:layout_constraintTop_toBottomOf="@+id/drawerMainActivityUserName" />
+
+    <TextView
+        android:id="@+id/drawerMainActivityPlatform"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawableStart="@drawable/ic_devices_24px"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/textColorMedium"
+        android:text=""
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/drawerMainActivityUserRank"
+        app:layout_constraintTop_toBottomOf="@+id/drawerMainActivityUserRank" />
+
+    <TextView
+        android:id="@+id/drawerMainActivityFriendsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/ic_group_24px"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/textColorMedium"
+        android:text=""
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/drawerMainActivityPlatform"
+        app:layout_constraintTop_toBottomOf="@+id/drawerMainActivityPlatform" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

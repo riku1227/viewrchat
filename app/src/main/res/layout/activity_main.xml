@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/mainActivityDrawerLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,34 +9,47 @@
     tools:context=".activity.MainActivity"
     style="@style/RootLayout">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/mainActivityToolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/ToolBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/mainActivityFragment"
-        android:name="com.riku1227.viewrchat.navigator.nav_host.BottomNavigationViewNavHost"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivityToolbar"
-        app:layout_constraintBottom_toTopOf="@id/mainActivityBottomNavigation"/>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/mainActivityToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ToolBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/mainActivityBottomNavigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/activity_main_bottom_navigation"
-        android:background="@drawable/widget_bottom_navigation"/>
+        <fragment
+            android:id="@+id/mainActivityFragment"
+            android:name="com.riku1227.viewrchat.navigator.nav_host.BottomNavigationViewNavHost"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivityToolbar"
+            app:layout_constraintBottom_toTopOf="@id/mainActivityBottomNavigation"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/mainActivityBottomNavigation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/activity_main_bottom_navigation"
+            android:background="@drawable/widget_bottom_navigation"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/mainActivityNavigationDrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/drawer_main_activity"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>
