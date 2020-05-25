@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/drawerMainActivityUserThumbnail"
-        android:layout_width="100dp"
-        android:layout_height="75dp"
+        android:layout_width="116dp"
+        android:layout_height="81dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:scaleType="centerCrop"
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="AAAAAAAAAA"
+        android:text=""
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/drawerMainActivityUserThumbnail"
         app:layout_constraintTop_toTopOf="@+id/drawerMainActivityUserThumbnail" />
@@ -41,29 +41,16 @@
         app:layout_constraintTop_toBottomOf="@+id/drawerMainActivityUserName" />
 
     <TextView
-        android:id="@+id/drawerMainActivityPlatform"
-        android:layout_width="0dp"
+        android:id="@+id/drawerMainActivityFriendsCount"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:drawableStart="@drawable/ic_devices_24px"
+        android:drawableStart="@drawable/ic_group_24px"
         android:drawablePadding="8dp"
         android:drawableTint="@color/textColorMedium"
         android:text=""
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/drawerMainActivityUserRank"
         app:layout_constraintTop_toBottomOf="@+id/drawerMainActivityUserRank" />
-
-    <TextView
-        android:id="@+id/drawerMainActivityFriendsCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:drawableStart="@drawable/ic_group_24px"
-        android:drawablePadding="8dp"
-        android:drawableTint="@color/textColorMedium"
-        android:text=""
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/drawerMainActivityPlatform"
-        app:layout_constraintTop_toBottomOf="@+id/drawerMainActivityPlatform" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
