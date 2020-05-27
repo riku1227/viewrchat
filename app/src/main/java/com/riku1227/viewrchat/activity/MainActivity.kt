@@ -194,7 +194,6 @@ class MainActivity : AppCompatActivity() {
 
                         headerView.findViewById<TextView>(R.id.drawerMainActivityUserName).text = it.displayName
                         headerView.findViewById<TextView>(R.id.drawerMainActivityUserRank).text = VRCUtil.getTrustRank(it.tags)
-                        headerView.findViewById<TextView>(R.id.drawerMainActivityPlatform).text = VRCUtil.getLastLoginPlatform(it.last_platform)
                         headerView.findViewById<TextView>(R.id.drawerMainActivityFriendsCount).text = it.friends?.size.toString()
                     },
                     {
@@ -227,7 +226,6 @@ class MainActivity : AppCompatActivity() {
 
                 headerView.findViewById<TextView>(R.id.drawerMainActivityUserName).text = it.displayName
                 headerView.findViewById<TextView>(R.id.drawerMainActivityUserRank).text = VRCUtil.getTrustRank(it.tags)
-                headerView.findViewById<TextView>(R.id.drawerMainActivityPlatform).text = VRCUtil.getLastLoginPlatform(it.last_platform)
                 headerView.findViewById<TextView>(R.id.drawerMainActivityFriendsCount).text = it.friends?.size.toString()
             }
         }
