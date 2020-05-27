@@ -1,0 +1,13 @@
+<resources>
+    <string-array name="preferences_appearance_theme_entries">
+        <item>@string/activity_settings_appearance_theme_follow_system</item>
+        <item>@string/activity_settings_appearance_theme_light</item>
+        <item>@string/activity_settings_appearance_theme_dark</item>
+    </string-array>
+
+    <string-array name="preferences_appearance_theme_values">
+        <item>follow_system</item>
+        <item>light_theme</item>
+        <item>dark_theme</item>
+    </string-array>
+</resources>

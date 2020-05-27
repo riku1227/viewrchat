@@ -63,6 +63,11 @@
     <string name="activity_main_bottom_friends_location">Friends location</string>
     <string name="activity_main_bottom_friends">Friends</string>
 
+    <!-- Main Activity
+            Navigation Drawer -->
+
+    <string name="activity_main_drawer_settings">Settings</string>
+
     <!-- Friends Location Fragment -->
     <string name="fragment_friends_location_invite_me_button">INVITE ME</string>
     <string name="fragment_friends_location_sent_invite">Sent invite to Me</string>
@@ -70,6 +75,15 @@
     <string name="fragment_friends_location_updated_instance_info">Updated instance information</string>
     <string name="fragment_friends_location_none_user_text">I don\'t have friends who in more than a friend-plus instance.</string>
     <string name="fragment_friends_location_instance_user_count_text" translatable="false">%1$d / %2$d</string>
+
+    <!-- Settings Activity -->
+    <string name="title_activity_settings">Settings</string>
+    <string name="activity_settings_appearance_title">Appearance</string>
+    <string name="activity_settings_appearance_theme">Theme</string>
+    <string name="activity_settings_appearance_theme_follow_system">System</string>
+    <string name="activity_settings_appearance_theme_light">Light</string>
+    <string name="activity_settings_appearance_theme_dark">Dark</string>
+    <string name="activity_settings_appearance_theme_black">Black (for OLED display device)</string>
 
     <!-- Crash Report Dialog -->
     <string name="dialog_crash_report_title">App Crashed</string>

@@ -31,6 +31,11 @@
     <string name="activity_main_bottom_friends_location">フレンドが居る場所</string>
     <string name="activity_main_bottom_friends">フレンド</string>
 
+    <!-- Main Activity
+            Navigation Drawer -->
+
+    <string name="activity_main_drawer_settings">設定</string>
+
     <!-- Friends Location Fragment -->
     <string name="fragment_friends_location_invite_me_button">INVITE ME</string>
     <string name="fragment_friends_location_sent_invite">自分に招待を送信しました</string>
@@ -42,6 +47,15 @@
     <string name="dialog_crash_report_title">アプリがクラッシュしました</string>
     <string name="dialog_crash_report_positive">ログをコピーする</string>
     <string name="dialog_crash_report_negative">閉じる</string>
+
+    <!-- Settings Activity -->
+    <string name="title_activity_settings">設定</string>
+    <string name="activity_settings_appearance_title">外観</string>
+    <string name="activity_settings_appearance_theme">テーマ</string>
+    <string name="activity_settings_appearance_theme_follow_system">システム</string>
+    <string name="activity_settings_appearance_theme_light">ライト</string>
+    <string name="activity_settings_appearance_theme_dark">ダーク</string>
+    <string name="activity_settings_appearance_theme_black">ブラック (有機ELディスプレイ端末向け)</string>
 
     <!-- General -->
     <string name="general_cooltime_now">クールタイム中…</string>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+        app:defaultValue="follow_system"
+        app:entries="@array/preferences_appearance_theme_entries"
+        app:entryValues="@array/preferences_appearance_theme_values"
+        app:key="preferences_appearance_theme_key"
+        app:title="@string/activity_settings_appearance_theme"
+        app:useSimpleSummaryProvider="true" />
+
+</PreferenceScreen>

@@ -1,23 +1,18 @@
 package com.riku1227.viewrchat.activity
 
 import android.content.Intent
-import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.GestureDetector
-import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.AppLaunchChecker
 import androidx.core.view.GravityCompat
-import androidx.core.view.ViewCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.navigation.NavigationView
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.db.CacheTimeDataDB
@@ -35,9 +30,9 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.abs
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    lateinit var gestureDetector: GestureDetector
+    private lateinit var gestureDetector: GestureDetector
     private val compositeDisposable = CompositeDisposable()
 
     private lateinit var viewModel: MainActivityViewModel
@@ -165,6 +160,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupDrawer() {
         val headerView = mainActivityNavigationDrawer.getHeaderView(0)
 
+        mainActivityNavigationDrawer.setNavigationItemSelectedListener(this)
+
         if(viewModel.loginUser == null) {
             val disposable = VRChatlin.get(applicationContext).APIService().getCurrentUserInfo()
                 .subscribeOn(Schedulers.io())
@@ -186,8 +183,8 @@ class MainActivity : AppCompatActivity() {
                                             headerView.findViewById<ImageView>(R.id.drawerMainActivityUserThumbnail)
                                         )
                                 },
-                                {
-                                    ErrorHandling.onNetworkError(it, applicationContext, activity = this)
+                                { error ->
+                                    ErrorHandling.onNetworkError(error, applicationContext, activity = this)
                                 }
                             )
                         compositeDisposable.add(disposable02)
@@ -218,8 +215,8 @@ class MainActivity : AppCompatActivity() {
                                     headerView.findViewById<ImageView>(R.id.drawerMainActivityUserThumbnail)
                                 )
                         },
-                        {
-                            ErrorHandling.onNetworkError(it, applicationContext, activity = this)
+                        { error ->
+                            ErrorHandling.onNetworkError(error, applicationContext, activity = this)
                         }
                     )
                 compositeDisposable.add(disposable02)
@@ -230,5 +227,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId) {
+            R.id.mainActivityDrawerSettings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        mainActivityDrawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 }
