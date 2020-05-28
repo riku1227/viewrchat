@@ -103,7 +103,7 @@ class FriendsLocationFragment : Fragment() {
                         viewModel.friendsLocationRecyclerAdapter = FriendsLocationRecyclerAdapter(requireContext(), this, compositeDisposable, locationMap, locationList, it.size)
 
                         if(locationList.size > 0) {
-                            fragmentFriendsLocationSwipeRefreshLayout.visibility = View.VISIBLE
+                            fragmentFriendsLocationRecycler.visibility = View.VISIBLE
                             fragmentFriendsLocationNoneUserRoot.visibility = View.GONE
                             fragmentFriendsLocationRecycler.adapter = viewModel.friendsLocationRecyclerAdapter
                             val layoutManager = LinearLayoutManager(requireContext())
@@ -124,10 +124,10 @@ class FriendsLocationFragment : Fragment() {
                         }
 
                         if(locationList.size > 0) {
-                            fragmentFriendsLocationSwipeRefreshLayout.visibility = View.VISIBLE
+                            fragmentFriendsLocationRecycler.visibility = View.VISIBLE
                             fragmentFriendsLocationNoneUserRoot.visibility = View.GONE
                         } else {
-                            fragmentFriendsLocationSwipeRefreshLayout.visibility = View.GONE
+                            fragmentFriendsLocationRecycler.visibility = View.GONE
                             fragmentFriendsLocationNoneUserRoot.visibility = View.VISIBLE
                         }
                     }
