@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.system.ErrorHandling
+import com.riku1227.viewrchat.util.SettingsUtil
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.VRChatlinCookieJar
 
@@ -23,6 +24,9 @@ class WebViewLoginActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        SettingsUtil.initBlackTheme(this)
+
         setContentView(R.layout.activity_web_view_login)
 
         val cookieManager = CookieManager.getInstance()

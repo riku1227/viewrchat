@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ListPreference
         app:defaultValue="follow_system"
@@ -9,6 +8,13 @@
         app:key="preferences_appearance_theme_key"
         app:title="@string/activity_settings_appearance_theme"
         app:useSimpleSummaryProvider="true"
-        android:icon="@drawable/ic_theme"/>
+        app:icon="@drawable/ic_theme"/>
+
+    <SwitchPreferenceCompat
+        app:title="@string/activity_settings_appearance_enable_black_theme"
+        app:summary="@string/activity_settings_appearance_enable_black_theme_summary"
+        app:icon="@drawable/ic_phone_oled"
+        app:defaultValue="false"
+        app:key="preferences_appearance_enable_black_theme_key"/>
 
 </PreferenceScreen>

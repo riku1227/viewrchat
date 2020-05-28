@@ -85,6 +85,8 @@
     <string name="activity_settings_appearance_theme_light">Light</string>
     <string name="activity_settings_appearance_theme_dark">Dark</string>
     <string name="activity_settings_appearance_theme_black">Black (for OLED display device)</string>
+    <string name="activity_settings_appearance_enable_black_theme">Enable Black theme</string>
+    <string name="activity_settings_appearance_enable_black_theme_summary">Optimized for OLED display devices</string>
 
     <!-- Crash Report Dialog -->
     <string name="dialog_crash_report_title">App Crashed</string>

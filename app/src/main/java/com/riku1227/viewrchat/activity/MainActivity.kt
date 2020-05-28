@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
@@ -20,6 +21,7 @@ import com.riku1227.viewrchat.dialog.CrashReportDialog
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.system.CrashDetection
 import com.riku1227.viewrchat.system.ErrorHandling
+import com.riku1227.viewrchat.util.SettingsUtil
 import com.riku1227.viewrchat.util.VRCUtil
 import com.riku1227.viewrchat.view_model.MainActivityViewModel
 import com.riku1227.vrchatlin.VRChatlin
@@ -39,6 +41,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        SettingsUtil.initBlackTheme(this)
+
         setContentView(R.layout.activity_main)
         setSupportActionBar(mainActivityToolbar)
 

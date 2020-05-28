@@ -57,6 +57,8 @@
     <string name="activity_settings_appearance_theme_light">ライト</string>
     <string name="activity_settings_appearance_theme_dark">ダーク</string>
     <string name="activity_settings_appearance_theme_black">ブラック (有機ELディスプレイ端末向け)</string>
+    <string name="activity_settings_appearance_enable_black_theme">ブラックテーマを有効化する</string>
+    <string name="activity_settings_appearance_enable_black_theme_summary">有機ELディスプレ端末向けに最適化されています</string>
 
     <!-- General -->
     <string name="general_cooltime_now">クールタイム中…</string>

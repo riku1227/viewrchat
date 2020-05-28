@@ -6,12 +6,16 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceScreen
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.fragment.SettingsFragment
+import com.riku1227.viewrchat.util.SettingsUtil
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        SettingsUtil.initBlackTheme(this)
+
         setContentView(R.layout.activity_settings)
         setSupportActionBar(settingsActivityToolbar)
         if(savedInstanceState == null) {
