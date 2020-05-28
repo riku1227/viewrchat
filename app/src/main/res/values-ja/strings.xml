@@ -51,6 +51,7 @@
     <!-- Settings Activity -->
     <string name="title_activity_settings">設定</string>
     <string name="activity_settings_appearance_title">外観</string>
+    <string name="activity_settings_appearance_summary">テーマなど&#8230;</string>
     <string name="activity_settings_appearance_theme">テーマ</string>
     <string name="activity_settings_appearance_theme_follow_system">システム</string>
     <string name="activity_settings_appearance_theme_light">ライト</string>

@@ -2,7 +2,9 @@
 
     <PreferenceScreen
         app:title="@string/activity_settings_appearance_title"
-        app:key="preferences_appearance">
+        app:key="preferences_appearance"
+        app:summary="@string/activity_settings_appearance_summary"
+        app:icon="@drawable/ic_photo_filter_24px">
 
         <ListPreference
             app:defaultValue="follow_system"

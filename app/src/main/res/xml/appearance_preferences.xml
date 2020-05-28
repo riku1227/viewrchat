@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListPreference
         app:defaultValue="follow_system"
@@ -8,6 +8,7 @@
         app:entryValues="@array/preferences_appearance_theme_values"
         app:key="preferences_appearance_theme_key"
         app:title="@string/activity_settings_appearance_theme"
-        app:useSimpleSummaryProvider="true" />
+        app:useSimpleSummaryProvider="true"
+        android:icon="@drawable/ic_theme"/>
 
 </PreferenceScreen>
