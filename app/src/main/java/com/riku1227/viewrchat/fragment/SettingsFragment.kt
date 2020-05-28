@@ -1,10 +1,10 @@
 package com.riku1227.viewrchat.fragment
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.riku1227.viewrchat.R
+import com.riku1227.viewrchat.util.SettingsUtil
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -35,12 +35,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val themePreferences: ListPreference? = findPreference("preferences_appearance_theme_key")
         themePreferences?.let {
             it.setOnPreferenceChangeListener { _, newValue ->
-                when(newValue.toString()) {
-                    "follow_system" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                    "light_theme" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    "dark_theme" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                }
+                SettingsUtil.setDayNightTheme(newValue.toString())
                 return@setOnPreferenceChangeListener true
             }
         }

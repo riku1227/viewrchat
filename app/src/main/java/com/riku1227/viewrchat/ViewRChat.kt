@@ -3,11 +3,10 @@ package com.riku1227.viewrchat
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.preference.PreferenceManager
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.riku1227.viewrchat.util.RadiusOutlineProvider
+import com.riku1227.viewrchat.util.SettingsUtil
 
 class ViewRChat: Application() {
     companion object {
@@ -31,12 +30,6 @@ class ViewRChat: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        when(preferences.getString("preferences_appearance_theme_key", "")) {
-            "follow_system" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            "light_theme" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            "dark_theme" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        }
+        SettingsUtil.initDayNightTheme(applicationContext)
     }
 }
