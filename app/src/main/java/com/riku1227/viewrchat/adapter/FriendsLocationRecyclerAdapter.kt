@@ -26,7 +26,6 @@ import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import kotlin.collections.ArrayList
 
 class FriendsLocationRecyclerAdapter(
@@ -93,6 +92,12 @@ class FriendsLocationRecyclerAdapter(
                 {
                     holder.recyclerFriendsLocationWorldName.text = it.name
                     holder.recyclerFriendsLocationWorldDescription.text = it.description
+
+                    if(ViewRChat.isPhotographingMode) {
+                        holder.recyclerFriendsLocationWorldName.text = context.getString(R.string.photographing_mode_world_name)
+                        holder.recyclerFriendsLocationWorldDescription.text = context.getString(R.string.photographing_mode_world_description)
+                    }
+
                     CacheSystem.loadImage(context, CacheSystem.CacheType.WORLD_IMAGE, it.id, it.thumbnailImageUrl)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

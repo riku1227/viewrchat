@@ -5,11 +5,14 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.riku1227.viewrchat.util.FileUtil
 import com.riku1227.viewrchat.util.RadiusOutlineProvider
 import com.riku1227.viewrchat.util.SettingsUtil
+import java.io.File
 
 class ViewRChat: Application() {
     companion object {
+        var isPhotographingMode = false
         val imageRadiusOutlineProvider = RadiusOutlineProvider(8F)
 
         fun getVRChatCookiePreferences(context: Context): SharedPreferences {
@@ -31,5 +34,16 @@ class ViewRChat: Application() {
     override fun onCreate() {
         super.onCreate()
         SettingsUtil.initDayNightTheme(applicationContext)
+        isPhotographingMode = SettingsUtil.isPhotographingMode(applicationContext)
+
+        val imageFolder = File(cacheDir, "assets/images")
+        if(!imageFolder.exists()) {
+            imageFolder.mkdirs()
+        }
+
+        val photographingImage = File(imageFolder, "photographing_mode.png")
+        if(!photographingImage.exists()) {
+            FileUtil.copyFromAssetsToCache(applicationContext, "images/photographing_mode.png", photographingImage)
+        }
     }
 }

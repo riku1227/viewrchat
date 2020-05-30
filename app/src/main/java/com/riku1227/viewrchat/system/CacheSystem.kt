@@ -1,6 +1,7 @@
 package com.riku1227.viewrchat.system
 
 import android.content.Context
+import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.data.CacheTimeData
 import com.riku1227.viewrchat.db.CacheTimeDataDB
 import com.riku1227.viewrchat.util.FileUtil
@@ -73,36 +74,50 @@ class CacheSystem {
 
         fun loadImage(context: Context, cacheType: String, id: String, url: String, notUpdate: Boolean = false): Single<File> {
             return Single.create {
-                val removeTypeID = id.replace("${cacheType}_", "")
-                val cacheFile = File(getCacheDir(context, cacheType), removeTypeID)
-                val isUpdate: Boolean = if(notUpdate) {
-                    false
-                } else isExpiredCache(context, removeTypeID, cacheType)
-                if(!cacheFile.exists() || isUpdate) {
-                    val request = Request.Builder().url(url).build()
-                    try {
-                        val response = httpClient.newCall(request).execute()
-                        if(response.isSuccessful) {
-                            val responseBody = response.body
-                            if(responseBody != null) {
-                                cacheFile.sink().buffer().let { bufferedSink ->
-                                    bufferedSink.writeAll(responseBody.source())
-                                    bufferedSink.flush()
-                                    bufferedSink.close()
-                                }
-                                CacheTimeDataDB.getInstance(context).saveData( CacheTimeData("${cacheType}_$removeTypeID", cacheType, System.currentTimeMillis() / 1000) )
-                                it.onSuccess(cacheFile)
-                            } else {
-                                it.onError(Throwable("Response body is null"))
-                            }
-                        } else {
-                            it.onError(Throwable("Response is not successful"))
-                        }
-                    } catch (e: IOException) {
-                        it.onError(e)
+                if(ViewRChat.isPhotographingMode) {
+                    val imageFolder = File(context.cacheDir, "assets/images")
+                    if(!imageFolder.exists()) {
+                        imageFolder.mkdirs()
                     }
+
+                    val photographingImage = File(imageFolder, "photographing_mode.png")
+                    if(!photographingImage.exists()) {
+                        FileUtil.copyFromAssetsToCache(context, "images/photographing_mode.png", photographingImage)
+                    }
+
+                    it.onSuccess(photographingImage)
+                } else {
+                    val removeTypeID = id.replace("${cacheType}_", "")
+                    val cacheFile = File(getCacheDir(context, cacheType), removeTypeID)
+                    val isUpdate: Boolean = if(notUpdate) {
+                        false
+                    } else isExpiredCache(context, removeTypeID, cacheType)
+                    if(!cacheFile.exists() || isUpdate) {
+                        val request = Request.Builder().url(url).build()
+                        try {
+                            val response = httpClient.newCall(request).execute()
+                            if(response.isSuccessful) {
+                                val responseBody = response.body
+                                if(responseBody != null) {
+                                    cacheFile.sink().buffer().let { bufferedSink ->
+                                        bufferedSink.writeAll(responseBody.source())
+                                        bufferedSink.flush()
+                                        bufferedSink.close()
+                                    }
+                                    CacheTimeDataDB.getInstance(context).saveData( CacheTimeData("${cacheType}_$removeTypeID", cacheType, System.currentTimeMillis() / 1000) )
+                                    it.onSuccess(cacheFile)
+                                } else {
+                                    it.onError(Throwable("Response body is null"))
+                                }
+                            } else {
+                                it.onError(Throwable("Response is not successful"))
+                            }
+                        } catch (e: IOException) {
+                            it.onError(e)
+                        }
+                    }
+                    it.onSuccess(cacheFile)
                 }
-                it.onSuccess(cacheFile)
             }
         }
 

@@ -3,20 +3,17 @@ package com.riku1227.viewrchat.adapter
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.util.VRCUtil
-import com.riku1227.viewrchat.util.setTextViewDrawableColor
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.squareup.picasso.Picasso
@@ -98,6 +95,7 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
 
         if(friend.statusDescription.isNullOrEmpty()) {
             holder.recyclerFriendsListStatusDescription.visibility = View.GONE
+            holder.recyclerFriendsListStatusDescription.text = ""
         } else {
             holder.recyclerFriendsListStatusDescription.visibility = View.VISIBLE
             holder.recyclerFriendsListStatusDescription.text = friend.statusDescription
@@ -105,9 +103,16 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
 
         if(friend.bio.isNullOrEmpty()) {
             holder.recyclerFriendsListBio.visibility = View.GONE
+            holder.recyclerFriendsListBio.text = ""
         } else {
             holder.recyclerFriendsListBio.visibility = View.VISIBLE
             holder.recyclerFriendsListBio.text = friend.bio
+        }
+
+        if(ViewRChat.isPhotographingMode) {
+            holder.recyclerFriendsListUserName.text = context.getString(R.string.photographing_mode_user_name)
+            holder.recyclerFriendsListStatusDescription.text = context.getString(R.string.photographing_mode_user_description)
+            holder.recyclerFriendsListBio.text = context.getString(R.string.photographing_mode_user_bio)
         }
 
         holder.recyclerFriendsListLocationImage.outlineProvider = ViewRChat.imageRadiusOutlineProvider
@@ -159,6 +164,10 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
                             {
                                 holder.recyclerFriendsListLocationName.text = it.name
                                 holder.recyclerFriendsListLocationInstanceType.text = VRCUtil.getInstanceTypeFromInstanceID(instanceId)
+
+                                if(ViewRChat.isPhotographingMode) {
+                                    holder.recyclerFriendsListLocationName.text = context.getString(R.string.photographing_mode_world_name)
+                                }
 
                                 CacheSystem.loadImage(context, CacheSystem.CacheType.WORLD_IMAGE, it.id, it.thumbnailImageUrl)
                                     .subscribeOn(Schedulers.io())

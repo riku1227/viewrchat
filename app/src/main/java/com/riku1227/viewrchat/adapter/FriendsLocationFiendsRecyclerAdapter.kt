@@ -59,6 +59,10 @@ class FriendsLocationFiendsRecyclerAdapter(private val context: Context, private
             holder.recyclerFriendsLocationFriendsLastPlatform.text = VRCUtil.getLastLoginPlatform(it.last_platform)
             holder.recyclerFriendsLocationFriendsStatus.text = it.status!!.toUpperCase(Locale.getDefault())
             holder.recyclerFriendsLocationFriendsStatusIcon.setColorFilter(VRCUtil.getStatusIconColor(context, it.status))
+
+            if(ViewRChat.isPhotographingMode) {
+                holder.recyclerFriendsLocationFriendsUserName.text = context.getString(R.string.photographing_mode_user_name)
+            }
         }
     }
 

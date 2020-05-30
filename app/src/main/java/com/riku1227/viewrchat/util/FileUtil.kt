@@ -28,5 +28,14 @@ class FileUtil {
 
             return VRChatlin.get(context).getMoshi().adapter(jsonObject).fromJson(jsonText)
         }
+
+        fun copyFromAssetsToCache(context: Context, fileName: String, outputFile: File) {
+            val inputStream = context.assets.open(fileName)
+            outputFile.sink().buffer().let {
+                it.writeAll(inputStream.source())
+                it.flush()
+                it.close()
+            }
+        }
     }
 }

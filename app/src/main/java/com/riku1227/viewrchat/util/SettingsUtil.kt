@@ -31,5 +31,10 @@ class SettingsUtil {
                 }
             }
         }
+
+        fun isPhotographingMode(context: Context): Boolean {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getBoolean("preferences_appearance_enable_photographing_mode_key", false)
+        }
     }
 }

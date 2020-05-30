@@ -43,6 +43,13 @@
     <string name="fragment_friends_location_updated_instance_info">インスタンス情報を更新しました</string>
     <string name="fragment_friends_location_none_user_text">フレンド+以上のインスタンスに居るフレンドがいません</string>
 
+    <!-- Photographing_mode -->
+    <string name="photographing_mode_user_name">ユーザーネーム</string>
+    <string name="photographing_mode_user_description">ユーザーのステータス</string>
+    <string name="photographing_mode_user_bio">ユーザーのBio</string>
+    <string name="photographing_mode_world_name">ワールドの名前</string>
+    <string name="photographing_mode_world_description">ワールドの説明</string>
+
     <!-- Crash Report Dialog -->
     <string name="dialog_crash_report_title">アプリがクラッシュしました</string>
     <string name="dialog_crash_report_positive">ログをコピーする</string>
@@ -59,6 +66,8 @@
     <string name="activity_settings_appearance_theme_black">ブラック (有機ELディスプレイ端末向け)</string>
     <string name="activity_settings_appearance_enable_black_theme">ブラックテーマを有効化する</string>
     <string name="activity_settings_appearance_enable_black_theme_summary">有機ELディスプレ端末向けに最適化されています</string>
+    <string name="activity_settings_appearance_enable_photographing_mode">撮影モードを有効化する</string>
+    <string name="activity_settings_appearance_enable_photographing_mode_summary">ワールド情報やユーザー情報などを非表示にします</string>
 
     <!-- General -->
     <string name="general_cooltime_now">クールタイム中…</string>
