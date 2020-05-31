@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ListPreference
-        app:defaultValue="follow_system"
-        app:entries="@array/preferences_appearance_theme_entries"
-        app:entryValues="@array/preferences_appearance_theme_values"
-        app:key="preferences_appearance_theme_key"
-        app:title="@string/activity_settings_appearance_theme"
-        app:useSimpleSummaryProvider="true"
-        app:icon="@drawable/ic_theme"/>
+    <Preference
+        app:title="@string/activity_settings_appearance_restart_to_apply"
+        app:iconSpaceReserved="false" />
 
-    <SwitchPreferenceCompat
-        app:title="@string/activity_settings_appearance_enable_black_theme"
-        app:summary="@string/activity_settings_appearance_enable_black_theme_summary"
-        app:icon="@drawable/ic_phone_oled"
-        app:defaultValue="false"
-        app:key="preferences_appearance_enable_black_theme_key"/>
+    <PreferenceCategory
+        app:title="@string/activity_settings_appearance_general"
+        app:iconSpaceReserved="false">
 
-    <SwitchPreferenceCompat
-        app:title="@string/activity_settings_appearance_enable_photographing_mode"
-        app:summary="@string/activity_settings_appearance_enable_photographing_mode_summary"
-        app:icon="@drawable/ic_photo_camera_24px"
-        app:defaultValue="false"
-        app:key="preferences_appearance_enable_photographing_mode_key"/>
+        <ListPreference
+            app:defaultValue="follow_system"
+            app:entries="@array/preferences_appearance_theme_entries"
+            app:entryValues="@array/preferences_appearance_theme_values"
+            app:key="preferences_appearance_theme_key"
+            app:title="@string/activity_settings_appearance_theme"
+            app:useSimpleSummaryProvider="true"
+            app:icon="@drawable/ic_theme"/>
+
+        <SwitchPreferenceCompat
+            app:title="@string/activity_settings_appearance_enable_black_theme"
+            app:summary="@string/activity_settings_appearance_enable_black_theme_summary"
+            app:icon="@drawable/ic_phone_oled"
+            app:defaultValue="false"
+            app:key="preferences_appearance_enable_black_theme_key"/>
+
+        <SwitchPreferenceCompat
+            app:title="@string/activity_settings_appearance_enable_photographing_mode"
+            app:summary="@string/activity_settings_appearance_enable_photographing_mode_summary"
+            app:icon="@drawable/ic_photo_camera_24px"
+            app:defaultValue="false"
+            app:key="preferences_appearance_enable_photographing_mode_key"/>
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

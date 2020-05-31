@@ -59,6 +59,8 @@
     <string name="title_activity_settings">設定</string>
     <string name="activity_settings_appearance_title">外観</string>
     <string name="activity_settings_appearance_summary">テーマなど&#8230;</string>
+    <string name="activity_settings_appearance_restart_to_apply">変更を適応するには再起動してください</string>
+    <string name="activity_settings_appearance_general">全般</string>
     <string name="activity_settings_appearance_theme">テーマ</string>
     <string name="activity_settings_appearance_theme_follow_system">システム</string>
     <string name="activity_settings_appearance_theme_light">ライト</string>
