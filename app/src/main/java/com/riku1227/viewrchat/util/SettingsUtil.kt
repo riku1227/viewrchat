@@ -1,6 +1,7 @@
 package com.riku1227.viewrchat.util
 
 import android.content.Context
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
@@ -24,12 +25,20 @@ class SettingsUtil {
 
         fun initBlackTheme(activity: AppCompatActivity) {
             activity.let {
-                val preferences = PreferenceManager.getDefaultSharedPreferences(it.applicationContext)
-                val isBlackTheme = preferences.getBoolean("preferences_appearance_enable_black_theme_key", false)
-                if(isBlackTheme) {
+                if(isBlackTheme(activity.applicationContext)) {
                     it.setTheme(R.style.AppTheme_Black)
                 }
             }
+        }
+
+        fun isDarkTheme(context: Context): Boolean {
+            val currentNightMode = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+            return currentNightMode == Configuration.UI_MODE_NIGHT_YES
+        }
+
+        fun isBlackTheme(context: Context): Boolean {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getBoolean("preferences_appearance_enable_black_theme_key", false)
         }
 
         fun isPhotographingMode(context: Context): Boolean {

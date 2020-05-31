@@ -15,4 +15,6 @@
     <color name="statusIconColorAskMe">#ff9800</color>
     <color name="statusIconColorDND">#e53935</color>
     <color name="statusIconColorOffline">#9e9e9e</color>
+
+    <color name="black">#000000</color>
 </resources>

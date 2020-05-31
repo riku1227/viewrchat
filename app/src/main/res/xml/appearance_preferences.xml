@@ -17,4 +17,11 @@
         app:defaultValue="false"
         app:key="preferences_appearance_enable_black_theme_key"/>
 
+    <SwitchPreferenceCompat
+        app:title="@string/activity_settings_appearance_enable_photographing_mode"
+        app:summary="@string/activity_settings_appearance_enable_photographing_mode_summary"
+        app:icon="@drawable/ic_photo_camera_24px"
+        app:defaultValue="false"
+        app:key="preferences_appearance_enable_photographing_mode_key"/>
+
 </PreferenceScreen>

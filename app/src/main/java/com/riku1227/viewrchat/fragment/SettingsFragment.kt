@@ -1,6 +1,12 @@
 package com.riku1227.viewrchat.fragment
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.riku1227.viewrchat.R
@@ -16,6 +22,20 @@ class SettingsFragment : PreferenceFragmentCompat() {
             fragment.arguments = bundle
             return fragment
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
+        view?.let {
+            if(SettingsUtil.isBlackTheme(requireContext()) && SettingsUtil.isDarkTheme(requireContext())) {
+                view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.black))
+            }
+        }
+        return view
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
