@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.AppLaunchChecker
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -163,6 +164,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setupDrawer() {
+        if(SettingsUtil.isDarkTheme(applicationContext) && SettingsUtil.isBlackTheme(applicationContext)) {
+            mainActivityNavigationDrawer?.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.black))
+        }
         val headerView = mainActivityNavigationDrawer.getHeaderView(0)
 
         mainActivityNavigationDrawer.setNavigationItemSelectedListener(this)
