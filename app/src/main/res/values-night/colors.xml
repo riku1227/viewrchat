@@ -15,4 +15,10 @@
     <color name="statusIconColorAskMe">#ffb74d</color>
     <color name="statusIconColorDND">#ef5350</color>
     <color name="statusIconColorOffline">#6c6c6c</color>
+
+    <color name="trustLevelVisitor">#9e9e9e</color>
+    <color name="trustLevelNewUser">#42a5f5</color>
+    <color name="trustLevelUser">#66bb6a</color>
+    <color name="trustLevelKnownUser">#ff7043</color>
+    <color name="trustLevelTrustedUser">#7e57c2</color>
 </resources>

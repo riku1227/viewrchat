@@ -9,10 +9,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
 import com.riku1227.viewrchat.system.CacheSystem
+import com.riku1227.viewrchat.util.SettingsUtil
 import com.riku1227.viewrchat.util.VRCUtil
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
@@ -33,6 +36,7 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
     }
 
     class FriendsListRecyclerViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        val recyclerFriendsListCard: MaterialCardView = view.findViewById(R.id.recyclerFriendsListCard)
         val recyclerFriendsListUserAvatarImage: ImageView = view.findViewById(R.id.recyclerFriendsListUserAvatarImage)
         val recyclerFriendsListUserName: TextView = view.findViewById(R.id.recyclerFriendsListUserName)
         val recyclerFriendsListLastPlatform: TextView = view.findViewById(R.id.recyclerFriendsListLastPlatform)
@@ -64,6 +68,17 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         }
 
         val friend = friendsList[position]
+
+        if(SettingsUtil.isFriendsListColoredBorder(context)) {
+            val outlineColorId = when (VRCUtil.getTrustRank(friend.tags)) {
+                VRCUtil.TRUST_VETERAN_USER, VRCUtil.TRUST_TRUSTED_USER -> R.color.trustLevelTrustedUser
+                VRCUtil.TRUST_KNOWN_USER -> R.color.trustLevelKnownUser
+                VRCUtil.TRUST_USER -> R.color.trustLevelUser
+                VRCUtil.TRUST_NEW_USER -> R.color.trustLevelNewUser
+                else -> R.color.trustLevelVisitor
+            }
+            holder.recyclerFriendsListCard.strokeColor = ContextCompat.getColor(context, outlineColorId)
+        }
 
         val bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
         val drawable = BitmapDrawable(context.resources, bitmap)

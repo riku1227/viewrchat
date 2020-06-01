@@ -6,6 +6,13 @@ import com.riku1227.viewrchat.R
 
 class VRCUtil {
     companion object {
+        const val TRUST_VISITOR = "Visitor"
+        const val TRUST_NEW_USER = "New User"
+        const val TRUST_USER = "User"
+        const val TRUST_KNOWN_USER = "Known User"
+        const val TRUST_TRUSTED_USER = "Trusted User"
+        const val TRUST_VETERAN_USER = "Trusted User (Veteran)"
+
         fun getInstanceTypeFromInstanceID(instanceID: String): String {
             return if(instanceID.indexOf("hidden") != -1) {
                 "FRIENDS+"
@@ -37,12 +44,12 @@ class VRCUtil {
 
         fun getTrustRank(tags: List<String>): String {
             return when {
-                tags.contains("system_trust_legend") -> "Trusted User (Veteran)"
-                tags.contains("system_trust_veteran") -> "Trusted User"
-                tags.contains("system_trust_trusted") -> "Known User"
-                tags.contains("system_trust_known") -> "User"
-                tags.contains("system_trust_basic") -> "New User"
-                else -> "Visitor"
+                tags.contains("system_trust_legend") -> TRUST_VETERAN_USER
+                tags.contains("system_trust_veteran") -> TRUST_TRUSTED_USER
+                tags.contains("system_trust_trusted") -> TRUST_KNOWN_USER
+                tags.contains("system_trust_known") -> TRUST_USER
+                tags.contains("system_trust_basic") -> TRUST_NEW_USER
+                else -> TRUST_VISITOR
             }
         }
     }

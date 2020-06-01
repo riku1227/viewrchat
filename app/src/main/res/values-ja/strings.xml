@@ -70,6 +70,9 @@
     <string name="activity_settings_appearance_enable_black_theme_summary">有機ELディスプレ端末向けに最適化されています</string>
     <string name="activity_settings_appearance_enable_photographing_mode">撮影モードを有効化する</string>
     <string name="activity_settings_appearance_enable_photographing_mode_summary">ワールド情報やユーザー情報などを非表示にします</string>
+    <string name="activity_settings_appearance_friends_list">フレンドリスト</string>
+    <string name="activity_settings_appearance_colored_border">ボーダーに色を付ける</string>
+    <string name="activity_settings_appearance_colored_border_summary">ユーザーのトラストレベルに対応した色が付けれられます</string>
 
     <!-- General -->
     <string name="general_cooltime_now">クールタイム中…</string>

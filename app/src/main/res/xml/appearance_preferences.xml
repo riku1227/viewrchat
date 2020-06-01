@@ -34,4 +34,17 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:title="@string/activity_settings_appearance_friends_list"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            app:title="@string/activity_settings_appearance_colored_border"
+            app:summary="@string/activity_settings_appearance_colored_border_summary"
+            app:icon="@drawable/ic_border_style_24px"
+            app:defaultValue="false"
+            app:key="preferences_appearance_enable_friends_list_colored_border"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
