@@ -12,6 +12,8 @@
 
         <item name="cardBackGroundColor">?attr/colorSurface</item>
         <item name="cardStrokeColor">@color/stroke_color_14</item>
+        <item name="cardOutlineElevation">2dp</item>
+        <item name="cardStrokeWidth">0dp</item>
         <item name="cardElevation">2dp</item>
 
         <item name="bottomNavigationBackColor">?attr/colorOnPrimary</item>
@@ -35,10 +37,17 @@
         <item name="android:background">?attr/backgroundColor</item>
     </style>
 
-    <style name="Card" parent="Widget.MaterialComponents.CardView">
+    <style name="OutlineCard" parent="Widget.MaterialComponents.CardView">
         <item name="cardElevation">0dp</item>
         <item name="strokeWidth">1dp</item>
         <item name="strokeColor">?attr/cardStrokeColor</item>
+    </style>
+
+    <style name="Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">?attr/cardBackGroundColor</item>
+        <item name="strokeColor">@color/textColorDisabled</item>
+        <item name="strokeWidth">?attr/cardStrokeWidth</item>
+        <item name="cardElevation">?attr/cardElevation</item>
     </style>
 
     <style name="SnackBar" parent="Widget.MaterialComponents.Snackbar">

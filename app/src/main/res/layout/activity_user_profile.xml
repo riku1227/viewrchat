@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.UserProfileActivity"
+    style="@style/RootLayout"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/userProfileActivityToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ToolBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.UserProfileActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/userInfoCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/Card"
+                android:visibility="gone">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/userProfileActivityAvatarThumbnail"
+                        android:layout_width="160dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="4dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/userProfileActivityUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toEndOf="@+id/userProfileActivityAvatarThumbnail"
+                        app:layout_constraintStart_toStartOf="@+id/userProfileActivityAvatarThumbnail"
+                        app:layout_constraintTop_toBottomOf="@+id/userProfileActivityAvatarThumbnail" />
+
+                    <TextView
+                        android:id="@+id/userProfileActivityUserBio"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/userProfileActivityUserName" />
+
+                    <View
+                        android:id="@+id/userProfileActivityUserView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="8dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/userProfileActivityUserBio" />
+
+                    <TextView
+                        android:id="@+id/userProfileActivityLanguagesText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/activity_user_profile_languages"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/userProfileActivityUserView" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/userProfileActivityLanguages"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/userProfileActivityLanguagesText" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/userStatusCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userInfoCard"
+                style="@style/Card"
+                android:visibility="gone">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/activity_user_profile_status"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/userProfileActivityStatusIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="12dp"
+                        android:src="@drawable/ic_lens_24px"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+                    <TextView
+                        android:id="@+id/userProfileActivityUserStatus"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/userProfileActivityStatusIcon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/userProfileActivityStatusIcon"
+                        app:layout_constraintTop_toTopOf="@+id/userProfileActivityStatusIcon" />
+
+                    <ImageView
+                        android:id="@+id/userProfileActivityLastPlatformIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_devices_24px"
+                        android:tint="@color/textColorMedium"
+                        app:layout_constraintStart_toStartOf="@+id/userProfileActivityStatusIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/userProfileActivityUserStatus" />
+
+                    <TextView
+                        android:id="@+id/userProfileActivityLastPlatform"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/userProfileActivityLastPlatformIcon"
+                        app:layout_constraintStart_toEndOf="@+id/userProfileActivityLastPlatformIcon"
+                        app:layout_constraintTop_toTopOf="@+id/userProfileActivityLastPlatformIcon" />
+
+                    <ImageView
+                        android:id="@+id/userProfileActivityTrustRankIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/ic_verified_user_24px"
+                        android:tint="@color/textColorMedium"
+                        app:layout_constraintStart_toStartOf="@+id/userProfileActivityStatusIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/userProfileActivityLastPlatformIcon" />
+
+                    <TextView
+                        android:id="@+id/userProfileActivityTrustRank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/userProfileActivityTrustRankIcon"
+                        app:layout_constraintStart_toEndOf="@+id/userProfileActivityTrustRankIcon"
+                        app:layout_constraintTop_toTopOf="@+id/userProfileActivityTrustRankIcon" />
+
+                    <View
+                        android:id="@+id/userProfileActivityUserStatusView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="8dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/userProfileActivityTrustRank" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/activity_user_profile_location"
+                        android:textSize="16sp"
+                        android:layout_margin="8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/userProfileActivityUserStatusView" />
+
+                    <ImageView
+                        android:id="@+id/userProfileActivityLocationImage"
+                        android:layout_width="120dp"
+                        android:layout_height="90dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+                    <LinearLayout
+                        android:id="@+id/userProfileActivityLocationTextRoot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@+id/userProfileActivityLocationImage"
+                        app:layout_constraintStart_toEndOf="@+id/userProfileActivityLocationImage"
+                        app:layout_constraintTop_toTopOf="@+id/userProfileActivityLocationImage">
+
+                        <TextView
+                            android:id="@+id/userProfileActivityLocationName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/textColor"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/userProfileActivityLocationInstanceType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/userProfileActivityLinksCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userStatusCard"
+                style="@style/Card"
+                android:visibility="gone">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/activity_user_profile_links"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_margin="8dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/userProfileActivityLinks"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</LinearLayout>

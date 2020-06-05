@@ -52,5 +52,42 @@ class VRCUtil {
                 else -> TRUST_VISITOR
             }
         }
+
+        fun getLanguagesList(tags: List<String>): List<String> {
+            val result = arrayListOf<String>()
+
+            for (value in tags) {
+                when (value.replace("language_", "")) {
+                    "eng" -> result.add("[ eng ] English")
+                    "kor" -> result.add("[ kor ] 한국어")
+                    "rus" -> result.add("[ rus ] Русский")
+                    "spa" -> result.add("[ spa ] Español")
+                    "por" -> result.add("[ por ] Português")
+                    "zho" -> result.add("[ zho ] 中文")
+                    "deu" -> result.add("[ deu ] Deutsch")
+                    "jpn" -> result.add("[ jpn ] 日本語")
+                    "fra" -> result.add("[ fra ] Français")
+                    "swe" -> result.add("[ swe ] Svenska")
+                    "nld" -> result.add("[ nld ] Nederlands")
+                    "pol" -> result.add("[ pol ] Polski")
+                    "dan" -> result.add("[ dan ] Dansk")
+                    "nor" -> result.add("[ nor ] Norsk")
+                    "ita" -> result.add("[ ita ] Italiano")
+                    "tha" -> result.add("[ tha ] ภาษาไทย")
+                    "fin" -> result.add("[ fin ] Suomi")
+                    "hun" -> result.add("[ hun ] Magyar")
+                    "ces" -> result.add("[ ces ] Čeština")
+                    "tur" -> result.add("[ tur ] Türkçe")
+                    "ara" -> result.add("[ ara ] العربية")
+                    "ase" -> result.add("[ ase ] American Sign Language")
+                    "bfi" -> result.add("[ bfi ] British Sign Language")
+                    "dse" -> result.add("[ dse ] Dutch Sign Language")
+                    "fsl" -> result.add("[ fsl ] French Sign Language")
+                    "kvk" -> result.add("[ kvk ] Korean Sign Language")
+                }
+            }
+
+            return result
+        }
     }
 }

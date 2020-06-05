@@ -102,6 +102,12 @@
     <string name="activity_settings_appearance_colored_border">Enable colored border</string>
     <string name="activity_settings_appearance_colored_border_summary">The user\'s trust level follow can be colored</string>
 
+    <!-- User Profile Activity -->
+    <string name="activity_user_profile_languages">Languages</string>
+    <string name="activity_user_profile_status">Status</string>
+    <string name="activity_user_profile_links">Links</string>
+    <string name="activity_user_profile_location">Location</string>
+
     <!-- Crash Report Dialog -->
     <string name="dialog_crash_report_title">App Crashed</string>
     <string name="dialog_crash_report_positive">Copy log</string>

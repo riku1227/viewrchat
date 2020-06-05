@@ -22,5 +22,9 @@
     <color name="trustLevelKnownUser">#f4511e</color>
     <color name="trustLevelTrustedUser">#5e35b1</color>
 
+    <color name="twitter_color">#1da1f2</color>
+    <color name="booth_color">#fc4d50</color>
+    <color name="github_color">#151013</color>
+
     <color name="black">#000000</color>
 </resources>

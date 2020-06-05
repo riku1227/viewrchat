@@ -74,6 +74,12 @@
     <string name="activity_settings_appearance_colored_border">ボーダーに色を付ける</string>
     <string name="activity_settings_appearance_colored_border_summary">ユーザーのトラストレベルに対応した色が付けれられます</string>
 
+    <!-- User Profile Activity -->
+    <string name="activity_user_profile_languages">言語</string>
+    <string name="activity_user_profile_status">ステータス</string>
+    <string name="activity_user_profile_links">リンク</string>
+    <string name="activity_user_profile_location">居る場所</string>
+
     <!-- General -->
     <string name="general_cooltime_now">クールタイム中…</string>
     <string name="general_last_login_platform">プラットフォーム: %1$s</string>

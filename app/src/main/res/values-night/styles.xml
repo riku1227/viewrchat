@@ -12,7 +12,9 @@
 
         <item name="cardBackGroundColor">?attr/colorSurface</item>
         <item name="cardStrokeColor">@color/stroke_color_16</item>
-        <item name="cardElevation">1dp</item>
+        <item name="cardOutlineElevation">1dp</item>
+        <item name="cardStrokeWidth">0dp</item>
+        <item name="cardElevation">2dp</item>
 
         <item name="bottomNavigationBackColor">#161616</item>
         <item name="bottomNavigationStrokeColor">@color/stroke_color_08</item>
@@ -36,6 +38,8 @@
 
         <item name="cardBackGroundColor">#000000</item>
         <item name="cardStrokeColor">@color/stroke_color_18</item>
+        <item name="cardOutlineElevation">0dp</item>
+        <item name="cardStrokeWidth">1dp</item>
         <item name="cardElevation">0dp</item>
 
         <item name="bottomNavigationBackColor">?attr/colorOnPrimary</item>

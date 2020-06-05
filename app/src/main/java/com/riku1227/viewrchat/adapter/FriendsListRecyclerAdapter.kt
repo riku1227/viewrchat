@@ -30,6 +30,7 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
     private var currentCount = 0
     private var onlineCount = 0
     private var offlineCount = 0
+    private var clickListener: OnClickListener? = null
 
     init {
         currentCount = itemCount
@@ -50,6 +51,10 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         val recyclerFriendsListLocationInstanceType: TextView = view.findViewById(R.id.recyclerFriendsListLocationInstanceType)
     }
 
+    interface OnClickListener {
+        fun onClick(user: VRChatUser)
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -68,6 +73,12 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         }
 
         val friend = friendsList[position]
+
+        clickListener?.let {
+            holder.recyclerFriendsListCard.setOnClickListener { _ ->
+                it.onClick(friend)
+            }
+        }
 
         if(SettingsUtil.isFriendsListColoredBorder(context)) {
             val outlineColorId = when (VRCUtil.getTrustRank(friend.tags)) {
@@ -255,5 +266,9 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         offlineCount = 0
         isOffline = false
         isNowLoad = false
+    }
+
+    fun setOnClickListener(listener: OnClickListener) {
+        clickListener = listener
     }
 }
