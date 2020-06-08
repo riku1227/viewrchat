@@ -192,10 +192,16 @@ class UserProfileActivity : AppCompatActivity() {
         }
 
         vrcUser.bioLinks?.let {
-            if(it.isNotEmpty()) {
+            if(it.isNotEmpty() && it[0].isNotBlank()) {
                 userProfileActivityLinksCard.visibility = View.VISIBLE
 
-                userProfileActivityLinks.adapter = UserLinksRecyclerAdapter(baseContext, it, this)
+                val removeEmptyList = arrayListOf<String>()
+                for (value in it) {
+                    if(value.isNotBlank()) {
+                        removeEmptyList.add(value)
+                    }
+                }
+                userProfileActivityLinks.adapter = UserLinksRecyclerAdapter(baseContext, removeEmptyList, this)
                 val layoutManager = LinearLayoutManager(baseContext)
                 layoutManager.orientation = LinearLayoutManager.VERTICAL
                 userProfileActivityLinks.layoutManager = layoutManager
