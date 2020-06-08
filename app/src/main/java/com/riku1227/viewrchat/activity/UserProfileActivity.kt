@@ -130,6 +130,7 @@ class UserProfileActivity : AppCompatActivity() {
                     userProfileActivityUserStatusView.visibility = View.GONE
                     userProfileActivityLocationImage.visibility = View.GONE
                     userProfileActivityLocationTextRoot.visibility = View.GONE
+                    userProfileActivityLocationText.visibility = View.GONE
                 }
 
                 "private" -> {
