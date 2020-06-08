@@ -16,7 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textAllCaps="false"
-        android:textColor="@color/textColor"
-        app:rippleColor="@color/textColor"/>
+        android:textColor="@color/colorAccent"
+        app:rippleColor="@color/colorAccent"
+        app:strokeColor="@color/colorAccent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

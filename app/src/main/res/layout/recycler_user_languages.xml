@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    style="@style/OutlineCard"
+    app:cardBackgroundColor="@color/stroke_color_08"
+    app:cardElevation="0dp"
     android:layout_margin="2dp">
 
     <TextView
@@ -13,9 +14,10 @@
         android:textSize="16sp"
         android:layout_gravity="center"
         android:textColor="@color/textColor"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textAllCaps="true"/>
 
 </com.google.android.material.card.MaterialCardView>
