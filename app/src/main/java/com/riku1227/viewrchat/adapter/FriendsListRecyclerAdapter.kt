@@ -1,6 +1,7 @@
 package com.riku1227.viewrchat.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
@@ -10,10 +11,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
+import com.riku1227.viewrchat.activity.UserProfileActivity
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.util.SettingsUtil
 import com.riku1227.viewrchat.util.VRCUtil
@@ -24,13 +27,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class FriendsListRecyclerAdapter(private val context: Context, private val compositeDisposable: CompositeDisposable , var friendsList: List<VRChatUser>) : RecyclerView.Adapter<FriendsListRecyclerAdapter.FriendsListRecyclerViewHolder>() {
+class FriendsListRecyclerAdapter(private val context: Context, private val compositeDisposable: CompositeDisposable, var fragment: Fragment , var friendsList: List<VRChatUser>) : RecyclerView.Adapter<FriendsListRecyclerAdapter.FriendsListRecyclerViewHolder>() {
     private var isNowLoad = false
     private var isOffline = false
     private var currentCount = 0
     private var onlineCount = 0
     private var offlineCount = 0
-    private var clickListener: OnClickListener? = null
 
     init {
         currentCount = itemCount
@@ -49,10 +51,6 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         val recyclerFriendsListLocationTextRoot: LinearLayout = view.findViewById(R.id.recyclerFriendsListLocationTextRoot)
         val recyclerFriendsListLocationName: TextView = view.findViewById(R.id.recyclerFriendsListLocationName)
         val recyclerFriendsListLocationInstanceType: TextView = view.findViewById(R.id.recyclerFriendsListLocationInstanceType)
-    }
-
-    interface OnClickListener {
-        fun onClick(user: VRChatUser)
     }
 
     override fun onCreateViewHolder(
@@ -74,10 +72,10 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
 
         val friend = friendsList[position]
 
-        clickListener?.let {
-            holder.recyclerFriendsListCard.setOnClickListener { _ ->
-                it.onClick(friend)
-            }
+        holder.recyclerFriendsListCard.setOnClickListener { _ ->
+            val intent = Intent(context, UserProfileActivity::class.java)
+            intent.putExtra("user_id", friend.id)
+            fragment.startActivity(intent)
         }
 
         if(SettingsUtil.isFriendsListColoredBorder(context)) {
@@ -266,9 +264,5 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         offlineCount = 0
         isOffline = false
         isNowLoad = false
-    }
-
-    fun setOnClickListener(listener: OnClickListener) {
-        clickListener = listener
     }
 }

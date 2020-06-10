@@ -44,10 +44,12 @@ class FriendsListFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(FriendsListFragmentViewModel::class.java)
 
         if(viewModel.friendsListRecyclerAdapter != null) {
+            viewModel.friendsListRecyclerAdapter!!.fragment = this
             fragmentFriendsListRecycler.adapter = viewModel.friendsListRecyclerAdapter
             val layoutManager = LinearLayoutManager(requireContext())
             layoutManager.orientation = LinearLayoutManager.VERTICAL
             fragmentFriendsListRecycler.layoutManager = layoutManager
+
         } else {
             createFriendsList()
         }
@@ -80,24 +82,11 @@ class FriendsListFragment : Fragment() {
                     currentRefreshTime = System.currentTimeMillis() / 1000
 
                     if(viewModel.friendsListRecyclerAdapter == null) {
-                        viewModel.friendsListRecyclerAdapter = FriendsListRecyclerAdapter(requireContext(), compositeDisposable,  it)
+                        viewModel.friendsListRecyclerAdapter = FriendsListRecyclerAdapter(requireContext(), compositeDisposable, this, it)
                         fragmentFriendsListRecycler.adapter = viewModel.friendsListRecyclerAdapter
                         val layoutManager = LinearLayoutManager(requireContext())
                         layoutManager.orientation = LinearLayoutManager.VERTICAL
                         fragmentFriendsListRecycler.layoutManager = layoutManager
-                        viewModel.friendsListRecyclerAdapter!!.setOnClickListener(object : FriendsListRecyclerAdapter.OnClickListener {
-                            override fun onClick(user: VRChatUser) {
-                                val intent = Intent(requireContext(), UserProfileActivity::class.java)
-                                val jsonFolder = File(requireContext().cacheDir, "json_cache")
-                                if(!jsonFolder.exists()) {
-                                    jsonFolder.mkdirs()
-                                }
-                                FileUtil.encodeJsonToFile(requireContext(), File(jsonFolder, "user_profile.json"), user)
-                                intent.putExtra("user_id", user.id)
-                                startActivity(intent)
-                            }
-
-                        })
                     } else {
                         viewModel.friendsListRecyclerAdapter?.let { adapter ->
                             adapter.friendsList = it
