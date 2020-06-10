@@ -45,7 +45,7 @@ class UserProfileActivity : AppCompatActivity() {
         if(viewModel.vrcUser == null) {
             val id = intent.getStringExtra("user_id")
             if(id != null) {
-                val disposable = VRChatlin.get(applicationContext).APIService().getUserByID(id)
+                val disposable = CacheSystem.loadVRChatUser(baseContext, id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(

@@ -6,6 +6,7 @@ import com.riku1227.viewrchat.data.CacheTimeData
 import com.riku1227.viewrchat.db.CacheTimeDataDB
 import com.riku1227.viewrchat.util.FileUtil
 import com.riku1227.vrchatlin.VRChatlin
+import com.riku1227.vrchatlin.model.VRChatUser
 import com.riku1227.vrchatlin.model.VRChatWorld
 import io.reactivex.Single
 import okhttp3.OkHttpClient
@@ -21,6 +22,7 @@ class CacheSystem {
             const val WORLD_IMAGE = "world_image"
             const val WORLD_JSON = "world_json"
             const val USER_AVATAR_IMAGE = "user_avatar_image"
+            const val USER_JSON = "user_json"
         }
     }
     companion object {
@@ -39,11 +41,14 @@ class CacheSystem {
         private const val USER_AVATAR_IMAGE = "user_avatar_image/"
         private const val USER_AVATAR_IMAGE_TIME = 300 //5 minute
 
+        private const val USER_JSON_CACHE = "user_json/"
+
         private fun getCacheDir(context: Context, cacheType: String): File {
             val dirName = when(cacheType) {
                 CacheType.WORLD_IMAGE -> WORLD_IMAGE_CACHE
                 CacheType.WORLD_JSON -> WORLD_JSON_CACHE
                 CacheType.USER_AVATAR_IMAGE -> USER_AVATAR_IMAGE
+                CacheType.USER_JSON -> USER_JSON_CACHE
 
                 else -> WORLD_IMAGE_CACHE
             }
@@ -147,12 +152,40 @@ class CacheSystem {
             }
         }
 
+        fun loadVRChatUser(context: Context, id: String, isUpdate: Boolean = false): Single<VRChatUser> {
+            return Single.create {
+                val cacheFile = File(getCacheDir(context, CacheType.USER_JSON), id)
+                if(!cacheFile.exists() || isUpdate) {
+                    VRChatlin.get(context).APIService().getUserByID(id).subscribe(
+                        { user ->
+                            FileUtil.encodeJsonToFile(context, cacheFile, user)
+                            it.onSuccess(user)
+                        },
+                        { error ->
+                            it.onError(error)
+                        }
+                    )
+                } else {
+                    val json = FileUtil.decodeFileToJson(context, cacheFile, VRChatUser::class.java)
+                    if(json != null) {
+                        it.onSuccess(json)
+                    } else {
+                        it.onError(Throwable("Json Decode Error"))
+                    }
+                }
+            }
+        }
+
         fun deleteCacheFile(context: Context, id: String, cacheType: String) {
             val removeTypeID = id.replace("${cacheType}_", "")
             val cacheFile = File(getCacheDir(context, cacheType), removeTypeID)
             if(cacheFile.exists()) {
                 cacheFile.delete()
             }
+        }
+
+        fun deleteCacheFolder(context: Context, cacheType: String) {
+            getCacheDir(context, cacheType).deleteRecursively()
         }
     }
 }

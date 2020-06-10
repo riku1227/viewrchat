@@ -59,6 +59,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             VRChatlin.get(applicationContext).APIService(ViewRChat.getVRChatCookiePreferences(applicationContext))
 
+            CacheSystem.deleteCacheFolder(applicationContext, CacheSystem.CacheType.USER_JSON)
+
             val db = CacheTimeDataDB.getInstance(applicationContext)
             val cacheMap = db.readAllData()
             val nowTime = System.currentTimeMillis() / 1000
