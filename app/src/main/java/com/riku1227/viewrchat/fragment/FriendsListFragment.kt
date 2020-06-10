@@ -1,6 +1,5 @@
 package com.riku1227.viewrchat.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,18 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.riku1227.viewrchat.R
-import com.riku1227.viewrchat.activity.UserProfileActivity
 import com.riku1227.viewrchat.adapter.FriendsListRecyclerAdapter
 import com.riku1227.viewrchat.system.ErrorHandling
-import com.riku1227.viewrchat.util.FileUtil
 import com.riku1227.viewrchat.view_model.FriendsListFragmentViewModel
 import com.riku1227.vrchatlin.VRChatlin
-import com.riku1227.vrchatlin.model.VRChatUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_friends_list.*
-import java.io.File
 
 class FriendsListFragment : Fragment() {
 

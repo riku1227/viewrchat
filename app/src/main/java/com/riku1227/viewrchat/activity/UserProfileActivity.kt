@@ -2,7 +2,6 @@ package com.riku1227.viewrchat.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,24 +11,21 @@ import com.riku1227.viewrchat.adapter.UserLanguagesRecyclerAdapter
 import com.riku1227.viewrchat.adapter.UserLinksRecyclerAdapter
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.system.ErrorHandling
-import com.riku1227.viewrchat.util.FileUtil
 import com.riku1227.viewrchat.util.SettingsUtil
 import com.riku1227.viewrchat.util.VRCUtil
-import com.riku1227.viewrchat.view_model.MainActivityViewModel
 import com.riku1227.viewrchat.view_model.UserProfileActivityViewModel
-import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_user_profile.*
-import kotlinx.android.synthetic.main.drawer_main_activity.*
-import java.io.File
 import java.util.*
 
 class UserProfileActivity : AppCompatActivity() {
 
     private lateinit var viewModel: UserProfileActivityViewModel
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -57,10 +53,16 @@ class UserProfileActivity : AppCompatActivity() {
                             ErrorHandling.onNetworkError(it, applicationContext, activity = this)
                         }
                     )
+                compositeDisposable.add(disposable)
             }
         } else {
             setup(viewModel.vrcUser!!)
         }
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -90,6 +92,7 @@ class UserProfileActivity : AppCompatActivity() {
                     ErrorHandling.onNetworkError(it, baseContext, this)
                 }
             )
+        compositeDisposable.add(disposable)
 
         userProfileActivityUserName.text = vrcUser.displayName
         userProfileActivityStatusIcon.setColorFilter(VRCUtil.getStatusIconColor(baseContext, vrcUser.status))
@@ -151,6 +154,8 @@ class UserProfileActivity : AppCompatActivity() {
                             },
                             {}
                         )
+
+                    compositeDisposable.add(loadVRChatDisposable)
                 }
 
                 else -> {
@@ -188,6 +193,7 @@ class UserProfileActivity : AppCompatActivity() {
                             {
                             }
                         )
+                    compositeDisposable.add(loadVRChatDisposable)
                 }
             }
         }

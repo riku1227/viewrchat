@@ -13,7 +13,6 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat

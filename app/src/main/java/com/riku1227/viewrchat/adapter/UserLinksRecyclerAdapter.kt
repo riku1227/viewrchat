@@ -7,9 +7,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.core.content.ContextCompat
-import androidx.core.net.UriCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.riku1227.viewrchat.R
@@ -40,21 +38,25 @@ class UserLinksRecyclerAdapter(private val context: Context, private val linksLi
                 activity.startActivity(intent)
             }
 
-            if(link.indexOf("twitter.com") != -1) {
-                val twitterColorStateList = ContextCompat.getColorStateList(context, R.color.twitter_color)
-                it.setTextColor(twitterColorStateList)
-                it.rippleColor = twitterColorStateList
-                it.strokeColor = twitterColorStateList
-            } else if (link.indexOf("booth.pm") != -1) {
-                val boothColorStateList = ContextCompat.getColorStateList(context, R.color.booth_color)
-                it.setTextColor(boothColorStateList)
-                it.rippleColor = boothColorStateList
-                it.strokeColor = boothColorStateList
-            } else if (link.indexOf("github.com") != -1) {
-                val githubColorStateList = ContextCompat.getColorStateList(context, R.color.github_color)
-                it.setTextColor(githubColorStateList)
-                it.rippleColor = githubColorStateList
-                it.strokeColor = githubColorStateList
+            when {
+                link.indexOf("twitter.com") != -1 -> {
+                    val twitterColorStateList = ContextCompat.getColorStateList(context, R.color.twitter_color)
+                    it.setTextColor(twitterColorStateList)
+                    it.rippleColor = twitterColorStateList
+                    it.strokeColor = twitterColorStateList
+                }
+                link.indexOf("booth.pm") != -1 -> {
+                    val boothColorStateList = ContextCompat.getColorStateList(context, R.color.booth_color)
+                    it.setTextColor(boothColorStateList)
+                    it.rippleColor = boothColorStateList
+                    it.strokeColor = boothColorStateList
+                }
+                link.indexOf("github.com") != -1 -> {
+                    val githubColorStateList = ContextCompat.getColorStateList(context, R.color.github_color)
+                    it.setTextColor(githubColorStateList)
+                    it.rippleColor = githubColorStateList
+                    it.strokeColor = githubColorStateList
+                }
             }
         }
     }

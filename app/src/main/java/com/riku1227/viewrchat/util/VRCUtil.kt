@@ -14,12 +14,16 @@ class VRCUtil {
         const val TRUST_VETERAN_USER = "Trusted User (Veteran)"
 
         fun getInstanceTypeFromInstanceID(instanceID: String): String {
-            return if(instanceID.indexOf("hidden") != -1) {
-                "FRIENDS+"
-            } else if(instanceID.indexOf("friends") != -1)  {
-                "FRIENDS"
-            }else {
-                "PUBLIC"
+            return when {
+                instanceID.indexOf("hidden") != -1 -> {
+                    "FRIENDS+"
+                }
+                instanceID.indexOf("friends") != -1 -> {
+                    "FRIENDS"
+                }
+                else -> {
+                    "PUBLIC"
+                }
             }
         }
 

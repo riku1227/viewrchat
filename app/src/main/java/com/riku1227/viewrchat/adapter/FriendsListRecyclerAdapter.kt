@@ -72,7 +72,7 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
 
         val friend = friendsList[position]
 
-        holder.recyclerFriendsListCard.setOnClickListener { _ ->
+        holder.recyclerFriendsListCard.setOnClickListener {
             val intent = Intent(context, UserProfileActivity::class.java)
             intent.putExtra("user_id", friend.id)
             fragment.startActivity(intent)
