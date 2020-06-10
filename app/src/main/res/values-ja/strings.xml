@@ -34,6 +34,7 @@
     <!-- Main Activity
             Navigation Drawer -->
 
+    <string name="activity_main_drawer_profile">プロフィール</string>
     <string name="activity_main_drawer_settings">設定</string>
 
     <!-- Friends Location Fragment -->

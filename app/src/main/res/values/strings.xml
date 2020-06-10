@@ -66,6 +66,7 @@
     <!-- Main Activity
             Navigation Drawer -->
 
+    <string name="activity_main_drawer_profile">Profile</string>
     <string name="activity_main_drawer_settings">Settings</string>
 
     <!-- Friends Location Fragment -->

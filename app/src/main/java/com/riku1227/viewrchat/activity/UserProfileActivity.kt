@@ -128,73 +128,71 @@ class UserProfileActivity : AppCompatActivity() {
 
         userProfileActivityLocationImage.outlineProvider = ViewRChat.imageRadiusOutlineProvider
 
-        vrcUser.location?.let { friendLocation ->
-            when (friendLocation) {
-                "offline" -> {
-                    userProfileActivityUserStatusView.visibility = View.GONE
-                    userProfileActivityLocationImage.visibility = View.GONE
-                    userProfileActivityLocationTextRoot.visibility = View.GONE
-                    userProfileActivityLocationText.visibility = View.GONE
-                }
+        when (vrcUser.location) {
+            "offline", "", null -> {
+                userProfileActivityUserStatusView.visibility = View.GONE
+                userProfileActivityLocationImage.visibility = View.GONE
+                userProfileActivityLocationTextRoot.visibility = View.GONE
+                userProfileActivityLocationText.visibility = View.GONE
+            }
 
-                "private" -> {
-                    userProfileActivityLocationInstanceType.visibility = View.GONE
-                    userProfileActivityLocationName.text = baseContext.resources.getString(R.string.general_private_instance)
+            "private" -> {
+                userProfileActivityLocationInstanceType.visibility = View.GONE
+                userProfileActivityLocationName.text = baseContext.resources.getString(R.string.general_private_instance)
 
-                    val loadVRChatDisposable = CacheSystem.loadImage(baseContext, CacheSystem.CacheType.WORLD_IMAGE, "private_image", CacheSystem.VRC_ASSETS_PRIVATE_WORLD_IMAGE_URL)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                            { imgFile ->
-                                Picasso.get()
-                                    .load(imgFile)
-                                    .centerCrop()
-                                    .fit()
-                                    .into(userProfileActivityLocationImage)
-                            },
-                            {}
-                        )
+                val loadVRChatDisposable = CacheSystem.loadImage(baseContext, CacheSystem.CacheType.WORLD_IMAGE, "private_image", CacheSystem.VRC_ASSETS_PRIVATE_WORLD_IMAGE_URL)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { imgFile ->
+                            Picasso.get()
+                                .load(imgFile)
+                                .centerCrop()
+                                .fit()
+                                .into(userProfileActivityLocationImage)
+                        },
+                        {}
+                    )
 
-                    compositeDisposable.add(loadVRChatDisposable)
-                }
+                compositeDisposable.add(loadVRChatDisposable)
+            }
 
-                else -> {
-                    val splitLocation = friendLocation.split(":")
-                    val worldId = splitLocation[0]
-                    val instanceId = splitLocation[1]
+            else -> {
+                val splitLocation = vrcUser.location!!.split(":")
+                val worldId = splitLocation[0]
+                val instanceId = splitLocation[1]
 
-                    val loadVRChatDisposable = CacheSystem.loadVRChatWorld(baseContext, worldId)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                            {
-                                userProfileActivityLocationName.text = it.name
-                                userProfileActivityLocationInstanceType.text = VRCUtil.getInstanceTypeFromInstanceID(instanceId)
+                val loadVRChatDisposable = CacheSystem.loadVRChatWorld(baseContext, worldId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        {
+                            userProfileActivityLocationName.text = it.name
+                            userProfileActivityLocationInstanceType.text = VRCUtil.getInstanceTypeFromInstanceID(instanceId)
 
-                                if(ViewRChat.isPhotographingMode) {
-                                    userProfileActivityLocationName.text = baseContext.getString(R.string.photographing_mode_world_name)
-                                }
-
-                                CacheSystem.loadImage(baseContext, CacheSystem.CacheType.WORLD_IMAGE, it.id, it.thumbnailImageUrl)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(
-                                        { imgFile ->
-                                            Picasso.get()
-                                                .load(imgFile)
-                                                .centerCrop()
-                                                .fit()
-                                                .into(userProfileActivityLocationImage)
-                                        },
-                                        {
-                                        }
-                                    )
-                            },
-                            {
+                            if(ViewRChat.isPhotographingMode) {
+                                userProfileActivityLocationName.text = baseContext.getString(R.string.photographing_mode_world_name)
                             }
-                        )
-                    compositeDisposable.add(loadVRChatDisposable)
-                }
+
+                            CacheSystem.loadImage(baseContext, CacheSystem.CacheType.WORLD_IMAGE, it.id, it.thumbnailImageUrl)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(
+                                    { imgFile ->
+                                        Picasso.get()
+                                            .load(imgFile)
+                                            .centerCrop()
+                                            .fit()
+                                            .into(userProfileActivityLocationImage)
+                                    },
+                                    {
+                                    }
+                                )
+                        },
+                        {
+                        }
+                    )
+                compositeDisposable.add(loadVRChatDisposable)
             }
         }
 

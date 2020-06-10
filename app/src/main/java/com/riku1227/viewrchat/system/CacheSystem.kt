@@ -42,6 +42,7 @@ class CacheSystem {
         private const val USER_AVATAR_IMAGE_TIME = 300 //5 minute
 
         private const val USER_JSON_CACHE = "user_json/"
+        const val LOGIN_USER_ID = "login_user"
 
         private fun getCacheDir(context: Context, cacheType: String): File {
             val dirName = when(cacheType) {
@@ -156,15 +157,27 @@ class CacheSystem {
             return Single.create {
                 val cacheFile = File(getCacheDir(context, CacheType.USER_JSON), id)
                 if(!cacheFile.exists() || isUpdate) {
-                    VRChatlin.get(context).APIService().getUserByID(id).subscribe(
-                        { user ->
-                            FileUtil.encodeJsonToFile(context, cacheFile, user)
-                            it.onSuccess(user)
-                        },
-                        { error ->
-                            it.onError(error)
-                        }
-                    )
+                    if(id == LOGIN_USER_ID) {
+                        VRChatlin.get(context).APIService().getCurrentUserInfo().subscribe(
+                            { user ->
+                                FileUtil.encodeJsonToFile(context, cacheFile, user)
+                                it.onSuccess(user)
+                            },
+                            { error ->
+                                it.onError(error)
+                            }
+                        )
+                    } else {
+                        VRChatlin.get(context).APIService().getUserByID(id).subscribe(
+                            { user ->
+                                FileUtil.encodeJsonToFile(context, cacheFile, user)
+                                it.onSuccess(user)
+                            },
+                            { error ->
+                                it.onError(error)
+                            }
+                        )
+                    }
                 } else {
                     val json = FileUtil.decodeFileToJson(context, cacheFile, VRChatUser::class.java)
                     if(json != null) {

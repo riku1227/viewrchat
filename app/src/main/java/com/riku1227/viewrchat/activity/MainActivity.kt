@@ -173,7 +173,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mainActivityNavigationDrawer.setNavigationItemSelectedListener(this)
 
         if(viewModel.loginUser == null) {
-            val disposable = VRChatlin.get(applicationContext).APIService().getCurrentUserInfo()
+            val disposable = CacheSystem.loadVRChatUser(baseContext, CacheSystem.LOGIN_USER_ID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -244,6 +244,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when(item.itemId) {
             R.id.mainActivityDrawerSettings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.mainActivityDrawerProfile -> {
+                val intent = Intent(this, UserProfileActivity::class.java)
+                intent.putExtra("user_id", CacheSystem.LOGIN_USER_ID)
                 startActivity(intent)
             }
         }
