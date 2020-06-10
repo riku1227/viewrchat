@@ -105,11 +105,11 @@ class UserProfileActivity : AppCompatActivity() {
             userProfileActivityUserBio.text = vrcUser.bio
         } else {
             userProfileActivityUserBio.visibility = View.GONE
-            userProfileActivityUserView.visibility = View.GONE
         }
 
         val languagesList = VRCUtil.getLanguagesList(vrcUser.tags)
         if(languagesList.isNotEmpty()) {
+            userProfileActivityUserView.visibility = View.VISIBLE
             userProfileActivityLanguagesText.visibility = View.VISIBLE
             userProfileActivityLanguages.visibility = View.VISIBLE
 
@@ -118,6 +118,7 @@ class UserProfileActivity : AppCompatActivity() {
             layoutManager.orientation = LinearLayoutManager.HORIZONTAL
             userProfileActivityLanguages.layoutManager = layoutManager
         } else {
+            userProfileActivityUserView.visibility = View.GONE
             userProfileActivityLanguagesText.visibility = View.GONE
             userProfileActivityLanguages.visibility = View.GONE
         }
