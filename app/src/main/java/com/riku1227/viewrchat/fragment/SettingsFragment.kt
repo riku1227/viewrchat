@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.preference.ListPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.util.SettingsUtil
@@ -45,7 +46,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(xmlId, rootKey)
 
         when (xmlId) {
+            R.xml.root_preferences -> onCreateMainPreferences()
             R.xml.appearance_preferences -> onCreateAppearancePreferences()
+        }
+    }
+
+    private fun onCreateMainPreferences() {
+        val appearancePreferences: Preference? = findPreference("preferences_appearance")
+        appearancePreferences?.let {
+            it.setOnPreferenceClickListener {
+                addFragment(R.xml.appearance_preferences)
+                return@setOnPreferenceClickListener true
+            }
         }
     }
 
@@ -57,5 +69,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 return@setOnPreferenceChangeListener true
             }
         }
+    }
+
+    private fun addFragment(xmlID: Int) {
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.settingsActivityFrameLayout, newInstance(xmlID))
+            ?.addToBackStack(null)?.commit()
     }
 }

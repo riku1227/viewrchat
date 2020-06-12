@@ -1,18 +1,9 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceScreen
+    <Preference
         app:title="@string/activity_settings_appearance_title"
         app:key="preferences_appearance"
         app:summary="@string/activity_settings_appearance_summary"
         app:icon="@drawable/ic_photo_filter_24px">
-
-        <ListPreference
-            app:defaultValue="follow_system"
-            app:entries="@array/preferences_appearance_theme_entries"
-            app:entryValues="@array/preferences_appearance_theme_values"
-            app:key="follow_system"
-            app:title="Theme"
-            app:useSimpleSummaryProvider="true" />
-
-    </PreferenceScreen>
+    </Preference>
 </PreferenceScreen>

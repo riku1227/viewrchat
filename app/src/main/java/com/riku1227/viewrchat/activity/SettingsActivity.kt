@@ -36,18 +36,6 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         caller: PreferenceFragmentCompat?,
         pref: PreferenceScreen?
     ): Boolean {
-        pref?.let {
-            when(it.key) {
-                "preferences_appearance" -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.settingsActivityFrameLayout, SettingsFragment.newInstance(R.xml.appearance_preferences))
-                        .addToBackStack(null)
-                        .commit()
-                }
-                else -> {}
-            }
-        }
         return true
     }
 }
