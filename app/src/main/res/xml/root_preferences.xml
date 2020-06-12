@@ -6,4 +6,9 @@
         app:summary="@string/activity_settings_appearance_summary"
         app:icon="@drawable/ic_photo_filter_24px">
     </Preference>
+
+    <Preference
+        app:title="@string/activity_settings_app_info_title"
+        app:key="preferences_app_info"
+        app:icon="@drawable/ic_baseline_info_24"/>
 </PreferenceScreen>

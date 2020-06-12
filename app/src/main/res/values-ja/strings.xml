@@ -74,6 +74,11 @@
     <string name="activity_settings_appearance_friends_list">フレンドリスト</string>
     <string name="activity_settings_appearance_colored_border">ボーダーに色を付ける</string>
     <string name="activity_settings_appearance_colored_border_summary">ユーザーのトラストレベルに対応した色が付けれられます</string>
+    <string name="activity_settings_app_info_title">アプリについて</string>
+    <string name="activity_settings_app_info_summary">バージョン: %1$s</string>
+    <string name="activity_settings_app_info_version">バージョン</string>
+    <string name="activity_settings_app_info_source_code">ソースコード</string>
+    <string name="activity_settings_app_info_website">ウェブサイト</string>
 
     <!-- User Profile Activity -->
     <string name="activity_user_profile_languages">言語</string>

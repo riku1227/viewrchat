@@ -1,5 +1,7 @@
 package com.riku1227.viewrchat.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.util.SettingsUtil
+import com.riku1227.viewrchat.util.getVersionName
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -48,14 +51,26 @@ class SettingsFragment : PreferenceFragmentCompat() {
         when (xmlId) {
             R.xml.root_preferences -> onCreateMainPreferences()
             R.xml.appearance_preferences -> onCreateAppearancePreferences()
+            R.xml.app_info_preferences -> onCreateAppInfoPreferences()
         }
     }
 
     private fun onCreateMainPreferences() {
+        val context = requireContext()
         val appearancePreferences: Preference? = findPreference("preferences_appearance")
         appearancePreferences?.let {
             it.setOnPreferenceClickListener {
                 addFragment(R.xml.appearance_preferences)
+                return@setOnPreferenceClickListener true
+            }
+        }
+
+        val appInfoPreference: Preference? = findPreference("preferences_app_info")
+        appInfoPreference?.let {
+            it.summary = context.resources.getString(R.string.activity_settings_app_info_summary, context.getVersionName())
+
+            it.setOnPreferenceClickListener {
+                addFragment(R.xml.app_info_preferences)
                 return@setOnPreferenceClickListener true
             }
         }
@@ -67,6 +82,40 @@ class SettingsFragment : PreferenceFragmentCompat() {
             it.setOnPreferenceChangeListener { _, newValue ->
                 SettingsUtil.setDayNightTheme(newValue.toString())
                 return@setOnPreferenceChangeListener true
+            }
+        }
+    }
+
+    private fun onCreateAppInfoPreferences() {
+        val context = requireContext()
+        findPreference<Preference>("preferences_app_info_version")?.let {
+            it.summary = context.getVersionName()
+        }
+
+        findPreference<Preference>("preferences_app_info_source_code")?.let {
+            it.setOnPreferenceClickListener {
+                val uri = Uri.parse("https://github.com/riku1227/viewrchat")
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                this.startActivity(intent)
+                return@setOnPreferenceClickListener true
+            }
+        }
+
+        findPreference<Preference>("preferences_app_info_twitter")?.let {
+            it.setOnPreferenceClickListener {
+                val uri = Uri.parse("https://twitter.com/_riku1227_")
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                this.startActivity(intent)
+                return@setOnPreferenceClickListener true
+            }
+        }
+
+        findPreference<Preference>("preferences_app_info_website")?.let {
+            it.setOnPreferenceClickListener {
+                val uri = Uri.parse("https://riku1227.com/")
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                this.startActivity(intent)
+                return@setOnPreferenceClickListener true
             }
         }
     }

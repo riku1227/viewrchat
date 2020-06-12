@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        app:title="ViewRChat"
+        app:summary="Made by riku1227" />
+
+    <Preference
+        app:title="@string/activity_settings_app_info_version"
+        app:key="preferences_app_info_version" />
+
+    <Preference
+        app:title="@string/activity_settings_app_info_source_code"
+        app:summary="Apache License 2.0"
+        app:key="preferences_app_info_source_code"/>
+
+    <Preference
+        app:title="Twitter"
+        app:summary="\@_riku1227_"
+        app:key="preferences_app_info_twitter"/>
+
+    <Preference
+        app:title="@string/activity_settings_app_info_website"
+        app:summary="riku1227.com"
+        app:key="preferences_app_info_website" />
+
+</PreferenceScreen>
