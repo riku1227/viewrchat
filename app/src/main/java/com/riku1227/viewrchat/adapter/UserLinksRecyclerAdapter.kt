@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.riku1227.viewrchat.R
+import com.riku1227.viewrchat.ViewRChat
 
 class UserLinksRecyclerAdapter(private val context: Context, private val linksList: List<String>, private val activity: Activity) : RecyclerView.Adapter<UserLinksRecyclerAdapter.UserLinksRecyclerViewHolder>() {
     class UserLinksRecyclerViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -28,9 +29,14 @@ class UserLinksRecyclerAdapter(private val context: Context, private val linksLi
 
     override fun onBindViewHolder(holder: UserLinksRecyclerViewHolder, position: Int) {
         val link = linksList[position]
+        val photoModeLink = "https://example.com"
 
         holder.recyclerUserLinksButton.let {
-            it.text = link
+            it.text = if(ViewRChat.isPhotographingMode) {
+                photoModeLink
+            } else {
+                link
+            }
 
             it.setOnClickListener {
                 val uri = Uri.parse(link)

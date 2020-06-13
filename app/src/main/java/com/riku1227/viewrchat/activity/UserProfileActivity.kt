@@ -94,18 +94,30 @@ class UserProfileActivity : AppCompatActivity() {
             )
         compositeDisposable.add(disposable)
 
-        userProfileActivityUserName.text = vrcUser.displayName
+        userProfileActivityUserName.text = if(ViewRChat.isPhotographingMode) {
+            baseContext.getText(R.string.photographing_mode_user_name)
+        } else {
+            vrcUser.displayName
+        }
         userProfileActivityStatusIcon.setColorFilter(VRCUtil.getStatusIconColor(baseContext, vrcUser.status))
         userProfileActivityUserStatus.text = if(vrcUser.statusDescription.isNullOrEmpty()) {
             vrcUser.status?.toUpperCase(Locale.US)
         } else {
-            vrcUser.statusDescription
+            if(ViewRChat.isPhotographingMode) {
+                baseContext.getText(R.string.photographing_mode_user_description)
+            } else {
+                vrcUser.statusDescription
+            }
         }
         userProfileActivityLastPlatform.text = VRCUtil.getLastLoginPlatform(vrcUser.last_platform)
         userProfileActivityTrustRank.text = VRCUtil.getTrustRank(vrcUser.tags)
 
         if(!vrcUser.bio.isNullOrEmpty()) {
-            userProfileActivityUserBio.text = vrcUser.bio
+            userProfileActivityUserBio.text = if(ViewRChat.isPhotographingMode) {
+                baseContext.getText(R.string.photographing_mode_user_bio)
+            } else {
+                vrcUser.bio
+            }
         } else {
             userProfileActivityUserBio.visibility = View.GONE
         }
