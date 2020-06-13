@@ -107,6 +107,7 @@
     <string name="activity_settings_app_info_version">Version</string>
     <string name="activity_settings_app_info_source_code">Source code</string>
     <string name="activity_settings_app_info_website">Website</string>
+    <string name="activity_settings_app_info_oss_licence">OSS Licence</string>
 
     <!-- User Profile Activity -->
     <string name="activity_user_profile_languages">Languages</string>

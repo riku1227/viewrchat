@@ -10,9 +10,11 @@ import androidx.core.content.ContextCompat
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.util.SettingsUtil
 import com.riku1227.viewrchat.util.getVersionName
+
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -115,6 +117,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 val uri = Uri.parse("https://riku1227.com/")
                 val intent = Intent(Intent.ACTION_VIEW, uri)
                 this.startActivity(intent)
+                return@setOnPreferenceClickListener true
+            }
+        }
+
+        findPreference<Preference>("preferences_app_info_oss_licence")?.let {
+            it.setOnPreferenceClickListener {
+                startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
+
                 return@setOnPreferenceClickListener true
             }
         }
