@@ -71,7 +71,11 @@ class UserProfileActivity : AppCompatActivity() {
     }
 
     private fun setup(vrcUser: VRChatUser) {
-        title = vrcUser.displayName
+        title = if(ViewRChat.isPhotographingMode) {
+            baseContext.getString(R.string.photographing_mode_user_name)
+        } else {
+            vrcUser.displayName
+        }
 
         userInfoCard.visibility = View.VISIBLE
         userStatusCard.visibility = View.VISIBLE
