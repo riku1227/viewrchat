@@ -5,15 +5,20 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.riku1227.viewrchat.service.DownloadFileService
 import com.riku1227.viewrchat.util.FileUtil
 import com.riku1227.viewrchat.util.RadiusOutlineProvider
 import com.riku1227.viewrchat.util.SettingsUtil
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.io.File
 
 class ViewRChat: Application() {
     companion object {
         var isPhotographingMode = false
         val imageRadiusOutlineProvider = RadiusOutlineProvider(8F)
+
+        private var downloadService: DownloadFileService? = null
 
         fun getVRChatCookiePreferences(context: Context): SharedPreferences {
             val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
@@ -28,6 +33,17 @@ class ViewRChat: Application() {
 
         fun getGeneralPreferences(context: Context): SharedPreferences {
             return context.getSharedPreferences("general_preference", Context.MODE_PRIVATE)
+        }
+
+        fun getDownloadFileService(): DownloadFileService {
+            if(downloadService == null) {
+                val retrofit = Retrofit.Builder()
+                    .baseUrl("https://vrchat.com/")
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build()
+                downloadService = retrofit.create(DownloadFileService::class.java)
+            }
+            return downloadService!!
         }
     }
 

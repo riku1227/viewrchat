@@ -9,12 +9,9 @@ import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.riku1227.vrchatlin.model.VRChatWorld
 import io.reactivex.Single
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import okio.buffer
 import okio.sink
 import java.io.File
-import java.io.IOException
 
 class CacheSystem {
     class CacheType {
@@ -27,8 +24,6 @@ class CacheSystem {
     }
     companion object {
         const val VRC_ASSETS_PRIVATE_WORLD_IMAGE_URL = "https://assets.vrchat.com/www/images/default_private_image.png"
-
-        private val httpClient = OkHttpClient.Builder().build()
 
         const val DB_CLEAR_TIME = 604800 //one weak
 
@@ -99,28 +94,22 @@ class CacheSystem {
                         false
                     } else isExpiredCache(context, removeTypeID, cacheType)
                     if(!cacheFile.exists() || isUpdate) {
-                        val request = Request.Builder().url(url).build()
-                        try {
-                            val response = httpClient.newCall(request).execute()
-                            if(response.isSuccessful) {
-                                val responseBody = response.body
-                                if(responseBody != null) {
-                                    cacheFile.sink().buffer().let { bufferedSink ->
-                                        bufferedSink.writeAll(responseBody.source())
-                                        bufferedSink.flush()
-                                        bufferedSink.close()
-                                    }
-                                    CacheTimeDataDB.getInstance(context).saveData( CacheTimeData("${cacheType}_$removeTypeID", cacheType, System.currentTimeMillis() / 1000) )
-                                    it.onSuccess(cacheFile)
-                                } else {
-                                    it.onError(Throwable("Response body is null"))
+                        val result = ViewRChat.getDownloadFileService().downloadFile(url).subscribe(
+                            { responseBody ->
+                                cacheFile.sink().buffer().let { bufferedSink ->
+                                    bufferedSink.writeAll(responseBody.source())
+                                    bufferedSink.flush()
+                                    bufferedSink.close()
                                 }
-                            } else {
-                                it.onError(Throwable("Response is not successful"))
+                                CacheTimeDataDB.getInstance(context).saveData( CacheTimeData("${cacheType}_$removeTypeID", cacheType, System.currentTimeMillis() / 1000) )
+                                it.onSuccess(cacheFile)
+                            },
+                            { error ->
+                                if(!it.isDisposed) {
+                                    it.onError(error)
+                                }
                             }
-                        } catch (e: IOException) {
-                            it.onError(e)
-                        }
+                        )
                     }
                     it.onSuccess(cacheFile)
                 }
@@ -139,7 +128,9 @@ class CacheSystem {
                             it.onSuccess(world)
                         },
                         { error ->
-                            it.onError(error)
+                            if(!it.isDisposed) {
+                                it.onError(error)
+                            }
                         }
                     )
                 } else {
@@ -147,7 +138,9 @@ class CacheSystem {
                     if(json != null) {
                         it.onSuccess(json)
                     } else {
-                        it.onError(Throwable("Json Decode Error"))
+                        if(!it.isDisposed) {
+                            it.onError(Throwable("Json Decode Error"))
+                        }
                     }
                 }
             }
@@ -164,7 +157,9 @@ class CacheSystem {
                                 it.onSuccess(user)
                             },
                             { error ->
-                                it.onError(error)
+                                if(!it.isDisposed) {
+                                    it.onError(error)
+                                }
                             }
                         )
                     } else {
@@ -174,7 +169,9 @@ class CacheSystem {
                                 it.onSuccess(user)
                             },
                             { error ->
-                                it.onError(error)
+                                if(!it.isDisposed) {
+                                    it.onError(error)
+                                }
                             }
                         )
                     }
@@ -183,7 +180,9 @@ class CacheSystem {
                     if(json != null) {
                         it.onSuccess(json)
                     } else {
-                        it.onError(Throwable("Json Decode Error"))
+                        if(!it.isDisposed) {
+                            it.onError(Throwable("Json Decode Error"))
+                        }
                     }
                 }
             }
