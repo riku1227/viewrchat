@@ -13,6 +13,7 @@ import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.system.ErrorHandling
 import com.riku1227.viewrchat.util.SettingsUtil
 import com.riku1227.viewrchat.util.VRCUtil
+import com.riku1227.viewrchat.util.toMinimum
 import com.riku1227.viewrchat.view_model.UserProfileActivityViewModel
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.squareup.picasso.Picasso
@@ -70,18 +71,19 @@ class UserProfileActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
-    private fun setup(vrcUser: VRChatUser) {
+    private fun setup(fullVRCUser: VRChatUser) {
+        val minimumVRCUser = intent.getParcelableExtra("minimum_user") ?: fullVRCUser.toMinimum()
         title = if(ViewRChat.isPhotographingMode) {
             baseContext.getString(R.string.photographing_mode_user_name)
         } else {
-            vrcUser.displayName
+            minimumVRCUser.displayName
         }
 
         userInfoCard.visibility = View.VISIBLE
         userStatusCard.visibility = View.VISIBLE
 
         userProfileActivityAvatarThumbnail.outlineProvider = ViewRChat.imageRadiusOutlineProvider
-        val disposable = CacheSystem.loadImage(baseContext, CacheSystem.CacheType.USER_AVATAR_IMAGE, vrcUser.id, vrcUser.currentAvatarThumbnailImageUrl)
+        val disposable = CacheSystem.loadImage(baseContext, CacheSystem.CacheType.USER_AVATAR_IMAGE, minimumVRCUser.id, minimumVRCUser.avatarThumbnailImageUrl)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -101,32 +103,32 @@ class UserProfileActivity : AppCompatActivity() {
         userProfileActivityUserName.text = if(ViewRChat.isPhotographingMode) {
             baseContext.getText(R.string.photographing_mode_user_name)
         } else {
-            vrcUser.displayName
+            minimumVRCUser.displayName
         }
-        userProfileActivityStatusIcon.setColorFilter(VRCUtil.getStatusIconColor(baseContext, vrcUser.status))
-        userProfileActivityUserStatus.text = if(vrcUser.statusDescription.isNullOrEmpty()) {
-            vrcUser.status?.toUpperCase(Locale.US)
+        userProfileActivityStatusIcon.setColorFilter(VRCUtil.getStatusIconColor(baseContext, minimumVRCUser.status))
+        userProfileActivityUserStatus.text = if(minimumVRCUser.statusDescription.isNullOrEmpty()) {
+            minimumVRCUser.status?.toUpperCase(Locale.US)
         } else {
             if(ViewRChat.isPhotographingMode) {
                 baseContext.getText(R.string.photographing_mode_user_description)
             } else {
-                vrcUser.statusDescription
+                minimumVRCUser.statusDescription
             }
         }
-        userProfileActivityLastPlatform.text = VRCUtil.getLastLoginPlatform(vrcUser.last_platform)
-        userProfileActivityTrustRank.text = VRCUtil.getTrustRank(vrcUser.tags)
+        userProfileActivityLastPlatform.text = VRCUtil.getLastLoginPlatform(minimumVRCUser.last_platform)
+        userProfileActivityTrustRank.text = VRCUtil.getTrustRank(minimumVRCUser.tags)
 
-        if(!vrcUser.bio.isNullOrEmpty()) {
+        if(!fullVRCUser.bio.isNullOrEmpty()) {
             userProfileActivityUserBio.text = if(ViewRChat.isPhotographingMode) {
                 baseContext.getText(R.string.photographing_mode_user_bio)
             } else {
-                vrcUser.bio
+                fullVRCUser.bio
             }
         } else {
             userProfileActivityUserBio.visibility = View.GONE
         }
 
-        val languagesList = VRCUtil.getLanguagesList(vrcUser.tags)
+        val languagesList = VRCUtil.getLanguagesList(minimumVRCUser.tags)
         if(languagesList.isNotEmpty()) {
             userProfileActivityUserView.visibility = View.VISIBLE
             userProfileActivityLanguagesText.visibility = View.VISIBLE
@@ -144,7 +146,7 @@ class UserProfileActivity : AppCompatActivity() {
 
         userProfileActivityLocationImage.outlineProvider = ViewRChat.imageRadiusOutlineProvider
 
-        when (vrcUser.location) {
+        when (minimumVRCUser.location) {
             "offline", "", null -> {
                 userProfileActivityUserStatusView.visibility = View.GONE
                 userProfileActivityLocationImage.visibility = View.GONE
@@ -174,7 +176,7 @@ class UserProfileActivity : AppCompatActivity() {
             }
 
             else -> {
-                val splitLocation = vrcUser.location!!.split(":")
+                val splitLocation = minimumVRCUser.location.split(":")
                 val worldId = splitLocation[0]
                 val instanceId = splitLocation[1]
 
@@ -212,7 +214,7 @@ class UserProfileActivity : AppCompatActivity() {
             }
         }
 
-        vrcUser.bioLinks?.let {
+        fullVRCUser.bioLinks?.let {
             if(it.isNotEmpty() && it[0].isNotBlank()) {
                 userProfileActivityLinksCard.visibility = View.VISIBLE
 

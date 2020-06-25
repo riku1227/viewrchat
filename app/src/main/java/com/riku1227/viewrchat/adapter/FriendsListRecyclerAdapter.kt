@@ -20,6 +20,7 @@ import com.riku1227.viewrchat.activity.UserProfileActivity
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.util.SettingsUtil
 import com.riku1227.viewrchat.util.VRCUtil
+import com.riku1227.viewrchat.util.toMinimum
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.squareup.picasso.Picasso
@@ -75,6 +76,7 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         holder.recyclerFriendsListCard.setOnClickListener {
             val intent = Intent(context, UserProfileActivity::class.java)
             intent.putExtra("user_id", friend.id)
+            intent.putExtra("minimum_user", friend.toMinimum())
             fragment.startActivity(intent)
         }
 
