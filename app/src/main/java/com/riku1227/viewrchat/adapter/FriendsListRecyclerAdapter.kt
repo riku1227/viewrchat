@@ -46,8 +46,6 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         val recyclerFriendsListLastPlatform: TextView = view.findViewById(R.id.recyclerFriendsListLastPlatform)
         val recyclerFriendsListFriendTrustRank: TextView = view.findViewById(R.id.recyclerFriendsListFriendTrustRank)
         val recyclerFriendsListFriendsStatusIcon: ImageView = view.findViewById(R.id.recyclerFriendsListFriendsStatusIcon)
-        val recyclerFriendsListStatusDescription: TextView = view.findViewById(R.id.recyclerFriendsListStatusDescription)
-        val recyclerFriendsListBio: TextView = view.findViewById(R.id.recyclerFriendsListBio)
         val recyclerFriendsListLocationImage: ImageView = view.findViewById(R.id.recyclerFriendsListLocationImage)
         val recyclerFriendsListLocationTextRoot: LinearLayout = view.findViewById(R.id.recyclerFriendsListLocationTextRoot)
         val recyclerFriendsListLocationName: TextView = view.findViewById(R.id.recyclerFriendsListLocationName)
@@ -119,26 +117,8 @@ class FriendsListRecyclerAdapter(private val context: Context, private val compo
         holder.recyclerFriendsListFriendsStatusIcon.setColorFilter(VRCUtil.getStatusIconColor(context, friend.status))
         holder.recyclerFriendsListFriendTrustRank.text = VRCUtil.getTrustRank(friend.tags)
 
-        if(friend.statusDescription.isNullOrEmpty()) {
-            holder.recyclerFriendsListStatusDescription.visibility = View.GONE
-            holder.recyclerFriendsListStatusDescription.text = ""
-        } else {
-            holder.recyclerFriendsListStatusDescription.visibility = View.VISIBLE
-            holder.recyclerFriendsListStatusDescription.text = friend.statusDescription
-        }
-
-        if(friend.bio.isNullOrEmpty()) {
-            holder.recyclerFriendsListBio.visibility = View.GONE
-            holder.recyclerFriendsListBio.text = ""
-        } else {
-            holder.recyclerFriendsListBio.visibility = View.VISIBLE
-            holder.recyclerFriendsListBio.text = friend.bio
-        }
-
         if(ViewRChat.isPhotographingMode) {
             holder.recyclerFriendsListUserName.text = context.getString(R.string.photographing_mode_user_name)
-            holder.recyclerFriendsListStatusDescription.text = context.getString(R.string.photographing_mode_user_description)
-            holder.recyclerFriendsListBio.text = context.getString(R.string.photographing_mode_user_bio)
         }
 
         holder.recyclerFriendsListLocationImage.outlineProvider = ViewRChat.imageRadiusOutlineProvider
