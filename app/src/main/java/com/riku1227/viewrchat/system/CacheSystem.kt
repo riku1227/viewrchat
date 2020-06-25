@@ -37,6 +37,7 @@ class CacheSystem {
         private const val USER_AVATAR_IMAGE_TIME = 300 //5 minute
 
         private const val USER_JSON_CACHE = "user_json/"
+        private const val USER_JSON_CACHE_TIME = 259200 //3 day
         const val LOGIN_USER_ID = "login_user"
 
         private fun getCacheDir(context: Context, cacheType: String): File {
@@ -63,6 +64,7 @@ class CacheSystem {
                 CacheType.WORLD_IMAGE -> WORLD_IMAGE_CACHE_TIME
                 CacheType.WORLD_JSON -> WORLD_JSON_CACHE_TIME
                 CacheType.USER_AVATAR_IMAGE -> USER_AVATAR_IMAGE_TIME
+                CacheType.USER_JSON -> USER_JSON_CACHE_TIME
                 else -> WORLD_IMAGE_CACHE_TIME
             }
             CacheTimeDataDB.getInstance(context).readData("${cacheType}_$removeTypeID")?.let {
@@ -148,12 +150,14 @@ class CacheSystem {
 
         fun loadVRChatUser(context: Context, id: String, isUpdate: Boolean = false): Single<VRChatUser> {
             return Single.create {
-                val cacheFile = File(getCacheDir(context, CacheType.USER_JSON), id)
-                if(!cacheFile.exists() || isUpdate) {
-                    if(id == LOGIN_USER_ID) {
+                val removeTypeID = id.replace("${CacheType.USER_JSON}_", "")
+                val cacheFile = File(getCacheDir(context, CacheType.USER_JSON), removeTypeID)
+                if(!cacheFile.exists() || isUpdate || isExpiredCache(context, removeTypeID, CacheType.USER_JSON)) {
+                    if(removeTypeID == LOGIN_USER_ID) {
                         VRChatlin.get(context).APIService().getCurrentUserInfo().subscribe(
                             { user ->
                                 FileUtil.encodeJsonToFile(context, cacheFile, user)
+                                CacheTimeDataDB.getInstance(context).saveData( CacheTimeData("${CacheType.USER_JSON}_$removeTypeID", CacheType.USER_JSON, System.currentTimeMillis() / 1000) )
                                 it.onSuccess(user)
                             },
                             { error ->
@@ -163,9 +167,10 @@ class CacheSystem {
                             }
                         )
                     } else {
-                        VRChatlin.get(context).APIService().getUserByID(id).subscribe(
+                        VRChatlin.get(context).APIService().getUserByID(removeTypeID).subscribe(
                             { user ->
                                 FileUtil.encodeJsonToFile(context, cacheFile, user)
+                                CacheTimeDataDB.getInstance(context).saveData( CacheTimeData("${CacheType.USER_JSON}_$removeTypeID", CacheType.USER_JSON, System.currentTimeMillis() / 1000) )
                                 it.onSuccess(user)
                             },
                             { error ->
