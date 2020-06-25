@@ -30,11 +30,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.math.abs
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var gestureDetector: GestureDetector
     private val compositeDisposable = CompositeDisposable()
 
     private lateinit var viewModel: MainActivityViewModel
@@ -90,26 +88,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
-        gestureDetector = GestureDetector(baseContext, object : GestureDetector.SimpleOnGestureListener() {
-            override fun onFling(
-                e1: MotionEvent?,
-                e2: MotionEvent?,
-                velocityX: Float,
-                velocityY: Float
-            ): Boolean {
-                if(e1 != null && e2 != null) {
-                    if (e2.x - e1.x > 50 && //左から右のスライド
-                        e2.y - e1.y < 50 && //上から下のスライド
-                        e1.y - e2.y < 50 && //下から上のスライド
-                        abs(velocityX) > 200 //スライド速度
-                    ) {
-                        mainActivityDrawerLayout.openDrawer(GravityCompat.START)
-                    }
-                }
-                return super.onFling(e1, e2, velocityX, velocityY)
-            }
-        })
-
         val toggle = ActionBarDrawerToggle(this, mainActivityDrawerLayout, mainActivityToolbar, R.string.general_drawer_open, R.string.general_drawer_close)
         mainActivityDrawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -144,10 +122,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        gestureDetector.onTouchEvent(ev)
-        return super.dispatchTouchEvent(ev)
-    }
 
     override fun onDestroy() {
         compositeDisposable.clear()
