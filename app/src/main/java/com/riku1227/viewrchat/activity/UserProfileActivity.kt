@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
-import com.riku1227.viewrchat.adapter.UserLanguagesRecyclerAdapter
+import com.riku1227.viewrchat.adapter.TagRecyclerAdapter
 import com.riku1227.viewrchat.adapter.UserLinksRecyclerAdapter
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.system.ErrorHandling
@@ -134,7 +134,7 @@ class UserProfileActivity : AppCompatActivity() {
             userProfileActivityLanguagesText.visibility = View.VISIBLE
             userProfileActivityLanguages.visibility = View.VISIBLE
 
-            userProfileActivityLanguages.adapter = UserLanguagesRecyclerAdapter(baseContext, languagesList)
+            userProfileActivityLanguages.adapter = TagRecyclerAdapter(baseContext, languagesList)
             val layoutManager = LinearLayoutManager(baseContext)
             layoutManager.orientation = LinearLayoutManager.HORIZONTAL
             userProfileActivityLanguages.layoutManager = layoutManager
