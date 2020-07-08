@@ -1,5 +1,5 @@
 <com.google.android.material.card.MaterialCardView
-    android:id="@+id/materialCardView2"
+    android:id="@+id/recyclerFriendsLocationRootCard"
     style="@style/OutlineCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

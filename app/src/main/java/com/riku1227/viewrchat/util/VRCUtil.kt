@@ -1,8 +1,12 @@
 package com.riku1227.viewrchat.util
 
 import android.content.Context
+import android.text.format.DateFormat
+import android.util.Log
 import androidx.core.content.ContextCompat
 import com.riku1227.viewrchat.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 class VRCUtil {
     companion object {
@@ -92,6 +96,33 @@ class VRCUtil {
             }
 
             return result
+        }
+
+        fun getWorldTagList(tagList: List<String>): List<String> {
+            val result = arrayListOf<String>()
+
+            for(value in tagList) {
+                when  {
+                    value.indexOf("author_tag_") != -1 -> result.add( value.replace("author_tag_", "") )
+                }
+            }
+
+            return result
+        }
+
+        fun getPublishTime(dateString: String): String {
+            return if(dateString == "none") {
+                "NONE"
+            } else {
+                val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
+                val date = sdf.parse(dateString)
+
+                if(date == null) {
+                    "ERROR"
+                } else {
+                    SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.ENGLISH).format(date)
+                }
+            }
         }
     }
 }

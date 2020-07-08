@@ -115,6 +115,27 @@
     <string name="activity_user_profile_links">Links</string>
     <string name="activity_user_profile_location">Location</string>
 
+    <!-- World Information Activity -->
+    <string name="activity_world_info_created_by">Created by %1$s</string>
+    <string name="activity_world_info_instance_info_title">Instance information</string>
+    <string name="activity_world_info_instance_info_type">Type:</string>
+    <string name="activity_world_info_instance_info_n_users">Number of users:</string>
+    <string name="activity_world_info_instance_info_friends">Friends:</string>
+    <string name="activity_world_info_instance_info_windows" translatable="false">Windows:</string>
+    <string name="activity_world_info_instance_info_android" translatable="false">Quest:</string>
+    <string name="activity_world_info_world_information_title">World information</string>
+    <string name="activity_world_info_world_information_players">PLAYERS</string>
+    <string name="activity_world_info_world_information_privates">PRIVATES</string>
+    <string name="activity_world_info_world_information_favorites">FAVORITES</string>
+    <string name="activity_world_info_world_information_heat">HEAT</string>
+    <string name="activity_world_info_world_information_visits">VISITS</string>
+    <string name="activity_world_info_world_information_capacity">CAPACITY</string>
+    <string name="activity_world_info_world_information_created">CREATED</string>
+    <string name="activity_world_info_world_information_last_update">LAST UPDATE</string>
+    <string name="activity_world_info_world_information_labs_day">LABS\'D</string>
+    <string name="activity_world_info_world_information_published">PUBLISHED</string>
+    <string name="activity_world_info_public_instances_title">Public instances</string>
+
     <!-- Crash Report Dialog -->
     <string name="dialog_crash_report_title">App Crashed</string>
     <string name="dialog_crash_report_positive">Copy log</string>
@@ -126,4 +147,5 @@
     <string name="general_last_login_platform">Platform: %1$s</string>
     <string name="general_drawer_open">Open drawer</string>
     <string name="general_drawer_close">Close drawer</string>
+    <string name="general_colon" translatable="false">:</string>
 </resources>

@@ -23,6 +23,7 @@ import com.riku1227.viewrchat.system.CrashDetection
 import com.riku1227.viewrchat.system.ErrorHandling
 import com.riku1227.viewrchat.util.SettingsUtil
 import com.riku1227.viewrchat.util.VRCUtil
+import com.riku1227.viewrchat.util.getTempFolder
 import com.riku1227.viewrchat.view_model.MainActivityViewModel
 import com.riku1227.vrchatlin.VRChatlin
 import com.squareup.picasso.Picasso
@@ -59,6 +60,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val db = CacheTimeDataDB.getInstance(applicationContext)
             val cacheMap = db.readAllData()
             val nowTime = System.currentTimeMillis() / 1000
+
+            baseContext.getTempFolder().deleteRecursively()
 
             for(item in cacheMap) {
                 val diffTime = nowTime - item.cacheTime

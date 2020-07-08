@@ -87,6 +87,25 @@
     <string name="activity_user_profile_links">リンク</string>
     <string name="activity_user_profile_location">居る場所</string>
 
+    <!-- World Information Activity -->
+    <string name="activity_world_info_created_by">製作者: %1$s</string>
+    <string name="activity_world_info_instance_info_title">インスタンスの情報</string>
+    <string name="activity_world_info_instance_info_type">タイプ:</string>
+    <string name="activity_world_info_instance_info_n_users">ユーザー数:</string>
+    <string name="activity_world_info_instance_info_friends">フレンド:</string>
+    <string name="activity_world_info_world_information_title">ワールドの情報</string>
+    <string name="activity_world_info_world_information_players">プレイヤー数</string>
+    <string name="activity_world_info_world_information_privates">プライベート数</string>
+    <string name="activity_world_info_world_information_favorites">お気に入り数</string>
+    <string name="activity_world_info_world_information_heat">HEAT</string>
+    <string name="activity_world_info_world_information_visits">訪問者数</string>
+    <string name="activity_world_info_world_information_capacity">最大入場人数</string>
+    <string name="activity_world_info_world_information_created">作成日</string>
+    <string name="activity_world_info_world_information_last_update">最終更新日</string>
+    <string name="activity_world_info_world_information_labs_day">ラボへの公開日</string>
+    <string name="activity_world_info_world_information_published">公開日</string>
+    <string name="activity_world_info_public_instances_title">パブリックインスタンス</string>
+
     <!-- General -->
     <string name="general_cooltime_now">クールタイム中…</string>
     <string name="general_last_login_platform">プラットフォーム: %1$s</string>

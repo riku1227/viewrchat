@@ -1,6 +1,7 @@
 package com.riku1227.viewrchat.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.util.Log
@@ -14,11 +15,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.riku1227.viewrchat.R
 import com.riku1227.viewrchat.ViewRChat
+import com.riku1227.viewrchat.activity.WorldInfoActivity
+import com.riku1227.viewrchat.data.UserList
 import com.riku1227.viewrchat.system.CacheSystem
 import com.riku1227.viewrchat.system.ErrorHandling
+import com.riku1227.viewrchat.util.FileUtil
 import com.riku1227.viewrchat.util.VRCUtil
+import com.riku1227.viewrchat.util.getTempFolder
+import com.riku1227.viewrchat.util.toMinimum
 import com.riku1227.vrchatlin.VRChatlin
 import com.riku1227.vrchatlin.model.VRChatUser
 import com.riku1227.vrchatlin.model.VRChatWorldInstance
@@ -26,6 +33,7 @@ import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.io.File
 import kotlin.collections.ArrayList
 
 class FriendsLocationRecyclerAdapter(
@@ -35,6 +43,7 @@ class FriendsLocationRecyclerAdapter(
 ) : RecyclerView.Adapter<FriendsLocationRecyclerAdapter.FriendsLocationRecyclerViewHolder>() {
 
     class FriendsLocationRecyclerViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        val recyclerFriendsLocationRootCard: MaterialCardView = view.findViewById(R.id.recyclerFriendsLocationRootCard)
         val recyclerFriendsLocationWorldImage: ImageView = view.findViewById(R.id.recyclerFriendsLocationWorldImage)
         val recyclerFriendsLocationWorldName: TextView = view.findViewById(R.id.recyclerFriendsLocationWorldName)
         val recyclerFriendsLocationInstanceType: TextView = view.findViewById(R.id.recyclerFriendsLocationInstanceType)
@@ -127,12 +136,7 @@ class FriendsLocationRecyclerAdapter(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        locationInstanceDataMap[locationList[position]] = it
-                        holder.recyclerFriendsLocationInstanceType.text = VRCUtil.getInstanceTypeFromInstanceID(it.id)
-                        holder.recyclerFriendsLocationInstanceNUsers.text = context.resources.getString(R.string.fragment_friends_location_instance_user_count_text, it.n_users, it.capacity)
-                        locationMap[locationList[position]]?.let { arrayUser ->
-                            holder.recyclerFriendsLocationInstanceNFriends.text = arrayUser.size.toString()
-                        }
+                        loadedInstanceInformation(holder, position, it, true)
                     },
                     {
                         ErrorHandling.onNetworkError(it, context, fragment = fragment)
@@ -140,13 +144,7 @@ class FriendsLocationRecyclerAdapter(
                 )
             compositeDisposable.add(worldInstanceDisposable)
         } else {
-            val locationInstanceData = locationInstanceDataMap[locationList[position]]!!
-            holder.recyclerFriendsLocationInstanceType.text = VRCUtil.getInstanceTypeFromInstanceID(locationInstanceData.id)
-            holder.recyclerFriendsLocationInstanceNUsers.text = context.resources.getString(R.string.fragment_friends_location_instance_user_count_text,
-                locationInstanceData.n_users, locationInstanceData.capacity)
-            locationMap[locationList[position]]?.let { arrayUser ->
-                holder.recyclerFriendsLocationInstanceNFriends.text = arrayUser.size.toString()
-            }
+            loadedInstanceInformation(holder, position, locationInstanceDataMap[locationList[position]]!!, true)
         }
 
         holder.recyclerFriendsLocationInviteMeButton.setOnClickListener {
@@ -167,12 +165,7 @@ class FriendsLocationRecyclerAdapter(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        locationInstanceDataMap[locationList[position]] = it
-                        holder.recyclerFriendsLocationInstanceType.text = VRCUtil.getInstanceTypeFromInstanceID(it.id)
-                        holder.recyclerFriendsLocationInstanceNUsers.text = context.resources.getString(R.string.fragment_friends_location_instance_user_count_text, it.n_users, it.capacity)
-                        locationMap[locationList[position]]?.let { arrayUser ->
-                            holder.recyclerFriendsLocationInstanceNFriends.text = arrayUser.size.toString()
-                        }
+                        loadedInstanceInformation(holder, position, it, true)
                         Toast.makeText(context, context.resources.getString(R.string.fragment_friends_location_updated_instance_info), Toast.LENGTH_SHORT).show()
                     },
                     {
@@ -189,6 +182,27 @@ class FriendsLocationRecyclerAdapter(
 
             holder.recyclerFriendsLocationFriendsList.adapter = adapter
             holder.recyclerFriendsLocationFriendsList.layoutManager = layoutManager
+        }
+    }
+
+    private fun loadedInstanceInformation(holder: FriendsLocationRecyclerViewHolder, index: Int, instance: VRChatWorldInstance, isUpdate: Boolean = false) {
+        if(isUpdate) {
+            locationInstanceDataMap[locationList[index]] = instance
+        }
+        holder.recyclerFriendsLocationInstanceType.text = VRCUtil.getInstanceTypeFromInstanceID(instance.id)
+        holder.recyclerFriendsLocationInstanceNUsers.text = context.resources.getString(R.string.fragment_friends_location_instance_user_count_text, instance.n_users, instance.capacity)
+        locationMap[locationList[index]]?.let { arrayUser ->
+            holder.recyclerFriendsLocationInstanceNFriends.text = arrayUser.size.toString()
+        }
+
+        holder.recyclerFriendsLocationRootCard.setOnClickListener {
+            val intent = Intent(context, WorldInfoActivity::class.java)
+            intent.putExtra("world_id", instance.worldId)
+            intent.putExtra("world_instance", instance.toMinimum())
+            locationMap[locationList[index]]?.let { arrayUser ->
+                FileUtil.encodeJsonToFile(context, File(context.getTempFolder(), "instance_user_list.json"), UserList(arrayUser))
+            }
+            fragment.startActivity(intent)
         }
     }
 
